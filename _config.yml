@@ -1,11 +1,17 @@
-title: Stack Problems
-description: My Personal Stack Problems
-author: redskelt
-github: https://github.com/redskelt
-about: I am freelance developer. Currently doing more in backend, focused in Python and Django.
-disqus_shortname: stackproblems
+title           : Articles
+description     : My Personal Stack Problems
+author          : redskelt
+github          : https://github.com/redskelt
+about           : 기억해둬라. 독재자란 출현시킨 쪽에 더 큰 책임이 있다는 것을. 적극적으로 지지하지 않았다고 해도 말없이 지켜보고 있었다면 그 죄는 똑같다.
+disqus_shortname: redskelt
 google_analytics: UA-XXXXXXXX-Y
-avatar_url: /static/img/avatar.jpg
+avatar_url      : /static/img/avatar.jpg
+
+#출처정보
+origin_author   : Copyright (c) 2016 Agus Makmun
+origin_title    : My Stack Problems - Jekyll Theme
+origin_source   : https://github.com/agusmakmun/agusmakmun.github.io
+origin_license  : The MIT License (MIT)
 
 enableTags: true
 tagarray: []
@@ -25,13 +31,15 @@ social:
     - icon: fa-stack-exchange
       link: "#"
     - icon: fa-github
-      link: "https://github.com/agusmakmun"
+      link: "https://github.com/redskelt"
 
 share:
   twitter_username: agusmakmun6
   fb_appid: 1749788565247320
 
 urls:
+    - text: Articles by category
+      url : /category/all
     - text: About Me
       url: /about/
     - text: My Projects
