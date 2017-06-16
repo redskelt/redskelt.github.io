@@ -135,11 +135,19 @@ layout: compress
           <hr />
           <ul class="sidebar-nav">
             <strong>Navigation</strong>
-            <li><a href="/">Home</a></li>
+            <li><a href="/">Articles</a></li>
             {% for i in site.urls %}
               <li><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
             {% endfor %}
           </ul>
+          <hr />
+          <div class="profile-about">
+            <strong>출처</strong><br />
+            {{ site.origin_author }}<br />
+            {{ site.origin_title }}<br />
+            <a href="{{ site.origin_source }}">{{ site.origin_source }}</a><br />
+            {{ site.origin_license }}
+          </div>
         </div>
         <!-- end /.fixed-condition -->
       </div>
@@ -151,8 +159,8 @@ layout: compress
             - <a href="{{ site.github }}">{{ site.github }}</a> - Powered by Jekyll.
           {% endif %}
           <div class="btn-github" style="float:right;">
-            <iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=agusmakmun.github.io&type=star&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
-            <iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=agusmakmun.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=redskelt&repo=redskelt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=redskelt&repo=redskelt.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
           </div>
         </footer>
       </div>
