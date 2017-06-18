@@ -51,7 +51,8 @@ a:hover {
   list-style: none;
 }
 .sidebar-nav li::before {
-  content: "»";
+  font-family: 'FontAwesome';
+  content: "\f101";
   margin-right: .5em;
 }
 
