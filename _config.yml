@@ -1,10 +1,10 @@
-title           : Articles
-description     : My Personal Stack Problems
+title           : redskelt's Blog
+description     : My Personal Articles
 author          : redskelt
 github          : https://github.com/redskelt
-about           : 기억해둬라. 독재자란 출현시킨 쪽에 더 큰 책임이 있다는 것을. 적극적으로 지지하지 않았다고 해도 말없이 지켜보고 있었다면 그 죄는 똑같다.
+about           : 당신들은 안 그럴 거라고 장담하지 마.<br>서는 데가 바뀌면 풍경도 달라지는 거야.<br>-송곳-
 disqus_shortname: redskelt
-google_analytics: UA-XXXXXXXX-Y
+google_analytics: UA-98467202-1
 avatar_url      : /static/img/avatar.jpg
 
 #출처정보
@@ -22,28 +22,28 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-facebook
-      link: "#"
-    - icon: fa-twitter
-      link: "https://twitter.com/agusmakmun6"
-    - icon: fa-linkedin
-      link: "https://www.linkedin.com/in/summonagus"
-    - icon: fa-stack-exchange
-      link: "#"
+    # - icon: fa-facebook
+    #   link: "#"
+    # - icon: fa-twitter
+    #   link: "https://twitter.com/agusmakmun6"
+    # - icon: fa-linkedin
+    #   link: "https://www.linkedin.com/in/summonagus"
+    # - icon: fa-stack-exchange
+    #   link: "#"
     - icon: fa-github
       link: "https://github.com/redskelt"
 
 share:
-  twitter_username: agusmakmun6
-  fb_appid: 1749788565247320
+  twitter_username: redskelt
+  fb_appid:
 
 urls:
     - text: Articles by category
-      url : /category/all
+      url : /category/life
     - text: About Me
       url: /about/
-    - text: My Projects
-      url: /projects/
+    # - text: My Projects
+    #   url: /projects/
     - text: XML Feed
       url: /feed.xml
 
