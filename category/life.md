@@ -1,6 +1,6 @@
 ---
 layout: posts_by_category
-categories: life
-title: life
+categories: Life
+title: Life
 permalink: /category/life
 ---

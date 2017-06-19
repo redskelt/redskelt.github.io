@@ -2,7 +2,7 @@
 layout: post
 title:  "시 낭독 콘서트 [詩;선] 6월"
 date:   2017-06-16 22:39:02 +0900
-categories: [life]
+categories: [Life]
 ---
 
 ---
