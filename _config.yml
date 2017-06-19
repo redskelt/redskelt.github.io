@@ -39,7 +39,7 @@ share:
 
 urls:
     - text: Articles by category
-      url : /category/life
+      url : /category/Life
     - text: About Me
       url: /about/
     # - text: My Projects
