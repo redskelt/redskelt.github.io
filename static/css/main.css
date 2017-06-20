@@ -177,3 +177,9 @@ div.col-sm-3 img.profile-avatar {
 .footnotes{
   font-size: 14px;
 }
+.footnotes p{
+  margin-bottom: 0px;
+}
+.footnotes::before{
+  content: "[각주]";
+}
