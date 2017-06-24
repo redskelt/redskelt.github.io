@@ -180,11 +180,11 @@ div.col-sm-3 img.profile-avatar {
 .footnotes p{
   margin-bottom: 0px;
 }
-/*.footnotes ol{
+.footnotes ol{
   border-radius: 5px;
   background-color: #f2f4f9;
   padding-right: 3%;
-}*/
+}
 .footnotes::before{
   content: "[각주]";
 }
