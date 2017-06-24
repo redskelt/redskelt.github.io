@@ -180,6 +180,25 @@ div.col-sm-3 img.profile-avatar {
 .footnotes p{
   margin-bottom: 0px;
 }
+/*.footnotes ol{
+  border-radius: 5px;
+  background-color: #f2f4f9;
+  padding-right: 3%;
+}*/
 .footnotes::before{
   content: "[각주]";
 }
+.footnote::before{
+  content: "[";
+}
+.footnote::after{
+  content: "]";
+}
+
+/* 댓글  */
+/*.disqus-comments{
+  border-radius: 5px;
+  background-color: #f2f4f9;
+  padding-left: 3%;
+  padding-right: 3%
+}*/
