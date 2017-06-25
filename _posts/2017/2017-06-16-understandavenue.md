@@ -14,12 +14,12 @@ categories: [Life]
 
 \<소개영상\>                                  
 
-<video controls preload="none"
+<!-- <video controls preload="none"
   style="width:100%;height:100%;"
   poster="/static/img/posts/2017/20170616_video_understandavenue.jpg"
   data-setup='{ "aspectRatio":"640:360", "playbackRates": [1, 1.5, 2] }'>
   <source src="/static/video/posts/2017/20170616_understandavenue.mp4" type='video/mp4' />
-</video>
+</video> -->
 
 
 명화랑 같이 관람한 기분 좋은 공연   
@@ -29,4 +29,4 @@ categories: [Life]
 
 ---
 
-![詩;선](/static/img/posts/2017/20170616_understandavenue.jpg)
+<!-- ![詩;선](/static/img/posts/2017/20170616_understandavenue.jpg) -->
