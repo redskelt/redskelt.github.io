@@ -8,7 +8,7 @@ google_analytics: UA-98467202-1
 avatar_url      : /static/img/avatar.jpg
 
 #출처정보
-origin_author   : Copyright (c) 2016 Agus Makmun
+origin_author   : Copyright &copy; 2016 Agus Makmun
 origin_title    : My Stack Problems - Jekyll Theme
 origin_source   : https://github.com/agusmakmun/agusmakmun.github.io
 origin_license  : The MIT License (MIT)
