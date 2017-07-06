@@ -103,7 +103,7 @@
         var currentResultHash, d;
 
         currentInputValue = (searchInputEl.value + '').toLowerCase();
-        if (!currentInputValue || currentInputValue.length < 3) {
+        if (!currentInputValue || currentInputValue.length < 1) {
             lastSearchResultHash = '';
             searchResultsEl.classList.add('is-hidden');
             return;
