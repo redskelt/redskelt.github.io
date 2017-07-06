@@ -1,6 +1,6 @@
 ---
 layout: posts_by_category
 categories: mockito
-title: life
+title: mockito
 permalink: /category/mockito
 ---
