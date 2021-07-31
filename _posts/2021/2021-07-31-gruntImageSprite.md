@@ -27,7 +27,7 @@ $ cd ImageSpriteTest
 $ npm init
 ```
 7. **gruntfile.js** 파일 추가
-```js
+```
 module.exports = function (grunt) {
   // Configure grunt
   grunt.initConfig({
