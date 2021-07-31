@@ -11,23 +11,23 @@ categories: [css]
 1. **node js** 설치
 2. **npm**(**node package manager**) 설치
 3. **npm**으로 **grunt-cli**를 설치
-```css
+```js
 $ npm install -g grunt-cli
 ```
 4. 프로젝트 지정 - **폴더 생성**
-```css
+```js
 $ mkdir ImageSpriteTest
 ```
 5. 프로젝트의 **root folder** 이동
-```css
+```js
 $ cd ImageSpriteTest
 ```
 6. **package.json** 
-```css
+```js
 $ npm init
 ```
+7. **gruntfile.js** 파일 추가  
 
-7. **gruntfile.js** 파일 추가   
 ```js
 module.exports = function (grunt) {
   // Configure grunt
@@ -44,7 +44,8 @@ module.exports = function (grunt) {
   // Load in `grunt-spritesmith`
   grunt.loadNpmTasks('grunt-spritesmith');
 };
-```
+```   
+
 8. **Grunt** 설치
 ```css
 $ npm install grunt --save-dev
@@ -58,10 +59,12 @@ $ npm install grunt-spritesmith
 ```css
 $ grunt sprite
 ```
-11. **Result**
-**ImageSpriteTest/sprites/icons.png**
-![SpriteImage](/static/img/posts/2021/20210730_icons.png)
-**ImageSpriteTest/css/sprites.css**
+11. **Result**   
+
+**ImageSpriteTest/sprites/icons.png**   
+![SpriteImage](/static/img/posts/2021/20210730_icons.png)    
+
+**ImageSpriteTest/css/sprites.css**    
 ```css
 .icon-menu_title_0 {
   background-image: url(../sprites/icons.png);
