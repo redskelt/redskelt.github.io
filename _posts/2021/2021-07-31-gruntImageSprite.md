@@ -28,21 +28,20 @@ $ npm init
 ```
 7. **gruntfile.js** 파일 추가
 ```js
-module.exports = function (grunt) {
-  // Configure grunt
-  grunt.initConfig({
-    sprite:{
-      all: {
-        src: "icons/*.png",  //하나의 이미지로 합칠 대상 이미지들  
-        dest: "sprites/icons.png", //합쳐진 이미지 
-        destCss: "css/sprites.css" //합쳐진 이미지 위치 css
+  module.exports = function (grunt) {
+    // Configure grunt
+    grunt.initConfig({
+      sprite:{
+        all: {
+          src: "icons/*.png",  //하나의 이미지로 합칠 대상 이미지들  
+          dest: "sprites/icons.png", //합쳐진 이미지 
+          destCss: "css/sprites.css" //합쳐진 이미지 위치 css
+        }
       }
-    }
-  });
-
-  // Load in "grunt-spritesmith"
-  grunt.loadNpmTasks("grunt-spritesmith");
-};
+    });
+    // Load in "grunt-spritesmith"
+    grunt.loadNpmTasks("grunt-spritesmith");
+  };
 ```
 8. **Grunt** 설치
 ```js
