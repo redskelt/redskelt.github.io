@@ -26,8 +26,7 @@ $ cd ImageSpriteTest
 ```js
 $ npm init
 ```
-7. **gruntfile.js** 파일 추가  
-
+7. **gruntfile.js** 파일 추가
 ```js
 module.exports = function (grunt) {
   // Configure grunt
@@ -44,25 +43,23 @@ module.exports = function (grunt) {
   // Load in `grunt-spritesmith`
   grunt.loadNpmTasks('grunt-spritesmith');
 };
-```   
-
-8. **Grunt** 설치
-```css
-$ npm install grunt --save-dev
-
 ```
-9. **grunt-spritesmith** 플러그인 설치 
-```css
+8. **Grunt** 설치
+```js
+$ npm install grunt --save-dev
+```
+9. **grunt-spritesmith** 플러그인 설치
+```js
 $ npm install grunt-spritesmith
 ```
 10. **Run** the grunt sprite task
-```css
+```js
 $ grunt sprite
 ```
-11. **Result**   
+11. **Result**
 
 **ImageSpriteTest/sprites/icons.png**   
-![SpriteImage](/static/img/posts/2021/20210730_icons.png)    
+![SpriteImage](/static/img/posts/2021/20210730_icons.png)
 
 **ImageSpriteTest/css/sprites.css**    
 ```css
