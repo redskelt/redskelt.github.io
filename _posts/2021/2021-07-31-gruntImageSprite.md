@@ -11,24 +11,24 @@ categories: [css]
 1. **node js** 설치
 2. **npm**(**node package manager**) 설치
 3. **npm**으로 **grunt-cli**를 설치
-```ruby
+```css
 $ npm install -g grunt-cli
 ```
 4. 프로젝트 지정 - **폴더 생성**
-```ruby
+```css
 $ mkdir ImageSpriteTest
 ```
 5. 프로젝트의 **root folder** 이동
-```ruby
+```css
 $ cd ImageSpriteTest
 ```
 6. **package.json** 
-```ruby
+```css
 $ npm init
 ```
 
-7. **gruntfile.js** 파일 추가 
-```ruby
+7. **gruntfile.js** 파일 추가   
+```js
 module.exports = function (grunt) {
   // Configure grunt
   grunt.initConfig({
@@ -46,16 +46,16 @@ module.exports = function (grunt) {
 };
 ```
 8. **Grunt** 설치
-```ruby
+```css
 $ npm install grunt --save-dev
 
 ```
 9. **grunt-spritesmith** 플러그인 설치 
-```ruby
+```css
 $ npm install grunt-spritesmith
 ```
 10. **Run** the grunt sprite task
-```ruby
+```css
 $ grunt sprite
 ```
 11. **Result**
