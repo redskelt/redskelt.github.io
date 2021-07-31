@@ -11,19 +11,19 @@ categories: [css]
 1. **node js** 설치
 2. **npm**(**node package manager**) 설치
 3. **npm**으로 **grunt-cli**를 설치
-```zsh
+```javascript
 $ npm install -g grunt-cli
 ```
 4. 프로젝트 지정 - **폴더 생성**
-```zsh
+```javascript
 $ mkdir ImageSpriteTest
 ```
 5. 프로젝트의 **root folder** 이동
-```zsh
+```javascript
 $ cd ImageSpriteTest
 ```
 6. **package.json** 
-```zsh
+```javascript
 $ npm init
 This utility will walk you through creating a package.json file.
 It only covers the most common items, and tries to guess sensible defaults.
@@ -59,10 +59,10 @@ About to write to /Users/mingyeongho/Documents/git-repository/GRUNT/ImageSpriteT
 }
 
 Is this OK? (yes) y
-
 ```
+
 7. **gruntfile.js** 파일 추가 
-```js
+```javascript
 module.exports = function (grunt) {
   // Configure grunt
   grunt.initConfig({
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 };
 ```
 8. **Grunt** 설치
-```zsh
+```javascript
 $ npm install grunt --save-dev
 npm notice created a lockfile as package-lock.json. You should commit this file.
 npm WARN imagespritetest@1.0.0 No description
@@ -95,11 +95,11 @@ added 102 packages from 109 contributors and audited 102 packages in 3.095s
 found 0 vulnerabilities
 ```
 9. **grunt-spritesmith** 플러그인 설치 
-```zsh
+```javascript
 $ npm install grunt-spritesmith
 ```
 10. **Run** the grunt sprite task
-```
+```javascript
 $ grunt sprite
 Running "sprite:all" (sprite) task
 Files "css/sprites.css", "sprites/icons.png" created.
