@@ -28,12 +28,12 @@ SQL Server DDL (Extended Properties 포함)
 
 ## 각 단계 한 줄 요약
 
-| 단계 | 스킬 | 하는 일 | 자세히 |
-|---|---|---|---|
-| 1 | `/convert-ddl-to-comment` | Extended Properties → COMMENT 변환 (SQL Server, 필요시만) | [가이드](01-ddl-comment-변환.md) |
-| 2 | `/generate-entity-from-ddl` | DDL → Domain/Infrastructure 계층 7개 파일 | [가이드](02-ddl-엔티티-생성.md) |
-| 3 | `/generating-cqrs-endpoints` | Controller + DTO + UseCase 껍데기 | [가이드](03-cqrs-엔드포인트-생성.md) |
-| 4 | `/generating-pipeline-steps` | UseCase 로직을 단계별 구현체로 채움 | [가이드](04-파이프라인-스텝-생성.md) |
+| 단계 | 스킬 | 하는 일 |
+|---|---|---|
+| 1 | `/convert-ddl-to-comment` | Extended Properties → COMMENT 변환 (SQL Server, 필요시만) |
+| 2 | `/generate-entity-from-ddl` | DDL → Domain/Infrastructure 계층 7개 파일 |
+| 3 | `/generating-cqrs-endpoints` | Controller + DTO + UseCase 껍데기 |
+| 4 | `/generating-pipeline-steps` | UseCase 로직을 단계별 구현체로 채움 |
 
 ## 어디까지가 자동, 어디부터 사람 몫인가
 
@@ -47,9 +47,9 @@ SQL Server DDL (Extended Properties 포함)
 
 ## 막힐 때
 
-| 상황 | 봐야 할 문서 |
+| 상황 | 원인 |
 |---|---|
-| Extended Properties 파싱 실패 | [1번 가이드 "안 될 때"](01-ddl-comment-변환.md#안-될-때) |
-| 새 도메인인데 엔티티가 DB에서 안 읽힘 | [2번 가이드 "알아둘 것"](02-ddl-엔티티-생성.md#알아둘-것) — 엔티티/레포지토리 스캔 패키지 등록 누락 |
-| Controller 타입/제너릭 헷갈림 | [3번 가이드 "자주 하는 실수"](03-cqrs-엔드포인트-생성.md#자주-하는-실수) |
-| Pipeline 컴파일 에러 | [4번 가이드 "핵심 규칙"](04-파이프라인-스텝-생성.md#핵심-규칙-안-지키면-버그남) — step 순서/타입 불일치 |
+| Extended Properties 파싱 실패 | (1번 스킬 "안 될 때" 참고) |
+| 새 도메인인데 엔티티가 DB에서 안 읽힘 | 엔티티/레포지토리 스캔 패키지 등록 누락 |
+| Controller 타입/제너릭 헷갈림 | (3번 스킬 "자주 하는 실수" 참고) |
+| Pipeline 컴파일 에러 | step 순서/타입 불일치 |
