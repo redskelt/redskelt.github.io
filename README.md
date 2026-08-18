@@ -60,6 +60,7 @@ math: true   # 수식(MathJax) 쓸 때만
 - `_tabs/` — 사이드바에 뜨는 네비게이션 탭(About, Projects, Categories, Tags, Archives)
 - `_data/contact.yml` — 사이드바 하단 GitHub/RSS 아이콘
 - `assets/img/` — 아바타, 파비콘 등 사이트 전역 이미지
+- `assets/css/jekyll-theme-chirpy.scss` — Chirpy 기본 폰트(`$font-family-base`/`$font-family-heading`)를 [Pretendard](https://github.com/orioncactus/pretendard)로 오버라이드 (jsDelivr CDN 사용, 버전 고정)
 - `static/img/posts/` — 개별 포스트 본문에서 참조하는 이미지 (경로 유지 목적, 옮기지 말 것)
 
 ## 참고
