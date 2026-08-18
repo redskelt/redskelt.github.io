@@ -29,7 +29,7 @@ avatar: /assets/img/avatar.jpg
 toc: true
 
 comments:
-  provider: giscus
+  provider: # giscus 앱 설치 + Discussions 활성화 후 "giscus"로 채우고 아래 값도 채울 것
   giscus:
     repo: redskelt/redskelt.github.io
     repo_id:
