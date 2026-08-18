@@ -1,11 +1,12 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.3"
-gem "jekyll-theme-architect"
-gem "webrick", "~> 1.8"
+# Hello! This is where you manage which Jekyll version is used to run.
+# When you want to use a different version, change it below, save the
+# file and run `bundle install`.
+gem "jekyll-theme-chirpy", "~> 7.6"
 
-group :jekyll_plugins do
-  gem "jekyll-paginate"
+group :test do
+  gem "html-proofer", "~> 5.0"
 end
 
 platforms :mingw, :x64_mingw, :mswin, :jruby do
@@ -13,4 +14,4 @@ platforms :mingw, :x64_mingw, :mswin, :jruby do
   gem "tzinfo-data"
 end
 
-gem "wdm", "~> 0.1.1", platforms: [:mingw, :x64_mingw]
+gem "wdm", "~> 0.2.0", :platforms => [:mingw, :x64_mingw]
