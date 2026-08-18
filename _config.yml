@@ -1,65 +1,106 @@
-title           : redskelt's Blog
-description     : My Personal Articles
-author          : redskelt
-github          : https://github.com/redskelt
-about           : 당신들은 안 그럴 거라고 장담하지 마. 서는 데가 바뀌면 풍경도 달라지는 거야. -송곳-
-disqus_shortname: redskelt
-google_analytics: UA-98467202-1
-avatar_url      : /static/img/avatar.jpg
+theme: jekyll-theme-chirpy
 
-#출처정보
-origin_author   : Copyright &copy; 2016 Agus Makmun
-origin_title    : My Stack Problems - Jekyll Theme
-origin_source   : https://github.com/agusmakmun/agusmakmun.github.io
-origin_license  : The MIT License (MIT)
+lang: ko-KR
 
-enableTags: true
-tagarray: []
+timezone: Asia/Seoul
 
-collections:
-  project:
-    output: true
-    permalink: /project/:path/
+title: redskelt's Blog
 
-social:
-    # - icon: fa-facebook
-    #   link: "#"
-    # - icon: fa-twitter
-    #   link: "https://twitter.com/agusmakmun6"
-    # - icon: fa-linkedin
-    #   link: "https://www.linkedin.com/in/summonagus"
-    # - icon: fa-stack-exchange
-    #   link: "#"
-    - icon: fa-github
-      link: "https://github.com/redskelt"
+tagline: My Personal Articles
 
-share:
-  twitter_username: redskelt
-  fb_appid:
-
-urls:
-    - text: Articles by category
-      url : /category/Life
-    - text: About Me
-      url: /about/
-    # - text: My Projects
-    #   url: /projects/
-    - text: XML Feed
-      url: /feed.xml
+description: >-
+  redskelt's personal blog and articles.
 
 url: "https://redskelt.github.io"
+
+github:
+  username: redskelt
+
+social:
+  name: redskelt
+  email:
+  links:
+    - https://github.com/redskelt
+
+theme_mode:
+
+avatar: /assets/img/avatar.jpg
+
+toc: true
+
+comments:
+  provider: # giscus 앱 설치 + Discussions 활성화 후 "giscus"로 채우고 아래 값도 채울 것
+  giscus:
+    repo: redskelt/redskelt.github.io
+    repo_id:
+    category:
+    category_id:
+
+paginate: 10
+
 baseurl: ""
-paginate: 20
-per_page: 5
-paginate_path: "/page/:num/"
-markdown: kramdown
-gems:
-  - jekyll-paginate
-  - jekyll-gist
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
 
 compress_html:
   clippings: all
-  comments: ["<!-- ", " -->"]
+  comments: all
   endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
 
-theme: jekyll-theme-architect
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
+  - README.md
+  - LICENSE
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
