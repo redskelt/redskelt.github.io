@@ -95,6 +95,7 @@ exclude:
   - tools
   - README.md
   - LICENSE
+  - wiki
 
 jekyll-archives:
   enabled: [categories, tags]
