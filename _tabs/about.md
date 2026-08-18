@@ -1,16 +1,7 @@
 ---
-layout: page
-title: About Me
-permalink: /about/
+icon: fas fa-info-circle
+order: 4
 ---
-
-<!-- ### **목차**
-{: .no_toc}
-
-* TOC
-{:toc}
-
---- -->
 
 초급개발자 / 남자
 
@@ -24,4 +15,4 @@ permalink: /about/
 - 게임
 - 드라마
 - 만화 / 영화 / 소설
-- 잠  
+- 잠
