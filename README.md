@@ -62,6 +62,7 @@ math: true   # 수식(MathJax) 쓸 때만
 - `assets/img/` — 아바타, 파비콘 등 사이트 전역 이미지
 - `assets/css/jekyll-theme-chirpy.scss` — Chirpy 기본 폰트(`$font-family-base`/`$font-family-heading`)를 [Pretendard](https://github.com/orioncactus/pretendard)로 오버라이드 (jsDelivr CDN 사용, 버전 고정)
 - `static/img/posts/` — 개별 포스트 본문에서 참조하는 이미지 (경로 유지 목적, 옮기지 말 것)
+- `wiki/` — 개인 학습 위키 ([Karpathy LLM Wiki 패턴](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)), Jekyll 빌드에서 제외됨. `.claude/skills/wiki-ingest/SKILL.md` 참고
 
 ## 참고
 

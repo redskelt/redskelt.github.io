@@ -1,6 +1,6 @@
 # 블로그 LLM 위키 + 자동 포스트 변환 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** [Karpathy LLM Wiki 패턴](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)을
 이 저장소(`redskelt.github.io`) 안에 개인 학습 위키로 이식하고, 위키 페이지를
@@ -46,7 +46,7 @@ ingest/query/lint 워크플로우와 "위키 → 포스트" 변환 절차를 정
 - Produces: `wiki/` 디렉토리 구조와, Jekyll이 이 디렉토리를 빌드에서
   제외하는 상태. Task 2의 스킬이 이 경로들을 전제로 동작한다.
 
-- [ ] **Step 1: `_config.yml`의 `exclude` 목록에 `wiki` 추가**
+- [x] **Step 1: `_config.yml`의 `exclude` 목록에 `wiki` 추가**
 
 `_config.yml`에서 다음 블록을 찾는다:
 
@@ -73,7 +73,7 @@ exclude:
   - wiki
 ```
 
-- [ ] **Step 2: `wiki/index.md` 생성**
+- [x] **Step 2: `wiki/index.md` 생성**
 
 ```markdown
 # Wiki Index
@@ -101,7 +101,7 @@ exclude:
 _마지막 업데이트: 2026-08-18 (초기화)_
 ```
 
-- [ ] **Step 3: `wiki/log.md` 생성**
+- [x] **Step 3: `wiki/log.md` 생성**
 
 ```markdown
 # Wiki Log
@@ -119,14 +119,14 @@ grep 사용법: `grep "^## \[" wiki/log.md | tail -5`
 디렉토리 구조, wiki-ingest 스킬, index.md, log.md 생성
 ```
 
-- [ ] **Step 4: 빈 디렉토리 유지용 `.gitkeep` 생성**
+- [x] **Step 4: 빈 디렉토리 유지용 `.gitkeep` 생성**
 
 ```bash
 mkdir -p wiki/raw/assets wiki/concepts wiki/decisions
 touch wiki/raw/.gitkeep wiki/raw/assets/.gitkeep wiki/concepts/.gitkeep wiki/decisions/.gitkeep
 ```
 
-- [ ] **Step 5: 로컬 빌드로 제외 확인**
+- [x] **Step 5: 로컬 빌드로 제외 확인**
 
 로컬에 Ruby/rbenv가 없다면 이 Step은 GitHub Actions 결과로 대체 확인한다
 (아래 참고). 로컬 환경이 있다면:
@@ -147,7 +147,7 @@ curl -s -o /dev/null -w "%{http_code}\n" https://redskelt.github.io/wiki/index.h
 
 Expected: `404` (exclude가 제대로 먹었다면 이 경로 자체가 존재하지 않음)
 
-- [ ] **Step 6: 커밋**
+- [x] **Step 6: 커밋**
 
 ```bash
 git add _config.yml wiki/
@@ -168,7 +168,7 @@ git commit -m "chore: scaffold personal wiki directory (excluded from Jekyll bui
   변환 단계는 기존 `.claude/skills/post/SKILL.md`의 "작성" 절차를 그대로
   호출한다.
 
-- [ ] **Step 1: `.claude/skills/wiki-ingest/SKILL.md` 생성**
+- [x] **Step 1: `.claude/skills/wiki-ingest/SKILL.md` 생성**
 
 ```markdown
 ---
@@ -303,7 +303,7 @@ updated: YYYY-MM-DD
 운영 중이며 이 저장소 위키와는 무관하다.
 ```
 
-- [ ] **Step 2: 커밋**
+- [x] **Step 2: 커밋**
 
 ```bash
 git add .claude/skills/wiki-ingest/SKILL.md
@@ -325,7 +325,7 @@ git commit -m "feat: add wiki-ingest skill (ingest/query/lint + wiki-to-post con
 - Produces: 스킬이 실제로 스펙대로 동작한다는 증거 (위키 페이지 생성,
   index/log 갱신, 포스트 변환, 전체 사이트 빌드 성공)
 
-- [ ] **Step 1: 샘플 자료로 ingest 실행**
+- [x] **Step 1: 샘플 자료로 ingest 실행**
 
 `wiki-ingest` 스킬의 "Workflow: Ingest" 절차를 다음 샘플 입력으로 직접
 실행한다 (실제 사용자 자료 아님, 스킬 동작 검증용):
@@ -348,7 +348,7 @@ Expected: 4개 파일이 스킬 문서에 정의된 포맷대로 생성/갱신�
 파일은 원본 그대로, `wiki/concepts/idempotency.md`는 front matter(`title`,
 `sources`, `updated`) + 개요/동작원리 섹션을 갖춤.
 
-- [ ] **Step 2: 위키 페이지 확인**
+- [x] **Step 2: 위키 페이지 확인**
 
 ```bash
 cat wiki/concepts/idempotency.md
@@ -359,7 +359,7 @@ tail -5 wiki/log.md
 Expected: front matter 3개 필드 모두 채워짐, `index.md`에 새 항목 반영,
 `log.md`에 append된 한 줄이 기존 `init` 항목을 지우지 않고 그 아래 추가됨.
 
-- [ ] **Step 3: "Workflow: Wiki → Post 변환" 실행**
+- [x] **Step 3: "Workflow: Wiki → Post 변환" 실행**
 
 `wiki/concepts/idempotency.md`를 대상으로 변환 절차 실행:
 1. 위키 페이지 내용을 블로그 톤으로 재구성
@@ -371,7 +371,7 @@ Expected: front matter 3개 필드 모두 채워짐, `index.md`에 새 항목 �
 4. `wiki/log.md`에 `## [2026-08-18] post | wiki/concepts/idempotency.md →
    idempotency` 항목 추가
 
-- [ ] **Step 4: 생성된 포스트 확인**
+- [x] **Step 4: 생성된 포스트 확인**
 
 ```bash
 cat _posts/2026/2026-08-18-idempotency.md
@@ -381,7 +381,7 @@ Expected: 위키 페이지의 "개요/동작 원리" 헤딩 구조 그대로가 
 자연스러운 문단 흐름으로 재구성돼있음. 카테고리 `Wiki`, front matter에
 `layout`/`permalink` 없음(defaults가 자동 적용).
 
-- [ ] **Step 5: 전체 사이트 빌드 + 링크 검증**
+- [x] **Step 5: 전체 사이트 빌드 + 링크 검증**
 
 로컬 Ruby 환경이 있다면:
 
@@ -404,7 +404,7 @@ curl -s -o /dev/null -w "%{http_code}\n" https://redskelt.github.io/wiki/index.h
 
 Expected: 첫 번째 `200`, 두 번째 `404`.
 
-- [ ] **Step 6: 검증용 샘플 콘텐츠 처리 결정**
+- [x] **Step 6: 검증용 샘플 콘텐츠 처리 결정**
 
 이 샘플(`wiki/concepts/idempotency.md`, `_posts/.../idempotency.md`)은
 실제로 쓸만한 내용이라 그대로 남겨도 되고, 순수 검증용이라 지우고 싶으면
@@ -413,7 +413,7 @@ Expected: 첫 번째 `200`, 두 번째 `404`.
 사용자에게 물어보고 결정한다** — 이 스텝 자체는 플랜에 결과를 강제하지
 않는다.
 
-- [ ] **Step 7: 커밋**
+- [x] **Step 7: 커밋**
 
 Step 6에서 남기기로 했다면:
 
