@@ -1,8 +1,7 @@
 ---
-layout: post
 title:  "CSS 이미지 스프라이트(Image Sprite)"
 date:   2021-07-31 16:26:02 +0900
-categories: [css]
+categories: [CSS]
 ---
 
 ---
