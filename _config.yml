@@ -29,12 +29,12 @@ avatar: /assets/img/avatar.jpg
 toc: true
 
 comments:
-  provider: # giscus 앱 설치 + Discussions 활성화 후 "giscus"로 채우고 아래 값도 채울 것
+  provider: giscus
   giscus:
     repo: redskelt/redskelt.github.io
-    repo_id:
-    category:
-    category_id:
+    repo_id: MDEwOlJlcG9zaXRvcnk5NDQyNzE0NQ==
+    category: Announcements
+    category_id: DIC_kwDOBaDYCc4DDn9v
 
 paginate: 10
 
