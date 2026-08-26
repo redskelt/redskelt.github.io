@@ -1,0 +1,418 @@
+/* ==========================================================================
+   Post readability — body typography, code blocks, TOC, tables
+   ========================================================================== */
+
+.layout--single {
+  .page__inner-wrap {
+    header {
+      max-width: 920px;
+    }
+  }
+
+  .page__title {
+    margin-bottom: 10px;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: clamp(1.85rem, 3vw, 2.45rem);
+    font-weight: 750;
+    line-height: 1.25;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .page__subtitle {
+    max-width: 760px;
+    margin: 0 0 16px;
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 450;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .page__meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .page__category-chip {
+    margin-bottom: 0;
+    border-color: transparent;
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent) !important;
+
+    &:hover {
+      border-color: transparent;
+      color: var(--color-accent) !important;
+    }
+  }
+
+  .page__meta-row .page__meta {
+    margin: 0;
+  }
+
+  .page__content {
+    max-width: 920px;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.85;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    > p,
+    > ul,
+    > ol,
+    > dl,
+    > table,
+    > blockquote,
+    > figure,
+    > div.highlighter-rouge,
+    > figure.highlight {
+      margin-top: 0;
+      margin-bottom: 1.4rem;
+    }
+
+    p,
+    li {
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    li > ul,
+    li > ol {
+      margin-top: 0.35rem;
+      margin-bottom: 0.35rem;
+    }
+
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6 {
+      position: relative;
+      margin: 2.6rem 0 0.95rem;
+      padding: 0;
+      background: transparent;
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      line-height: 1.32;
+
+      .header-link {
+        color: var(--color-text-faint) !important;
+        font-size: 0.75em;
+      }
+    }
+
+    > h1 {
+      margin-top: 3rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 1.72em;
+    }
+
+    > h2 {
+      margin-top: 3rem;
+      font-size: 1.55em;
+    }
+
+    > h3 {
+      margin-top: 2.25rem;
+      font-size: 1.35em;
+    }
+
+    > h4 {
+      margin-top: 1.75rem;
+      color: var(--color-accent);
+      font-size: 1.08em;
+    }
+
+    > h5 {
+      margin-top: 1.5rem;
+      color: var(--color-text-muted);
+      font-size: 1em;
+    }
+
+    > h6 {
+      margin-top: 1.35rem;
+      color: var(--color-text-muted);
+      font-size: 0.92em;
+    }
+
+    hr {
+      margin: 2rem 0;
+      border-top-color: var(--color-border);
+    }
+
+    > p,
+    > ul,
+    > ol,
+    > dl,
+    > blockquote,
+    > table,
+    > figure,
+    > div:not([class]) {
+      strong {
+        color: var(--color-prose-strong);
+        font-weight: 700;
+      }
+    }
+
+    a:not(.btn) {
+      color: var(--color-accent-2);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+
+    blockquote {
+      margin-left: 0;
+      margin-bottom: 1.55rem;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid var(--color-accent-2);
+      border-radius: 0 var(--radius-card) var(--radius-card) 0;
+      background: var(--color-bg-elevated);
+      color: var(--color-text-muted);
+      font-style: normal;
+
+      &.notice--tip,
+      &.notice--primary {
+        position: relative;
+        padding-top: 1.8rem;
+
+        &::before {
+          content: "TIP";
+          position: absolute;
+          top: 0.6rem;
+          left: 1rem;
+          font-family: var(--font-mono);
+          font-size: 0.65rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          color: var(--color-accent-2);
+        }
+      }
+    }
+
+    :not(pre) > code {
+      padding: 0.12rem 0.35rem;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      background: var(--color-bg-side);
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      font-weight: 600;
+    }
+
+    div.highlighter-rouge,
+    figure.highlight {
+      margin-top: 1.2rem;
+      margin-bottom: 1.45rem;
+      border: 1px solid var(--code-border);
+      border-radius: var(--radius-card);
+      background: var(--code-bg);
+      font-family: var(--font-mono);
+      font-size: 0.84em;
+      line-height: 1.45rem;
+      overflow: hidden;
+
+      > pre,
+      pre.highlight {
+        margin: 0;
+        padding: 2.2rem 1.15rem 1.05rem;
+        overflow-x: auto;
+        white-space: pre;
+        color: var(--code-text);
+      }
+
+      pre,
+      pre code,
+      pre code span,
+      table,
+      td,
+      th {
+        overflow-wrap: normal;
+        word-break: normal;
+        color: var(--code-text);
+        font-size: inherit;
+        line-height: inherit;
+      }
+
+      table {
+        display: table;
+        width: max-content;
+        min-width: 100%;
+        margin: 0;
+        border: 0;
+        border-collapse: collapse;
+        background: transparent;
+        font-family: inherit;
+        font-size: 1em;
+        line-height: inherit;
+      }
+
+      .highlight table {
+        table-layout: auto;
+      }
+
+      tr,
+      th,
+      td {
+        border: 0;
+        background: transparent !important;
+        color: inherit;
+        line-height: inherit;
+        vertical-align: top;
+      }
+
+      td {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .rouge-gutter,
+      .gutter {
+        width: 1em;
+        padding: 0 1em;
+        border-right: 1px solid var(--code-border);
+        color: var(--code-linenum);
+        text-align: right;
+        user-select: none;
+      }
+
+      .rouge-code,
+      .code {
+        padding-left: 1em;
+        width: 100%;
+      }
+
+      .rouge-gutter pre,
+      .gutter pre,
+      .rouge-code pre,
+      .code pre {
+        margin: 0;
+        padding: 0;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        font-style: normal;
+        font-weight: inherit;
+        line-height: 1.45rem;
+        tab-size: 2;
+      }
+
+      .rouge-gutter pre,
+      .gutter pre {
+        display: block;
+        min-width: 2ch;
+      }
+
+      .rouge-code pre,
+      .code pre,
+      .rouge-code code,
+      .code code,
+      .rouge-code span,
+      .code span {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: 1.45rem;
+      }
+
+      ::selection {
+        background: var(--code-selection-bg);
+        color: var(--code-selection-text);
+      }
+
+      .c, .c1, .cm { color: var(--code-comment); }
+      .k, .kd, .kn, .kr, .kt { color: var(--code-keyword); }
+      .nf, .nx, .no { color: var(--code-function); }
+    }
+
+    table {
+      display: table;
+      width: 100%;
+      margin: 1.45rem 0;
+      border: 1px solid var(--color-border);
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 0;
+      background: var(--color-bg-elevated);
+      font-size: 0.9rem;
+      line-height: 1.58;
+      overflow: hidden;
+
+      thead {
+        background: var(--color-bg-side);
+      }
+
+      thead th {
+        background: var(--color-bg-side);
+        border-bottom: 1px solid var(--color-border);
+        color: var(--color-text);
+        font-weight: 700;
+      }
+
+      tbody th,
+      td {
+        background: var(--color-bg-elevated);
+      }
+
+      tbody tr {
+        background: var(--color-bg-elevated);
+      }
+
+      th,
+      td {
+        padding: 0.68rem 0.78rem;
+        border-right: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      th:last-child,
+      td:last-child {
+        border-right: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+    }
+
+    /* .toc styling lives entirely in _toc-toggle.scss now — this used to
+       have a duplicate (and conflicting, boxed-card) copy here from before
+       the TOC redesign. */
+  }
+}
+
+@media (max-width: 600px) {
+  .layout--single {
+    .page__title {
+      font-size: 1.65rem;
+    }
+  }
+}

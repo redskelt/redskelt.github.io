@@ -1,0 +1,41 @@
+---
+layout: archive
+---
+
+{{ content }}
+
+{% assign category_groups = site.data.category_hierarchy %}
+
+<div class="category-groups">
+  {% for group in category_groups %}
+    {% assign group_total = 0 %}
+    {% for category_item in group.categories %}
+      {% assign category_name = category_item.name | default: category_item %}
+      {% assign category_posts = site.categories[category_name] %}
+      {% if category_posts %}
+        {% assign group_total = group_total | plus: category_posts.size %}
+      {% endif %}
+    {% endfor %}
+
+    {% if group_total > 0 %}
+      <section class="category-group">
+        <h2 class="category-group__title">{{ group.main_title }}/</h2>
+
+        <div class="category-group__grid">
+          {% for category_item in group.categories %}
+            {% assign category_name = category_item.name | default: category_item %}
+            {% assign category_sub_title = category_item.sub_title %}
+            {% assign category_posts = site.categories[category_name] %}
+            {% if category_posts %}
+              <a id="{{ category_name | slugify }}" href="{{ '/year-archive/' | relative_url }}?category={{ category_name | slugify }}" class="category-card">
+                <span class="category-card__name"><span class="category-card__bullet" aria-hidden="true"></span>{{ category_name }}</span>
+                {% if category_sub_title %}<span class="category-card__desc">{{ category_sub_title }}</span>{% endif %}
+                <span class="category-card__count">{{ category_posts.size }} posts</span>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+</div>

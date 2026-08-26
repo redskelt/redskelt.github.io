@@ -1,0 +1,31 @@
+- key: testing
+  main_title: Testing
+  sub_title: 테스트
+  categories:
+    - name: JUnit
+      sub_title: 단위 테스트 프레임워크
+    - name: Mockito
+      sub_title: 모킹 프레임워크
+
+- key: web
+  main_title: Web
+  sub_title: 웹 개발
+  categories:
+    - name: CSS
+      sub_title: 스타일시트
+    - name: MathJax
+      sub_title: 수식 렌더링
+
+- key: wiki
+  main_title: Wiki
+  sub_title: 기술 위키 노트
+  categories:
+    - name: Wiki
+      sub_title: 위키 정리 노트
+
+- key: life
+  main_title: Life
+  sub_title: 일상
+  categories:
+    - name: Life
+      sub_title: 일상 기록
