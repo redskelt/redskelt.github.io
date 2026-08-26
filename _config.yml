@@ -1,93 +1,59 @@
-theme: jekyll-theme-chirpy
+# 로컬 vendored _layouts/_includes/_sass가 우선 적용되지만,
+# _data/ui-text.yml 등 vendor하지 않은 gem 기본 제공 파일은
+# remote_theme을 통해 fallback으로 공급받는다 (대상 저장소와 동일 패턴).
+remote_theme              : "mmistakes/minimal-mistakes"
+minimal_mistakes_skin    : "default"
 
-lang: ko-KR
-
-timezone: Asia/Seoul
-
-title: redskelt's Blog
-
-tagline: My Personal Articles
-
-description: >-
-  redskelt's personal blog and articles.
-
-url: "https://redskelt.github.io"
-
-github:
-  username: redskelt
-
-social:
-  name: redskelt
-  email:
-  links:
-    - https://github.com/redskelt
-
-theme_mode:
-
-avatar: /assets/img/avatar.jpg
-
-toc: true
+locale                   : "ko-KR"
+title                    : "redskelt's Blog"
+title_separator          : "-"
+subtitle                  : "redskelt's personal blog and articles."
+name                      : "redskelt"
+description               : "redskelt's personal blog and articles."
+url                       : "https://redskelt.github.io"
+baseurl                   :
+repository                : "redskelt/redskelt.github.io"
+teaser                    :
+logo                      :
+masthead_title            :
+words_per_minute          : 200
 
 comments:
-  provider: giscus
+  provider               : "giscus"
   giscus:
-    repo: redskelt/redskelt.github.io
-    repo_id: MDEwOlJlcG9zaXRvcnk5NDQyNzE0NQ==
-    category: Announcements
-    category_id: DIC_kwDOBaDYCc4DDn9v
+    repo                 : "redskelt/redskelt.github.io"
+    repo_id              : "MDEwOlJlcG9zaXRvcnk5NDQyNzE0NQ=="
+    category              : "Announcements"
+    category_id           : "DIC_kwDOBaDYCc4DDn9v"
 
-paginate: 10
+search                   : true
+search_full_content      : false
+search_provider          : "lunr"
+lunr:
+  search_within_pages    : true
 
-baseurl: ""
+analytics:
+  provider               : false
 
-kramdown:
-  footnote_backlink: "&#8617;&#xfe0e;"
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: highlight
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
+author:
+  name             : "redskelt"
+  avatar           : "/assets/img/avatar.jpg"
+  bio              : "redskelt's personal blog and articles."
+  location         :
+  email            :
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/redskelt"
 
-collections:
-  tabs:
-    output: true
-    sort_by: order
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/redskelt"
 
-defaults:
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
-      comments: true
-      toc: true
-      permalink: /posts/:title/
-  - scope:
-      path: _drafts
-    values:
-      comments: false
-  - scope:
-      path: ""
-      type: tabs
-    values:
-      layout: page
-      permalink: /:title/
-
-sass:
-  style: compressed
-
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  profile: false
-  blanklines: false
-  ignore:
-    envs: [development]
-
+include:
+  - .htaccess
 exclude:
   - "*.gem"
   - "*.gemspec"
@@ -96,12 +62,107 @@ exclude:
   - README.md
   - LICENSE
   - wiki
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Gemfile
+  - node_modules
+  - package.json
+  - package-lock.json
+keep_files:
+  - .git
+  - .svn
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+sass:
+  sass_dir: _sass
+  style: compressed
+  cache: false
+
+permalink: /:categories/:title/
+paginate: 12
+paginate_path: /page:num/
+timezone: Asia/Seoul
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-remote-theme
+
+whitelist:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-remote-theme
+
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      show_date: true
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      toc: true
+      toc_sticky: true
+
+dark_theme_toggle        : true
+after_footer_scripts:
+  - /assets/js/custom/theme-toggle.js
+  - /assets/js/custom/copy-code.js
+  - /assets/js/custom/toc-toggle.js
+  - /assets/js/custom/sidebar-toggle.js
+  - /assets/js/custom/archive-filter.js
+  - /assets/js/custom/doc-chip-color.js
+  - /assets/js/custom/toc-scrollspy.js
+  - /assets/js/custom/search-overlay.js
+  - /assets/js/custom/orbit.js
+  - /assets/js/custom/post-neighborhood-map.js
+  - /assets/js/custom/tag-filter.js
