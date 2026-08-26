@@ -58,25 +58,25 @@ assets/css/jekyll-theme-chirpy.scss  [삭제]
 **Interfaces:**
 - Produces: `/tmp/mm-vendor/whdrns2013.github.io/` — 이후 모든 태스크가 이 경로에서 파일을 복사해온다.
 
-- [ ] **Step 1: 새 브랜치 생성**
+- [x] **Step 1: 새 브랜치 생성**
 
 ```bash
 git checkout -b theme/minimal-mistakes-migration
 ```
 
-- [ ] **Step 2: 대상 저장소 얕은 클론**
+- [x] **Step 2: 대상 저장소 얕은 클론**
 
 ```bash
 rm -rf /tmp/mm-vendor && mkdir -p /tmp/mm-vendor
 git clone --depth 1 https://github.com/whdrns2013/whdrns2013.github.io.git /tmp/mm-vendor/whdrns2013.github.io
 ```
 
-- [ ] **Step 3: 클론 확인**
+- [x] **Step 3: 클론 확인**
 
 Run: `ls /tmp/mm-vendor/whdrns2013.github.io/_layouts | wc -l`
 Expected: `14` 근처 숫자 출력 (레이아웃 파일 존재 확인)
 
-- [ ] **Step 4: 커밋 불필요 (임시 파일이므로 스킵)**
+- [x] **Step 4: 커밋 불필요 (임시 파일이므로 스킵)**
 
 `/tmp/mm-vendor`는 작업 저장소 밖이므로 git 상태에 영향 없음. 다음 태스크로 진행.
 
@@ -93,7 +93,7 @@ Expected: `14` 근처 숫자 출력 (레이아웃 파일 존재 확인)
 - Consumes: Task 1의 `/tmp/mm-vendor/whdrns2013.github.io/`
 - Produces: 이후 태스크(3~9)가 참조하는 minimal-mistakes 표준 레이아웃/인클루드/사스 트리
 
-- [ ] **Step 1: 디렉토리 복사**
+- [x] **Step 1: 디렉토리 복사**
 
 ```bash
 SRC=/tmp/mm-vendor/whdrns2013.github.io
@@ -103,12 +103,12 @@ mkdir -p _sass
 cp -R "$SRC/_sass/minimal-mistakes" ./_sass/minimal-mistakes
 ```
 
-- [ ] **Step 2: 복사 결과 확인**
+- [x] **Step 2: 복사 결과 확인**
 
 Run: `find _layouts _includes _sass/minimal-mistakes -type f | wc -l`
 Expected: 대상 저장소와 동일한 파일 개수(대략 `_layouts` 14 + `_includes` 44 + `_sass/minimal-mistakes` 내부 파일 수 합계)가 0보다 큰 값으로 출력됨. `find _layouts -type f | wc -l`이 `14`, `find _includes -type f | wc -l`이 `44` 근처인지 개별 확인.
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git add _layouts _includes _sass/minimal-mistakes
@@ -128,7 +128,7 @@ git commit -m "feat: vendor minimal-mistakes theme core (layouts/includes/sass)"
 - Consumes: Task 2의 `_sass/minimal-mistakes`
 - Produces: 사이트 전체 스타일 진입점 `assets/css/main.scss`
 
-- [ ] **Step 1: 커스텀 scss 디렉토리 복사**
+- [x] **Step 1: 커스텀 scss 디렉토리 복사**
 
 ```bash
 SRC=/tmp/mm-vendor/whdrns2013.github.io
@@ -136,7 +136,7 @@ mkdir -p _sass/custom
 cp -R "$SRC/_sass/custom/." ./_sass/custom/
 ```
 
-- [ ] **Step 2: `assets/css/main.scss` 작성**
+- [x] **Step 2: `assets/css/main.scss` 작성**
 
 ```bash
 mkdir -p assets/css
@@ -169,18 +169,18 @@ search: false
 EOF
 ```
 
-- [ ] **Step 3: chirpy 전용 scss 삭제**
+- [x] **Step 3: chirpy 전용 scss 삭제**
 
 ```bash
 rm -f assets/css/jekyll-theme-chirpy.scss
 ```
 
-- [ ] **Step 4: 파일 존재 확인**
+- [x] **Step 4: 파일 존재 확인**
 
 Run: `find _sass/custom -name "*.scss" | wc -l`
 Expected: `15`
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add _sass/custom assets/css/main.scss
@@ -208,7 +208,7 @@ git commit -m "feat: vendor custom scss layer, replace chirpy stylesheet entrypo
 - Consumes: Task 1의 vendor 소스
 - Produces: `_config.yml`의 `after_footer_scripts`(Task 6)가 참조하는 스크립트 경로
 
-- [ ] **Step 1: 디렉토리 복사**
+- [x] **Step 1: 디렉토리 복사**
 
 ```bash
 SRC=/tmp/mm-vendor/whdrns2013.github.io
@@ -222,12 +222,12 @@ cp -R "$SRC/assets/js/custom/." ./assets/js/custom/
 rm -f assets/js/custom/docs-deeplink.js
 ```
 
-- [ ] **Step 2: 확인**
+- [x] **Step 2: 확인**
 
 Run: `ls assets/js/custom/`
 Expected: `archive-filter.js  copy-code.js  search-overlay.js  sidebar-toggle.js  theme-toggle.js  toc-scrollspy.js  toc-toggle.js` (그리고 `doc-chip-color.js`가 있으면 유지, 없으면 생략 — Task 6에서 `after_footer_scripts` 목록을 실제 존재하는 파일에 맞춘다)
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git add assets/js/custom
@@ -245,7 +245,7 @@ git commit -m "feat: vendor custom js (theme toggle, toc, sidebar, search overla
 - Consumes: 없음
 - Produces: `bundle install`이 설치할 gem 목록 (Task 11에서 사용)
 
-- [ ] **Step 1: `Gemfile` 전체 재작성**
+- [x] **Step 1: `Gemfile` 전체 재작성**
 
 ```ruby
 source "https://rubygems.org"
@@ -272,7 +272,7 @@ platforms :mingw, :x64_mingw, :mswin, :jruby do
 end
 ```
 
-- [ ] **Step 2: `bundle install` 실행**
+- [x] **Step 2: `bundle install` 실행**
 
 ```bash
 bundle install
@@ -282,7 +282,7 @@ Expected: 에러 없이 `Gemfile.lock` 갱신됨. `jekyll (3.9.3)` 라인이 `Ge
 
 만약 `github-pages 228`이 현재 로컬 Ruby 버전(`.ruby-version` 확인)과 충돌해 resolve 실패하면, Task 11에서 다시 다룬다 — 이번 Step은 `bundle install` 결과를 있는 그대로 기록해두고 다음 태스크로 진행.
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git add Gemfile Gemfile.lock
@@ -300,7 +300,7 @@ git commit -m "feat: switch Gemfile from jekyll-theme-chirpy to github-pages sta
 - Consumes: Task 4의 `after_footer_scripts` 파일 목록, Task 7의 `_data/navigation.yml`(아직 생성 전이지만 이 태스크에서 참조 경로만 지정)
 - Produces: `site.author`, `site.comments`, `site.search_provider` 등 이후 레이아웃/인클루드가 참조하는 사이트 변수
 
-- [ ] **Step 1: `_config.yml` 전체 재작성**
+- [x] **Step 1: `_config.yml` 전체 재작성**
 
 ```yaml
 # 로컬 vendored _layouts/_includes/_sass가 우선 적용되지만,
@@ -472,7 +472,7 @@ after_footer_scripts:
 
 `remote_theme`은 위 블록 맨 위에 유지한다 — vendored된 `_layouts`/`_includes`/`_sass`는 로컬 파일이 우선 적용되지만, vendor하지 않은 `_data/ui-text.yml` 등 gem 기본 제공 파일은 이 fallback을 통해 정상 로드된다(대상 저장소도 동일 패턴 사용).
 
-- [ ] **Step 2: `after_footer_scripts` 목록을 Task 4 결과와 맞춤**
+- [x] **Step 2: `after_footer_scripts` 목록을 Task 4 결과와 맞춤**
 
 Task 4에서 `docs-deeplink.js`를 삭제했으니 위 목록에는 원래부터 포함하지 않았다. Task 4에서 `doc-chip-color.js`가 실제로 존재하지 않는 것으로 확인됐다면 이 목록에서도 해당 줄을 제거한다.
 
@@ -482,7 +482,7 @@ for f in theme-toggle copy-code toc-toggle sidebar-toggle archive-filter doc-chi
 done
 ```
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git add _config.yml
@@ -507,7 +507,7 @@ git commit -m "feat: rewrite _config.yml for minimal-mistakes (redskelt values, 
 - Consumes: Task 6의 `_config.yml`(permalink 구조), Task 3의 category-hierarchy/series/orbit scss
 - Produces: 최상위 내비게이션이 가리키는 실제 페이지들
 
-- [ ] **Step 1: 루트 커스텀 페이지 복사**
+- [x] **Step 1: 루트 커스텀 페이지 복사**
 
 ```bash
 SRC=/tmp/mm-vendor/whdrns2013.github.io
@@ -516,7 +516,7 @@ for f in category-archive.md year-archive.md series-archive.md tag-archive.md or
 done
 ```
 
-- [ ] **Step 2: `_data/navigation.yml` 작성 (Docs 항목 제외)**
+- [x] **Step 2: `_data/navigation.yml` 작성 (Docs 항목 제외)**
 
 ```yaml
 main:
@@ -534,7 +534,7 @@ main:
     url: /diary/
 ```
 
-- [ ] **Step 3: `index.html` 확인/수정**
+- [x] **Step 3: `index.html` 확인/수정**
 
 ```bash
 cat > index.html << 'EOF'
@@ -545,12 +545,12 @@ author_profile: true
 EOF
 ```
 
-- [ ] **Step 4: 각 페이지의 front matter가 새 permalink/레이아웃과 맞는지 확인**
+- [x] **Step 4: 각 페이지의 front matter가 새 permalink/레이아웃과 맞는지 확인**
 
 Run: `head -n 10 category-archive.md year-archive.md series-archive.md tag-archive.md orbit.md diary.md`
 Expected: 각 파일에 `layout:`, `permalink:` front matter가 있고 대상 고유 문구(예: "Jongya") 없이 구조만 담겨 있는지 확인. 만약 본문에 대상 고유 소개 문구가 있으면 이 Step에서 지운다(레이아웃/기능 코드는 그대로 두고 텍스트만 제거).
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add category-archive.md year-archive.md series-archive.md tag-archive.md orbit.md diary.md _data/navigation.yml index.html
@@ -569,14 +569,14 @@ git commit -m "feat: add minimal-mistakes custom content pages and navigation"
 - Consumes: Task 6의 `_config.yml` author 블록
 - Produces: 없음 (터미널 사이드바 include가 `site.author`를 그대로 참조하므로 별도 산출물 없음)
 
-- [ ] **Step 1: 아바타 경로 확인**
+- [x] **Step 1: 아바타 경로 확인**
 
 `_config.yml`의 `author.avatar`는 `/assets/img/avatar.jpg`로 이미 지정했다(Task 6). 기존 파일이 그대로 있는지 확인:
 
 Run: `ls assets/img/avatar.jpg`
 Expected: 파일 존재 (기존 chirpy 시절 파일 그대로 재사용)
 
-- [ ] **Step 2: chirpy 전용 `_data/contact.yml` 삭제**
+- [x] **Step 2: chirpy 전용 `_data/contact.yml` 삭제**
 
 minimal-mistakes 사이드바는 `site.author.links`(Task 6에서 이미 설정)를 쓰므로 chirpy 전용 `_data/contact.yml`은 더 이상 필요 없다.
 
@@ -584,7 +584,7 @@ minimal-mistakes 사이드바는 `site.author.links`(Task 6에서 이미 설정)
 git rm _data/contact.yml
 ```
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git commit -m "chore: remove chirpy-only contact data, confirm avatar asset reuse"
@@ -615,7 +615,7 @@ git commit -m "chore: remove chirpy-only contact data, confirm avatar asset reus
 | `wiki` / Wiki | `Wiki` |
 | `life` / Life | `Life` |
 
-- [ ] **Step 1: `_data/category_hierarchy.yml` 작성**
+- [x] **Step 1: `_data/category_hierarchy.yml` 작성**
 
 대상 저장소의 스키마(`key`/`main_title`/`sub_title` + `categories[].name`/`sub_title`)를 그대로 따르되, 그룹과 leaf는 redskelt 콘텐츠 기준으로 새로 구성한다:
 
@@ -653,12 +653,12 @@ git commit -m "chore: remove chirpy-only contact data, confirm avatar asset reus
       sub_title: 일상 기록
 ```
 
-- [ ] **Step 2: 모든 포스트의 `categories:` 값이 이 파일의 leaf 이름과 정확히 일치하는지 확인**
+- [x] **Step 2: 모든 포스트의 `categories:` 값이 이 파일의 leaf 이름과 정확히 일치하는지 확인**
 
 Run: `grep -h "^categories:" _posts/**/*.md | sort -u`
 Expected: `[CSS]`, `[JUnit, Mockito]`, `[Life]`, `[MathJax]`, `[Wiki]` — 5개 라인. 이 중 어떤 이름도 Step 1의 `_data/category_hierarchy.yml`에 없는 이름이면 안 된다(문자열 정확히 일치, 대소문자 구분). 불일치가 있으면 `_data/category_hierarchy.yml` 쪽을 실제 포스트 값에 맞게 고쳐라(포스트 파일은 되도록 건드리지 않는다 — 기존 URL/데이터 보존 우선).
 
-- [ ] **Step 3: `mathJax.md`의 chirpy 전용 필드 제거**
+- [x] **Step 3: `mathJax.md`의 chirpy 전용 필드 제거**
 
 `math: true`는 chirpy의 MathJax 옵트인 필드로 minimal-mistakes에서는 아무 효과가 없는 죽은 키다. 제거한다:
 
@@ -672,7 +672,7 @@ categories: [MathJax]
 
 (MathJax 실제 렌더링 스크립트 삽입 여부는 이번 계획 범위 밖 — Task 11에서 수식이 깨지는지만 육안 확인하고, 깨지면 별도 이슈로 기록)
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add _data/category_hierarchy.yml _posts/2017/2017-07-06-mathJax.md
@@ -694,7 +694,7 @@ git commit -m "content: add redskelt category hierarchy data, drop chirpy-only m
 - Consumes: 없음
 - Produces: 없음 (정리 태스크)
 
-- [ ] **Step 1: `_tabs/` 삭제**
+- [x] **Step 1: `_tabs/` 삭제**
 
 minimal-mistakes는 `_tabs`를 쓰지 않고 루트 커스텀 페이지(Task 7)+`_data/navigation.yml`로 대체했으므로 전체 삭제:
 
@@ -704,12 +704,12 @@ git rm -r _tabs
 
 `_tabs/about.md`, `_tabs/projects.md`의 본문 내용(소개글, 프로젝트 목록)이 필요하면 이 Step 전에 내용을 확인해 `diary.md`나 별도 페이지로 옮길지 판단한다 — 이번 계획 범위에서는 about/projects 본문 이관은 포함하지 않는다(범위 밖, 스펙에 명시 없음).
 
-- [ ] **Step 2: 확인**
+- [x] **Step 2: 확인**
 
 Run: `ls _tabs 2>&1`
 Expected: `No such file or directory`
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git commit -m "chore: remove chirpy _tabs (superseded by minimal-mistakes navigation)"
@@ -725,7 +725,7 @@ git commit -m "chore: remove chirpy _tabs (superseded by minimal-mistakes naviga
 **Interfaces:**
 - Consumes: Task 1~10의 전체 산출물
 
-- [ ] **Step 1: 클린 빌드**
+- [x] **Step 1: 클린 빌드**
 
 ```bash
 bundle exec jekyll build
@@ -733,24 +733,24 @@ bundle exec jekyll build
 
 Expected: `_site/` 생성, 에러 없음. `Liquid Exception`이나 `Sass::SyntaxError`가 나오면 해당 include/scss 파일명을 확인해 Task 2~4로 돌아가 누락된 vendor 파일이 없는지 재확인.
 
-- [ ] **Step 2: 로컬 서버 기동**
+- [x] **Step 2: 로컬 서버 기동**
 
 ```bash
 bundle exec jekyll serve
 ```
 
-- [ ] **Step 3: 육안 확인 체크리스트**
+- [x] **Step 3: 육안 확인 체크리스트**
 
 다음을 브라우저에서 직접 확인:
-- [ ] 홈(`/`) — 사이드바(아바타, redskelt, GitHub 링크), 다크모드 토글, 검색 아이콘 표시
-- [ ] 포스트 9개 전부 `/:categories/:title/` 형태 URL로 정상 렌더링 (예: `/JUnit/jUnit과-Mockito를-이용한-단위테스트-기초-1일차/` 형태 — 한글 제목이 URL 인코딩되어도 404 없이 열리는지)
-- [ ] `mathJax.md` 포스트에서 수식이 깨지지 않는지 (깨지면 별도 이슈로 기록, 이번 계획 범위 밖 처리 가능)
-- [ ] `/categories/` — Testing(JUnit/Mockito) / Web(CSS/MathJax) / Wiki / Life 그룹 정상 표시
-- [ ] `/year-archive/`, `/series/`, `/orbit/`, `/diary/` — 에러 없이 로드(콘텐츠가 비어 있어도 404만 아니면 통과)
-- [ ] 검색창에 "JUnit" 입력 시 Lunr 검색 결과에 junit 포스트들이 뜨는지
-- [ ] giscus 댓글 위젯이 포스트 하단에 로드되는지 (실제 스레드 연결 여부는 배포 후 확인 — 로컬에서는 위젯 로드만 확인)
+- [x] 홈(`/`) — 사이드바(아바타, redskelt, GitHub 링크), 다크모드 토글, 검색 아이콘 표시
+- [x] 포스트 9개 전부 `/:categories/:title/` 형태 URL로 정상 렌더링 (예: `/JUnit/jUnit과-Mockito를-이용한-단위테스트-기초-1일차/` 형태 — 한글 제목이 URL 인코딩되어도 404 없이 열리는지)
+- [x] `mathJax.md` 포스트에서 수식이 깨지지 않는지 (깨지면 별도 이슈로 기록, 이번 계획 범위 밖 처리 가능)
+- [x] `/categories/` — Testing(JUnit/Mockito) / Web(CSS/MathJax) / Wiki / Life 그룹 정상 표시
+- [x] `/year-archive/`, `/series/`, `/orbit/`, `/diary/` — 에러 없이 로드(콘텐츠가 비어 있어도 404만 아니면 통과)
+- [x] 검색창에 "JUnit" 입력 시 Lunr 검색 결과에 junit 포스트들이 뜨는지
+- [x] giscus 댓글 위젯이 포스트 하단에 로드되는지 (실제 스레드 연결 여부는 배포 후 확인 — 로컬에서는 위젯 로드만 확인)
 
-- [ ] **Step 4: htmlproofer 실행**
+- [x] **Step 4: htmlproofer 실행**
 
 ```bash
 bundle exec htmlproofer _site --disable-external --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
@@ -758,7 +758,7 @@ bundle exec htmlproofer _site --disable-external --ignore-urls "/^http:\/\/127.0
 
 Expected: 에러 없음. 깨진 내부 링크(특히 `_tabs` 삭제로 인한 잔여 링크)가 있으면 원인 파일 찾아 수정.
 
-- [ ] **Step 5: `.ruby-version` / Ruby 호환성 확인**
+- [x] **Step 5: `.ruby-version` / Ruby 호환성 확인**
 
 ```bash
 cat .ruby-version
@@ -767,7 +767,7 @@ ruby -v
 
 `github-pages 228`이 요구하는 Ruby 버전과 로컬 `.ruby-version`이 맞는지 확인. `bundle install`(Task 5)이나 `jekyll build`(Step 1)에서 이미 에러가 없었다면 이 Step은 기록용으로만 확인.
 
-- [ ] **Step 6: 최종 커밋 (필요시)**
+- [x] **Step 6: 최종 커밋 (필요시)**
 
 Step 1~5에서 수정한 내용이 있다면:
 
