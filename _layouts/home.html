@@ -1,0 +1,65 @@
+---
+layout: archive
+---
+
+{{ content }}
+
+<section class="home-hero">
+  <div class="home-hero__intro">
+    <p class="home-hero__eyebrow">// developer notes</p>
+    <h1 class="home-hero__title">개발자 노트 ::<br>실무 관점에서 기록합니다</h1>
+    <p class="home-hero__desc">
+      실무에서 필요한 기술에 대한 개념, 사용법, 문제 해결을 중심으로, 따라해볼 수 있는 실습 과정을 기록합니다.
+    </p>
+    <div class="home-hero__ctas">
+      <a class="home-hero__cta" href="{{ '/categories/' | relative_url }}">$ cd categories</a>
+      <a class="home-hero__cta" href="{{ '/year-archive/' | relative_url }}">$ cd archive</a>
+    </div>
+  </div>
+
+  <div class="home-hero__terminal">
+    <div class="home-terminal__header">
+      <span class="home-terminal__dot home-terminal__dot--red"></span>
+      <span class="home-terminal__dot home-terminal__dot--yellow"></span>
+      <span class="home-terminal__dot home-terminal__dot--green"></span>
+      <span class="home-terminal__filename">whoami.sh</span>
+    </div>
+    <div class="home-terminal__body">
+      <p><span class="home-terminal__prompt">$</span> whoami</p>
+      <p class="home-terminal__out">Jonghyuk Park — DEV - MLOps / AI</p>
+      <p><span class="home-terminal__prompt">$</span> cat focus.txt</p>
+      <p class="home-terminal__out">MLOps · ML · Recommendation Systems · Architecture</p>
+      <p><span class="home-terminal__prompt">$</span> uptime</p>
+      <p class="home-terminal__out">{{ site.posts | size }} posts · powered by curiosity</p>
+      <p><span class="home-terminal__prompt">$</span> <span class="terminal-prompt__cursor" aria-hidden="true"></span></p>
+    </div>
+  </div>
+</section>
+
+{% if paginator.page == 1 or paginator == nil %}
+  {% assign pinned_posts = site.posts | where: "pinned", true %}
+  {% if pinned_posts.size > 0 %}
+    <p class="home-section-label">// pinned</p>
+    <div class="home-pinned-grid">
+      {% for post in pinned_posts %}
+        {% include archive-single.html type="grid" %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endif %}
+
+<p class="home-section-label">// recent</p>
+
+{% if paginator %}
+  {% assign posts = paginator.posts %}
+{% else %}
+  {% assign posts = site.posts %}
+{% endif %}
+
+<div class="home-recent-list">
+  {% for post in posts %}
+    {% include archive-single.html type="list" %}
+  {% endfor %}
+</div>
+
+{% include paginator.html %}
