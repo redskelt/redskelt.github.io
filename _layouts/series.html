@@ -1,0 +1,52 @@
+---
+layout: archive
+---
+
+{{ content }}
+
+<div class="series-accordion">
+  {% for series in site.data.series %}
+    {% assign series_id = series[0] %}
+    {% assign series_info = series[1] %}
+    {% assign series_posts = site.posts | where: "series", series_id %}
+
+    {% if series_posts.size > 0 %}
+      {% assign sorted_posts = series_posts | sort: "series_index" %}
+
+      <details class="series-accordion__item" id="series-{{ series_id | slugify }}" data-series-id="{{ series_id | slugify }}">
+        <summary class="series-accordion__header">
+          <span class="series-accordion__title">
+            <span class="series-accordion__name">{{ series_info.title }}</span>
+            {% if series_info.description %}<span class="series-accordion__desc-inline">{{ series_info.description }}</span>{% endif %}
+          </span>
+          <span class="series-accordion__count">{{ series_posts.size }} episodes</span>
+          <i class="fas fa-chevron-right series-accordion__arrow" aria-hidden="true"></i>
+        </summary>
+        <div class="series-accordion__body">
+          <ol class="series-accordion__episodes">
+            {% for post in sorted_posts %}
+              <li class="series-accordion__episode">
+                <span class="series-accordion__episode-number">{{ forloop.index }}</span>
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+              </li>
+            {% endfor %}
+          </ol>
+        </div>
+      </details>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var targetId = window.location.hash.replace(/^#/, '');
+    if (!targetId) return;
+
+    var target = document.getElementById(targetId);
+    if (!target || !target.matches('.series-accordion__item')) return;
+
+    target.open = true;
+    target.scrollIntoView({ block: 'start' });
+  });
+</script>

@@ -1,0 +1,320 @@
+/* ==========================================================================
+   Terminal masthead (top bar)
+   ========================================================================== */
+
+@keyframes terminal-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.masthead {
+  position: sticky;
+  top: 0;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  background-color: color-mix(in srgb, var(--color-bg-side) 85%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 20;
+
+  &__inner-wrap {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 32px;
+    font-family: var(--font-mono);
+  }
+}
+
+.greedy-nav__toggle,
+.hidden-links {
+  display: none !important;
+}
+
+.terminal-prompt {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  margin: 0 !important;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text) !important;
+
+  &__user {
+    font-weight: 700;
+  }
+
+  &__at {
+    font-weight: 400;
+    color: var(--color-text-faint);
+    margin-left: 1px;
+  }
+
+  &__cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.05em;
+    margin-left: 4px;
+    background-color: var(--color-accent);
+    animation: terminal-blink 1s step-end infinite;
+  }
+}
+
+.masthead__menu {
+  .visible-links {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow: visible;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .masthead__menu-item {
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+
+    a {
+      margin: 0 !important;
+      color: var(--color-text-muted) !important;
+      text-decoration: none;
+    }
+
+    &:hover a {
+      color: var(--color-text) !important;
+    }
+
+    &.is-active {
+      border-bottom-color: var(--color-accent);
+
+      a {
+        color: var(--color-text) !important;
+      }
+    }
+  }
+}
+
+.masthead__controls {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.masthead__mobile-nav {
+  display: none;
+}
+
+.search__toggle {
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.theme-toggle__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-faint);
+}
+
+.theme-toggle {
+  position: relative;
+  width: 50px;
+  height: 27px;
+  padding: 3px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &__knob {
+    display: block;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: #fff;
+    transform: translateX(0);
+    transition: transform 0.2s ease;
+  }
+
+  &[aria-checked="true"] &__knob {
+    transform: translateX(23px);
+  }
+}
+
+/* Design centers the nav links between the logo and the controls: the row
+   is one flex container with exactly those 3 groups, evenly distributed via
+   justify-content: space-between (rather than nav-links flush after the
+   logo and controls pinned right via margin-left: auto). */
+.masthead__inner-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  nav#site-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+/* core .greedy-nav ships a hardcoded (light-only) $background-color fill —
+   left in place it paints an opaque white bar over the masthead's own
+   translucent/blurred background, so it never picks up dark mode. */
+.greedy-nav {
+  background: transparent;
+}
+
+@media (max-width: 760px) {
+  .masthead {
+    min-height: 56px;
+    padding: 6px 0;
+
+    &__inner-wrap {
+      padding: 0 12px;
+    }
+  }
+
+  .terminal-prompt {
+    max-width: 72px;
+    overflow: hidden;
+    font-size: 14px;
+
+    &__at {
+      display: none;
+    }
+
+    &__cursor {
+      width: 6px;
+      height: 1em;
+      margin-left: 3px;
+    }
+  }
+
+  .masthead__menu {
+    .visible-links {
+      display: none;
+    }
+  }
+
+  .masthead__mobile-nav {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 180px;
+    margin: 0 10px;
+    position: relative;
+
+    &::before {
+      content: "$";
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 2px);
+      right: 10px;
+      width: 6px;
+      height: 6px;
+      border-right: 1px solid var(--color-text-faint);
+      border-bottom: 1px solid var(--color-text-faint);
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      min-width: 0;
+      padding: 7px 28px 7px 24px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-chip);
+      background-color: color-mix(in srgb, var(--color-bg-side) 82%, transparent);
+      color: var(--color-text);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1.2;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border-subtle) 65%, transparent);
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 2px var(--color-accent-soft);
+      }
+    }
+  }
+
+  .masthead__controls {
+    gap: 8px;
+  }
+
+  .search__toggle {
+    padding: 4px;
+    line-height: 1;
+  }
+
+  .theme-toggle__label {
+    display: none;
+  }
+
+  .theme-toggle {
+    width: 42px;
+    height: 24px;
+    padding: 3px;
+
+    &__knob {
+      width: 18px;
+      height: 18px;
+    }
+
+    &[aria-checked="true"] &__knob {
+      transform: translateX(18px);
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .terminal-prompt {
+    max-width: 56px;
+    font-size: 13px;
+  }
+
+  .masthead__mobile-nav {
+    margin: 0 6px;
+
+    select {
+      padding-right: 20px;
+      font-size: 0.74rem;
+    }
+  }
+}

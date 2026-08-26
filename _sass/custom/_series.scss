@@ -1,0 +1,148 @@
+/* ==========================================================================
+   Post-page series banner
+   ========================================================================== */
+
+.post-series {
+  margin: 0 0 32px;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-card);
+  background-color: var(--color-bg-elevated);
+  overflow: hidden;
+
+  details summary {
+    list-style: none;
+    outline: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  details[open] .toggle-icon {
+    transform: rotate(90deg);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+
+  &__label {
+    flex: 0 0 auto;
+    padding: 2px 8px;
+    border-radius: var(--radius-chip);
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  &__title {
+    flex: 1 1 auto;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  &__position {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-faint);
+  }
+
+  .toggle-icon {
+    flex: 0 0 auto;
+    font-size: 0.75rem;
+    color: var(--color-text-faint);
+    transition: transform 0.2s ease;
+  }
+
+  &__list {
+    margin: 0;
+    padding: var(--space-1) var(--space-2) var(--space-2);
+    border-top: 1px solid var(--color-border-subtle);
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: 2px;
+    padding: 9px 6px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+
+    &:hover:not(.is-current) {
+      background-color: var(--color-bg-side);
+    }
+
+    &.is-current {
+      background-color: var(--color-accent-soft);
+
+      .post-series__number {
+        color: var(--color-accent) !important;
+      }
+
+      .post-series__title-text {
+        color: var(--color-text) !important;
+        font-weight: 700;
+      }
+    }
+  }
+
+  /* !important throughout: .post-series sits inside .page__content, whose
+     prose-link rule (.page__content a:not(.btn) { color: accent-2 }) is
+     more specific than a bare class selector and would otherwise repaint
+     these as ordinary blue hyperlinks. */
+  &__number {
+    flex: 0 0 auto;
+    width: 1.5em;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-text-faint) !important;
+  }
+
+  &__title-text {
+    flex: 1 1 auto;
+    color: var(--color-text-muted) !important;
+  }
+
+  &__link {
+    flex: 1 1 auto;
+    text-decoration: none !important;
+    color: var(--color-text-muted) !important;
+
+    &:hover {
+      color: var(--color-accent-2) !important;
+    }
+  }
+
+  &__date {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-text-faint);
+  }
+
+  &__view-all {
+    display: block;
+    padding: var(--space-2) var(--space-3) var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-accent-2) !important;
+    text-decoration: none !important;
+
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+}
