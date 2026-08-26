@@ -7,8 +7,14 @@
         {% unless logo_path == empty %}
           <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
+        {%- capture current_section -%}
+          {%- for link in site.data.navigation.main -%}
+            {%- if link.url != "/" and page.url contains link.url -%}{{ link.title }}{%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- assign current_section = current_section | strip -%}
         <a class="site-title terminal-prompt" href="{{ '/' | relative_url }}">
-          <span class="terminal-prompt__user">jongya</span><span class="terminal-prompt__at">@blog:~$</span><span class="terminal-prompt__cursor" aria-hidden="true"></span>
+          <span class="terminal-prompt__user">{{ site.author.name }}</span><span class="terminal-prompt__at">@blog:~{% if current_section != "" %}/{{ current_section | slugify }}{% endif %}$</span><span class="terminal-prompt__cursor" aria-hidden="true"></span>
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
