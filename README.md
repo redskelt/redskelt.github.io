@@ -1,11 +1,11 @@
 # redskelt's Blog
 
-[redskelt.github.io](https://redskelt.github.io) — [jekyll-theme-chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) 기반 개인 블로그.
+[redskelt.github.io](https://redskelt.github.io) — [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) 테마를 fork-and-customize(vendored) 방식으로 커스터마이징한 개인 블로그.
 
 ## 스택
 
 - Jekyll 4.x (Ruby 3.3.0)
-- [jekyll-theme-chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) (gem 기반, `Gemfile`에서 버전 관리)
+- [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) (`remote_theme`으로 버전 고정, `_layouts`/`_includes`/`_sass`는 로컬에 vendor해서 커스터마이징)
 - GitHub Actions로 빌드 & 배포 (`.github/workflows/pages-deploy.yml`), Pages Source는 "GitHub Actions"
 - 댓글: [Giscus](https://giscus.app) (GitHub Discussions 기반)
 
