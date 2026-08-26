@@ -41,13 +41,16 @@ jobs:
           bundler-cache: true
 
       - name: Build site
-        run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
+        # redskelt.github.io는 user page라 항상 루트(/)에서 서빙된다.
+        # --baseurl ""로 강제하지 않으면 steps.pages.outputs.base_path가
+        # 예상 밖 값(예: /pages/redskelt)을 내놓을 때 자산 경로가 깨진다.
+        run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}" --baseurl ""
         env:
           JEKYLL_ENV: "production"
 
       - name: Test site
         run: |
-          bundle exec htmlproofer _site \
+          bundle exec htmlproofer "_site${{ steps.pages.outputs.base_path }}" \
             \-\-disable-external \
             \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
 
