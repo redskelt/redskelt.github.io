@@ -1,0 +1,14 @@
+# main links
+main:
+  - title: "Home"
+    url: /
+  - title: "Categories"
+    url: /categories/
+  - title: "Archive"
+    url: /year-archive/
+  - title: "Series"
+    url: /series/
+  - title: "Orbit"
+    url: /orbit/
+  - title: "Diary"
+    url: /diary/
