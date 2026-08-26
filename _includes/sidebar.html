@@ -9,8 +9,6 @@
     <div class="sidebar-divider" role="separator"></div>
     {% include sidebar-stats.html %}
 
-    {% if site.author.visitor %}{% include visitor-counter.html %}{% endif %}
-
     {% if page.sidebar %}
       {% for s in page.sidebar %}
         {% if s.image %}

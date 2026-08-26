@@ -1,7 +1,6 @@
-# 로컬 vendored _layouts/_includes/_sass가 우선 적용되지만,
-# _data/ui-text.yml 등 vendor하지 않은 gem 기본 제공 파일은
-# remote_theme을 통해 fallback으로 공급받는다 (대상 저장소와 동일 패턴).
-remote_theme              : "mmistakes/minimal-mistakes"
+# 로컬 vendored _layouts/_includes/_sass가 우선 적용된다.
+# Jekyll은 remote_theme의 _data를 읽지 않으므로, 필요한 _data 파일은 직접 vendor한다.
+remote_theme              : "mmistakes/minimal-mistakes@4.24.0"
 minimal_mistakes_skin    : "default"
 
 locale                   : "ko-KR"
@@ -25,6 +24,7 @@ comments:
     repo_id              : "MDEwOlJlcG9zaXRvcnk5NDQyNzE0NQ=="
     category_name         : "Announcements"
     category_id           : "DIC_kwDOBaDYCc4DDn9v"
+    theme                 : "dark"
 
 search                   : true
 search_full_content      : false
@@ -163,6 +163,3 @@ after_footer_scripts:
   - /assets/js/custom/doc-chip-color.js
   - /assets/js/custom/toc-scrollspy.js
   - /assets/js/custom/search-overlay.js
-  - /assets/js/custom/orbit.js
-  - /assets/js/custom/post-neighborhood-map.js
-  - /assets/js/custom/tag-filter.js

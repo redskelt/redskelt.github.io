@@ -26,9 +26,9 @@ layout: archive
     </div>
     <div class="home-terminal__body">
       <p><span class="home-terminal__prompt">$</span> whoami</p>
-      <p class="home-terminal__out">Jonghyuk Park — DEV - MLOps / AI</p>
+      <p class="home-terminal__out">{{ site.author.name }}{% if site.author.job_title %} — {{ site.author.job_title }}{% endif %}</p>
       <p><span class="home-terminal__prompt">$</span> cat focus.txt</p>
-      <p class="home-terminal__out">MLOps · ML · Recommendation Systems · Architecture</p>
+      <p class="home-terminal__out">{{ site.author.bio }}</p>
       <p><span class="home-terminal__prompt">$</span> uptime</p>
       <p class="home-terminal__out">{{ site.posts | size }} posts · powered by curiosity</p>
       <p><span class="home-terminal__prompt">$</span> <span class="terminal-prompt__cursor" aria-hidden="true"></span></p>
