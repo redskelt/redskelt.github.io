@@ -23,7 +23,7 @@ comments:
   giscus:
     repo                 : "redskelt/redskelt.github.io"
     repo_id              : "MDEwOlJlcG9zaXRvcnk5NDQyNzE0NQ=="
-    category              : "Announcements"
+    category_name         : "Announcements"
     category_id           : "DIC_kwDOBaDYCc4DDn9v"
 
 search                   : true
