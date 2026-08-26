@@ -31,7 +31,7 @@ assets/css/main.scss                 [생성] chirpy scss 대체, minimal-mistak
 _layouts/*.14개                       [생성] 대상에서 vendor
 _includes/*.44개                      [생성] 대상에서 vendor
 _sass/minimal-mistakes/*             [생성] 대상에서 vendor
-_sass/custom/*.scss (14개)            [생성] 대상에서 vendor + 필요시 콘텐츠 조정
+_sass/custom/*.scss (15개)            [생성] 대상에서 vendor + 필요시 콘텐츠 조정
 assets/js/custom/*.js                [생성] 대상에서 vendor
 _data/navigation.yml                 [생성] redskelt 메뉴 구성
 _data/contact.yml                    [삭제] chirpy _tabs 전용 → author.links로 대체
@@ -119,7 +119,7 @@ git commit -m "feat: vendor minimal-mistakes theme core (layouts/includes/sass)"
 ### Task 3: 커스텀 scss 레이어 + `assets/css/main.scss` 이식
 
 **Files:**
-- Create: `_sass/custom/*.scss` (14개: `_home.scss`, `_masthead-terminal.scss`, `_sidebar-terminal.scss`, `_orbit.scss`, `_series.scss`, `_category-hierarchy.scss`, `_post-neighborhood-map.scss`, `_tag-archive.scss`, `_accordion.scss`, `_search-overlay.scss`, `_toc-toggle.scss`, `_readability.scss`, `_theme.scss`, `customImport.scss`, `customOverride.scss`)
+- Create: `_sass/custom/*.scss` (15개: `_home.scss`, `_masthead-terminal.scss`, `_sidebar-terminal.scss`, `_orbit.scss`, `_series.scss`, `_category-hierarchy.scss`, `_post-neighborhood-map.scss`, `_tag-archive.scss`, `_accordion.scss`, `_search-overlay.scss`, `_toc-toggle.scss`, `_readability.scss`, `_theme.scss`, `customImport.scss`, `customOverride.scss`)
 - Create: `assets/css/main.scss`
 - Delete: `assets/css/jekyll-theme-chirpy.scss`
 
@@ -177,7 +177,7 @@ rm -f assets/css/jekyll-theme-chirpy.scss
 - [ ] **Step 4: 파일 존재 확인**
 
 Run: `find _sass/custom -name "*.scss" | wc -l`
-Expected: `14`
+Expected: `15`
 
 - [ ] **Step 5: 커밋**
 
