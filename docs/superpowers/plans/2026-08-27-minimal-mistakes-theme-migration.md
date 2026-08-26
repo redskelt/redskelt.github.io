@@ -42,7 +42,8 @@ tag-archive.md                       [생성] 루트 커스텀 페이지
 orbit.md                             [생성] 루트 커스텀 페이지
 diary.md                             [생성] 루트 커스텀 페이지
 index.html                           [수정] layout: home → layout: home (minimal-mistakes 방식 유지 확인)
-_posts/**/*.md (12개)                 [수정] front matter 마이그레이션
+_data/category_hierarchy.yml         [생성] redskelt 카테고리 그룹 정의 (Task 9, Task 7 조사 결과 반영)
+_posts/2017/2017-07-06-mathJax.md    [수정] chirpy 전용 math: true 필드 제거 (그 외 8개 포스트는 변경 없음)
 _tabs/*                              [삭제] chirpy 전용 네비게이션
 assets/css/jekyll-theme-chirpy.scss  [삭제]
 ```
@@ -591,105 +592,91 @@ git commit -m "chore: remove chirpy-only contact data, confirm avatar asset reus
 
 ---
 
-### Task 9: 기존 포스트 front matter 마이그레이션
+### Task 9: 카테고리 계층 데이터 생성 + 기존 포스트 front matter 정리
+
+> **PLAN REVISION (Task 7 조사 결과 반영, 원래 계획 대체):** Task 7 구현자가 실제 vendor 소스를 조사한 결과, minimal-mistakes의 카테고리 계층은 `categories:` 배열의 순서/개수로 표현되는 게 아니라 **`_data/category_hierarchy.yml`이라는 별도 데이터 파일**이 "그룹(key/main_title/sub_title) → 그 그룹에 속한 leaf 카테고리 이름 목록"을 정의하고, `_layouts/categories.html`/`_includes/category-list.html`이 포스트의 flat `categories:` 이름을 이 파일과 문자열 매칭해서 그룹핑한다(근거: `_layouts/categories.html:7-41`, `_includes/category-list.html:14-30`, Task 7 보고서). 이 파일은 vendor 대상에도 있었지만(대상 고유 주제인 Language/AI/Database 등) Task 7의 Files 목록엔 없어서 아직 이 저장소에 없다. 아래는 그 사실을 반영한 새 설계이며, 원래 있던 "categories 배열을 `[개발, 테스트]`처럼 2단계로 바꾸는" 설계는 틀린 전제였으므로 폐기한다.
 
 **Files:**
-- Modify: `_posts/2017/2017-06-19-junit01.md`
-- Modify: `_posts/2017/2017-06-20-junit02.md`
-- Modify: `_posts/2017/2017-06-21-junit03.md`
-- Modify: `_posts/2017/2017-06-22-junit04.md`
-- Modify: `_posts/2017/2017-06-23-junit05.md`
-- Modify: `_posts/2017/2017-06-17-workblog.md`
-- Modify: `_posts/2017/2017-07-06-mathJax.md`
-- Modify: `_posts/2021/2021-07-31-gruntImageSprite.md`
-- Modify: `_posts/2026/2026-08-18-idempotency.md`
+- Create: `_data/category_hierarchy.yml` (redskelt 카테고리 그룹 정의, 신규)
+- Modify: `_posts/2017/2017-07-06-mathJax.md` (chirpy 전용 `math: true` 필드 제거)
+
+다른 8개 포스트(`_posts/2017/2017-06-19-junit01.md` ~ `2017-06-23-junit05.md`, `2017-06-17-workblog.md`, `2021-07-31-gruntImageSprite.md`, `2026-08-18-idempotency.md`)는 **front matter 변경 불필요** — `layout:` 필드가 애초에 없어 Task 6의 `defaults`(layout: single)가 그대로 적용되고, 기존 `categories:`/`tags:` 값(`JUnit`, `Mockito`, `Life`, `CSS`, `Wiki`, `HTTP`, `분산시스템`)이 그대로 leaf 카테고리 이름으로 쓰인다.
 
 **Interfaces:**
-- Consumes: Task 6의 `defaults` (layout: single, comments/toc 등은 defaults가 처리하므로 각 포스트에서 반복 지정 불필요)
-- Produces: `/:categories/:title/` 퍼머링크로 접근 가능한 최종 포스트 URL (Task 11 빌드 검증에서 사용)
+- Consumes: Task 6의 `defaults`(layout: single 등), Task 7의 `category-archive.md`/`_layouts/categories.html`이 참조하는 `site.data.category_hierarchy` 구조
+- Produces: `/categories/`, `/:categories/:title/` 퍼머링크에서 정상적으로 그룹핑되어 보이는 카테고리 뷰 (Task 11 빌드 검증에서 사용)
 
-**카테고리 계층 설계** (redskelt 기존 12개 포스트 주제 기준):
+**카테고리 그룹 설계** (redskelt 기존 9개 포스트의 실제 `categories:` 값 기준 — 값 자체는 바꾸지 않고, 이 값들을 leaf로 갖는 그룹만 새로 정의):
 
-| 기존 `categories` | 새 `categories` (계층) |
+| 그룹 `key`/`main_title` | 포함 leaf 카테고리 (기존 포스트 `categories:` 값 그대로) |
 |---|---|
-| `[JUnit, Mockito]` (junit01~05) | `[개발, 테스트]` + `tags: [JUnit, Mockito]` |
-| `[Life]` (workblog) | `[일상]` |
-| `[MathJax]` (mathJax) | `[개발, 웹]` + `tags: [MathJax]` |
-| `[CSS]` (gruntImageSprite) | `[개발, 웹]` + `tags: [CSS]` |
-| `[Wiki]` tags `[HTTP, 분산시스템]` (idempotency) | `[개발, 위키]` + `tags: [HTTP, 분산시스템]` |
+| `testing` / Testing | `JUnit`, `Mockito` |
+| `web` / Web | `CSS`, `MathJax` |
+| `wiki` / Wiki | `Wiki` |
+| `life` / Life | `Life` |
 
-minimal-mistakes의 `categories`는 배열이 곧 카테고리 목록이며 chirpy처럼 "상위/하위 2단계"를 배열 순서로 강제하지 않으므로, 위 매핑은 "대분류(개발/일상) + 세부 태그"로 단순화한다 — `category-archive.md`(Task 7)의 계층 뷰가 `categories` 배열의 첫 항목을 대분류로 그룹핑하는 구조이므로 이 규칙을 따른다.
+- [ ] **Step 1: `_data/category_hierarchy.yml` 작성**
 
-- [ ] **Step 1: junit01~05 (5개 파일) front matter 수정**
-
-각 파일의 front matter를 다음과 같이 변경 (예: `2017-06-19-junit01.md`):
+대상 저장소의 스키마(`key`/`main_title`/`sub_title` + `categories[].name`/`sub_title`)를 그대로 따르되, 그룹과 leaf는 redskelt 콘텐츠 기준으로 새로 구성한다:
 
 ```yaml
----
-title:  "jUnit과 Mockito를 이용한 단위테스트 기초 1일차"
-date:   2017-06-19 23:50:02 +0900
-categories: [개발, 테스트]
-tags: [JUnit, Mockito]
----
+- key: testing
+  main_title: Testing
+  sub_title: 테스트
+  categories:
+    - name: JUnit
+      sub_title: 단위 테스트 프레임워크
+    - name: Mockito
+      sub_title: 모킹 프레임워크
+
+- key: web
+  main_title: Web
+  sub_title: 웹 개발
+  categories:
+    - name: CSS
+      sub_title: 스타일시트
+    - name: MathJax
+      sub_title: 수식 렌더링
+
+- key: wiki
+  main_title: Wiki
+  sub_title: 기술 위키 노트
+  categories:
+    - name: Wiki
+      sub_title: 위키 정리 노트
+
+- key: life
+  main_title: Life
+  sub_title: 일상
+  categories:
+    - name: Life
+      sub_title: 일상 기록
 ```
 
-(`junit02`~`junit05`도 `title`/`date`는 그대로 두고 `categories`/`tags` 줄만 동일하게 교체)
+- [ ] **Step 2: 모든 포스트의 `categories:` 값이 이 파일의 leaf 이름과 정확히 일치하는지 확인**
 
-- [ ] **Step 2: `workblog.md` 수정**
+Run: `grep -h "^categories:" _posts/**/*.md | sort -u`
+Expected: `[CSS]`, `[JUnit, Mockito]`, `[Life]`, `[MathJax]`, `[Wiki]` — 5개 라인. 이 중 어떤 이름도 Step 1의 `_data/category_hierarchy.yml`에 없는 이름이면 안 된다(문자열 정확히 일치, 대소문자 구분). 불일치가 있으면 `_data/category_hierarchy.yml` 쪽을 실제 포스트 값에 맞게 고쳐라(포스트 파일은 되도록 건드리지 않는다 — 기존 URL/데이터 보존 우선).
 
-```yaml
----
-title:  "블로그 작업 완료"
-date:   2017-06-17 23:19:02 +0900
-categories: [일상]
----
-```
+- [ ] **Step 3: `mathJax.md`의 chirpy 전용 필드 제거**
 
-- [ ] **Step 3: `mathJax.md` 수정**
-
-minimal-mistakes는 MathJax를 `_includes/head/custom.html`이나 포스트 내 스크립트 삽입 방식으로 처리한다(chirpy의 `math: true` 옵트인과 다름). 우선 카테고리만 교체하고 수식 렌더링 여부는 Task 11에서 육안 확인한다:
+`math: true`는 chirpy의 MathJax 옵트인 필드로 minimal-mistakes에서는 아무 효과가 없는 죽은 키다. 제거한다:
 
 ```yaml
 ---
 title:  "수식 표현 MathJax"
 date:   2017-07-02 23:50:02 +0900
-categories: [개발, 웹]
-tags: [MathJax]
+categories: [MathJax]
 ---
 ```
 
-- [ ] **Step 4: `gruntImageSprite.md` 수정**
+(MathJax 실제 렌더링 스크립트 삽입 여부는 이번 계획 범위 밖 — Task 11에서 수식이 깨지는지만 육안 확인하고, 깨지면 별도 이슈로 기록)
 
-```yaml
----
-title:  "CSS 이미지 스프라이트(Image Sprite)"
-date:   2021-07-31 16:26:02 +0900
-categories: [개발, 웹]
-tags: [CSS]
----
-```
-
-- [ ] **Step 5: `idempotency.md` 수정**
-
-```yaml
----
-title:  "멱등성(Idempotency), 재시도해도 안전한 API 만들기"
-date:   2026-08-18 23:16:14 +0900
-categories: [개발, 위키]
-tags: [HTTP, 분산시스템]
----
-```
-
-- [ ] **Step 6: 변경분 확인**
-
-Run: `grep -A2 "^categories:" _posts/**/*.md`
-Expected: 9개 포스트 전부 `[개발, 테스트]` / `[일상]` / `[개발, 웹]` / `[개발, 위키]` 중 하나로 표시됨. chirpy 전용 `pin:` 필드가 있던 포스트가 있다면 이 Step에서 함께 제거(현재 저장소엔 없음 — 확인만).
-
-- [ ] **Step 7: 커밋**
+- [ ] **Step 4: 커밋**
 
 ```bash
-git add _posts
-git commit -m "content: migrate post front matter to minimal-mistakes category hierarchy"
+git add _data/category_hierarchy.yml _posts/2017/2017-07-06-mathJax.md
+git commit -m "content: add redskelt category hierarchy data, drop chirpy-only math field"
 ```
 
 ---
@@ -756,9 +743,9 @@ bundle exec jekyll serve
 
 다음을 브라우저에서 직접 확인:
 - [ ] 홈(`/`) — 사이드바(아바타, redskelt, GitHub 링크), 다크모드 토글, 검색 아이콘 표시
-- [ ] 포스트 9개 전부 `/:categories/:title/` 형태 URL로 정상 렌더링 (예: `/개발/테스트/jUnit과-Mockito를-이용한-단위테스트-기초-1일차/` 형태 — 한글 카테고리가 URL 인코딩되어도 404 없이 열리는지)
+- [ ] 포스트 9개 전부 `/:categories/:title/` 형태 URL로 정상 렌더링 (예: `/JUnit/jUnit과-Mockito를-이용한-단위테스트-기초-1일차/` 형태 — 한글 제목이 URL 인코딩되어도 404 없이 열리는지)
 - [ ] `mathJax.md` 포스트에서 수식이 깨지지 않는지 (깨지면 별도 이슈로 기록, 이번 계획 범위 밖 처리 가능)
-- [ ] `/categories/` — category-hierarchy 뷰에 `개발`(테스트/웹/위키) / `일상` 그룹 정상 표시
+- [ ] `/categories/` — Testing(JUnit/Mockito) / Web(CSS/MathJax) / Wiki / Life 그룹 정상 표시
 - [ ] `/year-archive/`, `/series/`, `/orbit/`, `/diary/` — 에러 없이 로드(콘텐츠가 비어 있어도 404만 아니면 통과)
 - [ ] 검색창에 "JUnit" 입력 시 Lunr 검색 결과에 junit 포스트들이 뜨는지
 - [ ] giscus 댓글 위젯이 포스트 하단에 로드되는지 (실제 스레드 연결 여부는 배포 후 확인 — 로컬에서는 위젯 로드만 확인)
