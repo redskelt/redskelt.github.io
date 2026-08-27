@@ -5,17 +5,22 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 
 # 포스트 작성 / 수정 / 삭제
 
-이 저장소는 jekyll-theme-chirpy 기반 Jekyll 블로그다. 포스트는
+이 저장소는 Minimal Mistakes 기반(vendored) Jekyll 블로그다. 포스트는
 `_posts/<year>/YYYY-MM-DD-slug.md` 형식으로 저장된다. 자세한 컨벤션은
 `README.md`의 "포스트 작성"/"포스트 수정" 섹션 참고.
 
 먼저 사용자 요청이 **작성 / 수정 / 삭제** 중 어느 쪽인지 판단한다. 애매하면
 물어본다.
 
-## 공통: 기존 카테고리 확인
+## 공통: 카테고리는 `_data/category_hierarchy.yml`의 leaf여야 함
 
-새 포스트를 만들거나 카테고리를 바꿀 때는 먼저 기존에 쓰이는 카테고리
-목록을 확인한다:
+이 테마의 `/categories/` 페이지는 `categories:` 배열 순서가 아니라
+`_data/category_hierarchy.yml`(그룹 key/main_title/sub_title + 그 안의
+`categories[].name`)로 그룹핑한다. **`categories:`에 이 파일에 없는
+이름을 쓰면 포스트 자체는 정상 렌더링되지만 `/categories/` 그룹 뷰에서는
+조용히 빠진다** — 에러 없이 그냥 안 보이므로 놓치기 쉽다.
+
+먼저 기존에 쓰이는 카테고리 목록을 확인한다:
 
 ```bash
 grep -rhoP '(?<=^categories: \[)[^\]]+' _posts/ | tr ',' '\n' | sed 's/^ *//;s/ *$//' | sort -u
@@ -23,7 +28,20 @@ grep -rhoP '(?<=^categories: \[)[^\]]+' _posts/ | tr ',' '\n' | sed 's/^ *//;s/ 
 
 사용자가 입력한 카테고리가 이 목록에 있는 것과 대소문자/표기만 다르면
 (예: 목록엔 `JUnit`이 있는데 사용자가 `junit`이라고 입력) 그대로 새로 만들지,
-기존 표기에 맞출지 물어본다. 완전히 새로운 카테고리면 그냥 진행한다.
+기존 표기에 맞출지 물어본다.
+
+완전히 새로운 카테고리면 `_data/category_hierarchy.yml`을 열어서 그 이름이
+`categories[].name`으로 이미 있는지 확인한다:
+
+```bash
+grep -n "name:" _data/category_hierarchy.yml
+```
+
+없으면 **반드시** 이 파일에도 leaf를 추가해야 한다 — 어느 그룹(`key`)에
+넣을지 사용자에게 물어보거나(기존 그룹: `testing`/`web`/`wiki`/`life`),
+어느 그룹에도 안 맞으면 새 그룹을 만들지 물어본다. 이 파일 수정도 포스트
+파일과 함께 커밋 대상에 포함시킨다(수정만 하고 알려주면 됨 — 커밋은
+"작성"/"수정" 절차의 마지막 단계와 동일하게 사용자가 직접 한다).
 
 ## 공통: 본문에 링크가 있으면 링크 확인
 
@@ -49,8 +67,11 @@ grep -rhoP '(?<=^categories: \[)[^\]]+' _posts/ | tr ',' '\n' | sed 's/^ *//;s/ 
 ## 작성
 
 1. 제목을 물어본다 (필수).
-2. 카테고리를 물어본다 — 위 "공통: 기존 카테고리 확인" 절차를 거친다.
-3. 태그(선택), 수식(MathJax) 사용 여부(선택, 기본 false)를 물어본다.
+2. 카테고리를 물어본다 — 위 "공통: 카테고리는 `_data/category_hierarchy.yml`의
+   leaf여야 함" 절차를 거친다.
+3. 태그(선택)를 물어본다. 수식(MathJax)은 이 테마에서 전역으로 항상
+   로드되므로 (`_includes/scripts.html`) front matter 옵트인이 필요
+   없다 — 물어볼 필요 없음.
 4. 파일명용 slug를 정한다:
    - 제목이 영문이면 kebab-case로 자동 생성해서 제안하고 확인만 받는다.
    - 제목이 한글이거나 특수문자가 많으면 영문 slug를 따로 물어본다.
@@ -65,15 +86,17 @@ grep -rhoP '(?<=^categories: \[)[^\]]+' _posts/ | tr ',' '\n' | sed 's/^ *//;s/ 
    date: YYYY-MM-DD HH:MM:SS +0900
    categories: [Category, Subcategory]
    tags: [tag1, tag2]   # 태그 없으면 이 줄 생략
-   math: true           # 수식 필요할 때만
    ---
    ```
 
-   `layout`, `permalink`은 `_config.yml`의 `defaults`가 자동으로 채우므로
-   넣지 않는다. 사용자가 본문 내용을 미리 줬으면 그대로 채우되, 위
-   "공통: 본문에 링크가 있으면 링크 확인" 절차를 거친다.
-7. 생성한 파일 경로를 알려주고 끝낸다. git add/commit/push는 하지 않는다
-   — 사용자가 본문을 쓰고 나서 직접 커밋한다.
+   `layout`(single), `permalink`, `author_profile`, `comments`, `toc`,
+   `toc_sticky`, `read_time`, `share`, `related` 등은 `_config.yml`의
+   `defaults`가 자동으로 채우므로 넣지 않는다. 사용자가 본문 내용을 미리
+   줬으면 그대로 채우되, 위 "공통: 본문에 링크가 있으면 링크 확인"
+   절차를 거친다.
+7. 생성한 파일 경로를 알려주고, `_data/category_hierarchy.yml`을 새로
+   고쳤다면 그것도 함께 알려주고 끝낸다. git add/commit/push는 하지
+   않는다 — 사용자가 본문을 쓰고 나서 직접 커밋한다.
 
 ## 수정
 
@@ -92,7 +115,8 @@ grep -rhoP '(?<=^categories: \[)[^\]]+' _posts/ | tr ',' '\n' | sed 's/^ *//;s/ 
    - `date:` (최초 작성일)는 바꾸지 않는다 — 바꾸면 아카이브/정렬 순서가
      틀어진다. 수정일은 `_plugins/posts-lastmod-hook.rb`가 git 커밋
      이력으로 자동 계산해서 "Updated" 표시를 만들어준다.
-   - 카테고리를 바꾸는 경우 위 "공통: 기존 카테고리 확인" 절차를 거친다.
+   - 카테고리를 바꾸는 경우 위 "공통: 카테고리는 `_data/category_hierarchy.yml`의
+     leaf여야 함" 절차를 거친다.
    - 본문에 링크를 추가하거나 유지하는 경우 위 "공통: 본문에 링크가
      있으면 링크 확인" 절차를 거친다.
 5. 수정 후 git commit/push는 자동으로 하지 않는다 — 사용자가 직접
