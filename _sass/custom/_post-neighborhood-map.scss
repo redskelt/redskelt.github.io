@@ -210,7 +210,13 @@
   color: var(--color-text-muted);
 }
 
-.post-neighborhood__empty {
+// .post-neighborhood__recommendations li의 `display: grid;
+// grid-template-columns: 28px minmax(0, 1fr)`는 카드 항목(rank원 + 본문)용
+// 레이아웃이다. 폴백 메시지는 자식 요소 없이 텍스트만 있어서 첫 28px 칸에
+// 통째로 들어가 세로로 잘게 줄바꿈되는 버그가 있었다 — display: block으로
+// 되돌려 카드 폭 전체를 쓰게 한다. (셀렉터에 `li`를 붙여 특이도를 맞춤)
+.post-neighborhood__recommendations li.post-neighborhood__empty {
+  display: block;
   color: var(--color-text-muted);
   font-size: 0.84rem;
 }
