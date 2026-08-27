@@ -1,5 +1,18 @@
 _site*
 .sass-cache
+.jekyll-cache/
 .jekyll-metadata
 *backup/
 .DS_Store
+
+# 로컬 bundler 설정/vendor (bundle config set --local path 등 쓸 때 생김)
+.bundle/
+vendor/bundle/
+
+# 에디터
+.vscode/
+.idea/
+
+# 로컬에서만 필요한 비밀값 (현재 저장소는 안 씀, 방어적으로 추가)
+.env
+.env.local
