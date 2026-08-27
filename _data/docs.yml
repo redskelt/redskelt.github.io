@@ -1,0 +1,16 @@
+# Metadata for Doc Groups (see ddocs/00_doc_intro.md for the accordion
+# that renders this). Empty for now — Docs 콘텐츠는 나중에 채운다.
+#
+# 채울 때 형식 (vendor 원본 스키마 그대로):
+#   meta:
+#     <doc_id>:
+#       title: "..."
+#       description: "..."
+#       cover: "/assets/images/docs/....jpg"   # 선택
+#       group: <_data/category_hierarchy.yml의 key 중 하나>
+#   <doc_id>:                                   # meta와 같은 레벨의 최상위 키
+#     - title: "섹션 제목"
+#       children:
+#         - title: "챕터 제목"
+#           url: "/포스트-URL/"
+meta: {}

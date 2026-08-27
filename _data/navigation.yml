@@ -6,6 +6,8 @@ main:
     url: /categories/
   - title: "Archive"
     url: /year-archive/
+  - title: "Docs"
+    url: /docs/intro/
   - title: "Series"
     url: /series/
   - title: "Orbit"
