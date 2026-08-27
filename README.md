@@ -2,6 +2,13 @@
 
 [redskelt.github.io](https://redskelt.github.io) — [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) 테마를 fork-and-customize(vendored) 방식으로 커스터마이징한 개인 블로그.
 
+## Credits
+
+이 저장소의 사이드바 터미널 UI, orbit/series/category-hierarchy 뷰, "reading
+compass"(관련 글 추천) 등 `_sass/custom/`·`assets/js/custom/`의 커스텀
+레이어는 [whdrns2013/whdrns2013.github.io](https://github.com/whdrns2013/whdrns2013.github.io)의
+커스터마이징을 그대로 가져와 콘텐츠만 이 블로그에 맞게 바꾼 것이다.
+
 ## 스택
 
 - Jekyll 4.x (Ruby 3.3.0)
@@ -70,5 +77,4 @@ tags: [tag1, tag2]
 ## 참고
 
 - 테마 문서: [Minimal Mistakes 문서](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/)
-- 참조한 테마 커스터마이징 원본: [whdrns2013/whdrns2013.github.io](https://github.com/whdrns2013/whdrns2013.github.io)
 - 마이그레이션 기록: `docs/superpowers/specs/`, `docs/superpowers/plans/` (2026-08 chirpy 도입 → 2026-08 Minimal Mistakes 전환, 총 2건)
