@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var rows = Array.prototype.slice.call(document.querySelectorAll('.post-card--list[data-category]'));
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.post-card--list[data-categories], .post-card--list[data-category]'));
   var years = Array.prototype.slice.call(document.querySelectorAll('.archive-year'));
   var indicator = document.getElementById('archive-active-filter');
   var indicatorName = document.getElementById('archive-active-filter-name');
@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!category) return;
 
   rows.forEach(function (row) {
-    var match = row.getAttribute('data-category') === category;
+    var categories = row.getAttribute('data-categories') || ('|' + (row.getAttribute('data-category') || '') + '|');
+    var match = categories.indexOf('|' + category + '|') !== -1;
     row.parentElement.style.display = match ? '' : 'none';
   });
 

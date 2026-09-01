@@ -8,7 +8,8 @@ author_profile: true
 기술 이야기를 벗어난 짧은 일상 기록입니다.
 
 <div class="diary-timeline">
-  {% for post in site.categories.diary reversed %}
+  {% assign diary_posts = site.categories.Life | default: site.categories.diary | default: site.categories.Diary %}
+  {% for post in diary_posts reversed %}
     {% assign stripped_excerpt = post.excerpt | newline_to_br | replace: "<br />", " " | replace: "</p>", " " | strip_html | strip_newlines | strip %}
     {% if stripped_excerpt != empty %}
       {% assign entry_text = stripped_excerpt | truncate: 200 %}
