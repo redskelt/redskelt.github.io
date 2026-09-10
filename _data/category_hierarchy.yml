@@ -29,3 +29,13 @@
   categories:
     - name: Life
       sub_title: 일상 기록
+
+- key: ai
+  main_title: AI
+  sub_title: 인공지능 & LLM
+  categories:
+    - name: AI
+      sub_title: 인공지능 엔지니어링
+    - name: OpenWebUI
+      sub_title: 자립형 AI 플랫폼
+

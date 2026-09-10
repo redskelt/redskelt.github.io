@@ -1,3 +1,7 @@
 junit:
   title: "jUnit과 Mockito를 이용한 단위테스트 기초"
   description: "단위 테스트의 개념부터 Mockito 활용, 테스트 커버리지까지 다루는 5부작 시리즈"
+
+openwebui:
+  title: "Open WebUI 실무 완벽 가이드"
+  description: "아키텍처 배포부터 Task Model 최적화, 엔터프라이즈 RAG, Open Terminal 에이전트까지 다루는 4부작 시리즈"
