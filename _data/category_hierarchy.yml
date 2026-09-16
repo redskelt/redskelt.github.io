@@ -39,3 +39,10 @@
     - name: OpenWebUI
       sub_title: 자립형 AI 플랫폼
 
+- key: trending
+  main_title: Trending
+  sub_title: 유튜브 AI 트렌드 큐레이션
+  categories:
+    - name: Trending
+      sub_title: 주간 AI 에이전트/스킬 트렌딩 큐레이션
+

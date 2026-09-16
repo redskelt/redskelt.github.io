@@ -16,3 +16,27 @@ vendor/bundle/
 # 로컬에서만 필요한 비밀값 (현재 저장소는 안 씀, 방어적으로 추가)
 .env
 .env.local
+
+# graft 인덱스
+.graft/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+.ignore
+
+# 로컬 스크립트 산출물 (유튜브 트렌딩 리포트/로그)
+/var/
+
+# 개인 AI 툴 설정 (기기별 MCP/에이전트 설정, 팀 공유 대상 아님)
+.mcp.json
+opencode.json
+.claude/
+
+# 개인 자동화 스크립트 (레포 미포함)
+/scripts/
+
+# 개인 작업 메모/문서 (레포 오염 방지)
+/docs/
+
+# 개인 에이전트 지침 파일
+/AGENTS.md
