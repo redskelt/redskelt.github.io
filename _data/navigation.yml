@@ -10,6 +10,8 @@ main:
     url: /docs/intro/
   - title: "Series"
     url: /series/
+  - title: "Trending"
+    url: /trending/
   - title: "Orbit"
     url: /orbit/
   - title: "Diary"
