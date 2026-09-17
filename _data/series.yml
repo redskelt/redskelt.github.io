@@ -5,3 +5,7 @@ junit:
 openwebui:
   title: "Open WebUI 실무 완벽 가이드"
   description: "아키텍처 배포부터 Task Model 최적화, 엔터프라이즈 RAG, Open Terminal 에이전트까지 다루는 4부작 시리즈"
+
+orca:
+  title: "Orca IDE 기능 완전 정복"
+  description: "worktree 기반 병렬 에이전트 운영부터 Diff 리뷰, Computer Use, 모바일 컴패니언, Git/CLI 오케스트레이션까지 파헤치는 6부작 시리즈"
