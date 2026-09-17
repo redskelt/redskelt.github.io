@@ -1,7 +1,7 @@
 ---
 title: "ego-browser(ego lite) 공식 문서로 보는 Space, 지원 에이전트, 실전 활용법"
 date: 2026-09-16 10:31:26 +0900
-categories: [AI]
+categories: [AI, Trending]
 tags: [ego-browser, 브라우저자동화, AI에이전트, 문서]
 ---
 
