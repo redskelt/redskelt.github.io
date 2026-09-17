@@ -1,6 +1,6 @@
 ---
 title: "Orca 파헤치기 1편 - Worktree 네이티브 구조와 설치"
-date: 2026-09-17 11:00:00 +0900
+date: 2026-09-17 09:00:00 +0900
 categories: [AI, Trending]
 tags: [Orca, git worktree, AI에이전트, 개발환경]
 series: orca
