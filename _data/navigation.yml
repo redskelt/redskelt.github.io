@@ -4,8 +4,8 @@ main:
     url: /
   - title: "Categories"
     url: /categories/
-  - title: "Archive"
-    url: /year-archive/
+  - title: "Posts"
+    url: /posts/
   - title: "Docs"
     url: /docs/intro/
   - title: "Series"

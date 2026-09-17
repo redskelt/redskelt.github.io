@@ -27,7 +27,7 @@ layout: archive
             {% assign category_sub_title = category_item.sub_title %}
             {% assign category_posts = site.categories[category_name] %}
             {% if category_posts %}
-              <a id="{{ category_name | slugify }}" href="{{ '/year-archive/' | relative_url }}?category={{ category_name | slugify }}" class="category-card">
+              <a id="{{ category_name | slugify }}" href="{{ '/posts/' | relative_url }}?category={{ category_name | slugify }}" class="category-card">
                 <span class="category-card__name"><span class="category-card__bullet" aria-hidden="true"></span>{{ category_name }}</span>
                 {% if category_sub_title %}<span class="category-card__desc">{{ category_sub_title }}</span>{% endif %}
                 <span class="category-card__count">{{ category_posts.size }} posts</span>
