@@ -1,6 +1,6 @@
 ---
 title: "Orca 파헤치기 4편 - Computer Use, 데스크톱 앱까지 만지는 에이전트"
-date: 2026-09-17 11:15:00 +0900
+date: 2026-09-17 09:03:00 +0900
 categories: [AI, Trending]
 tags: [Orca, ComputerUse, 데스크톱자동화, AI에이전트]
 series: orca

@@ -1,6 +1,6 @@
 ---
 title: "Orca 파헤치기 6편(완) - GitHub 연동, CLI, 그리고 Orchestration"
-date: 2026-09-17 11:25:00 +0900
+date: 2026-09-17 09:05:00 +0900
 categories: [AI, Trending]
 tags: [Orca, GitHub, OrcaCLI, Orchestration, SSH]
 series: orca
