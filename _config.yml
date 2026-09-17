@@ -33,7 +33,10 @@ lunr:
   search_within_pages    : true
 
 analytics:
-  provider               : false
+  provider               : "google-gtag"
+  google:
+    tracking_id          : "G-D5L6N31MB4"
+    anonymize_ip         : false
 
 author:
   name             : "redskelt"
