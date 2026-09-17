@@ -164,3 +164,4 @@ after_footer_scripts:
   - /assets/js/custom/toc-scrollspy.js
   - /assets/js/custom/search-overlay.js
   - /assets/js/custom/docs-deeplink.js
+  - /assets/js/custom/nav-integrity-guard.js
