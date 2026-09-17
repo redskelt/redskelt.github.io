@@ -48,7 +48,7 @@ tags: [tag1, tag2]
 ---
 ```
 
-`layout`(single), `permalink`, `author_profile`, `comments`, `toc` 등은 `_config.yml`의 `defaults`가 자동으로 지정하므로 front matter에 따로 안 써도 된다. 수식(MathJax)은 전역으로 항상 로드되므로(`_includes/scripts.html`) 옵트인 필드가 필요 없다.
+`layout`(single), `permalink`, `author_profile`, `comments`, `toc` 등은 `_config.yml`의 `defaults`가 자동으로 지정하므로 front matter에 따로 안 써도 된다. 수식(MathJax)은 모든 페이지 로드 시 순간적으로 "Loading [MathJax]..." 메시지가 노출되는 문제 때문에 전역 로드를 끄고 `front matter`에 `mathjax: true`가 있는 글에서만 로드하도록 바꿨다(`_includes/scripts.html`) — LaTeX 수식(`$...$`, `$$...$$`)을 쓰는 글이면 반드시 이 필드를 추가해야 한다.
 
 `categories:`에 쓰는 이름은 `_data/category_hierarchy.yml`에 leaf로 등록되어 있어야 `/categories/` 페이지 그룹 뷰에 나타난다 — 등록 안 된 이름을 써도 포스트 자체는 정상 렌더링되지만 그 페이지에서는 조용히 빠지므로, 새 카테고리를 쓸 땐 이 파일에도 함께 추가해야 한다.
 
