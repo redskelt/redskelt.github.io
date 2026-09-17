@@ -7,7 +7,7 @@ series: orca
 series_index: 1
 ---
 
-[지난 리뷰 글](/ai/orca-ide-review/)에서 Orca를 "클로드 코드·코덱스 같은 에이전트를 병렬로 굴리는 IDE"로 소개했습니다. 이번 시리즈에서는 [공식 문서](https://www.onorca.dev/docs)를 기준으로 기능 하나하나를 깊게 파고듭니다. 1편은 Orca 전체를 떠받치는 뼈대인 **worktree**입니다.
+[지난 리뷰 글](/ai/trending/orca-ide-review/)에서 Orca를 "클로드 코드·코덱스 같은 에이전트를 병렬로 굴리는 IDE"로 소개했습니다. 이번 시리즈에서는 [공식 문서](https://www.onorca.dev/docs)를 기준으로 기능 하나하나를 깊게 파고듭니다. 1편은 Orca 전체를 떠받치는 뼈대인 **worktree**입니다.
 
 ![Orca 메인 화면 — 왼쪽 사이드바에 worktree별로 프로젝트가 나뉘어 있다](/assets/img/posts/orca-ide-review/main-ui-worktrees.png)
 _왼쪽 사이드바의 `debug-w1`, `debug-w2`처럼 같은 저장소 안에서도 작업마다 별도 worktree가 생성된다._
