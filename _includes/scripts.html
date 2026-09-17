@@ -29,11 +29,9 @@
 
 
 <!-- custom : 이하는 Latex Math 를 활성화하기 위해 추가함 -->
-
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
-</script>
-
+<!-- front matter에 mathjax: true 가 있는 글에서만 로드 (전역 로드 시 매 페이지
+     좌측 하단에 "Loading [MathJax]..." 메시지가 순간 노출되는 문제 방지) -->
+{% if page.mathjax %}
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     extensions: ["tex2jax.js"],
@@ -43,6 +41,12 @@
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
     },
-    "HTML-CSS": { availableFonts: ["TeX"] }
+    "HTML-CSS": { availableFonts: ["TeX"] },
+    messageStyle: "none"
   });
 </script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+{% endif %}

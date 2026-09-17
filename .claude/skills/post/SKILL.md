@@ -69,9 +69,11 @@ grep -n "name:" _data/category_hierarchy.yml
 1. 제목을 물어본다 (필수).
 2. 카테고리를 물어본다 — 위 "공통: 카테고리는 `_data/category_hierarchy.yml`의
    leaf여야 함" 절차를 거친다.
-3. 태그(선택)를 물어본다. 수식(MathJax)은 이 테마에서 전역으로 항상
-   로드되므로 (`_includes/scripts.html`) front matter 옵트인이 필요
-   없다 — 물어볼 필요 없음.
+3. 태그(선택)를 물어본다. LaTeX 수식(`$...$`, `$$...$$`)을 쓰는 글이면
+   front matter에 `mathjax: true`를 추가한다 — MathJax는 모든 페이지
+   로딩 시 순간 노출되는 메시지 문제 때문에 전역 로드가 아니라
+   `mathjax: true`가 있는 글에서만 로드되도록 되어 있다
+   (`_includes/scripts.html`). 수식을 안 쓰면 이 필드 자체를 넣지 않는다.
 4. 파일명용 slug를 정한다:
    - 제목이 영문이면 kebab-case로 자동 생성해서 제안하고 확인만 받는다.
    - 제목이 한글이거나 특수문자가 많으면 영문 slug를 따로 물어본다.
@@ -86,6 +88,7 @@ grep -n "name:" _data/category_hierarchy.yml
    date: YYYY-MM-DD HH:MM:SS +0900
    categories: [Category, Subcategory]
    tags: [tag1, tag2]   # 태그 없으면 이 줄 생략
+   mathjax: true        # LaTeX 수식 쓸 때만, 아니면 이 줄 생략
    ---
    ```
 
