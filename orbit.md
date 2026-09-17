@@ -83,7 +83,7 @@ excerpt: "카테고리, 시리즈, 태그, 포스트를 중심 궤도로 탐색�
         "subtitle": {{ group.sub_title | jsonify }},
         "categories": [
           {% for category in group.categories %}
-            {% capture category_url %}{{ '/year-archive/' | relative_url }}?category={{ category.name | slugify }}{% endcapture %}
+            {% capture category_url %}{{ '/posts/' | relative_url }}?category={{ category.name | slugify }}{% endcapture %}
             {
               "name": {{ category.name | jsonify }},
               "subtitle": {{ category.sub_title | jsonify }},

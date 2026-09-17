@@ -65,7 +65,7 @@ tags: [tag1, tag2]
 
 ## 페이지 구조
 
-- `category-archive.md`, `year-archive.md`, `series-archive.md`, `tag-archive.md`, `orbit.md`, `diary.md`, `ddocs/00_doc_intro.md` — 루트 커스텀 콘텐츠 페이지 (사이드바 상단 네비게이션에서 연결)
+- `category-archive.md`, `posts.md`(`/posts/`), `series-archive.md`, `tag-archive.md`, `orbit.md`, `diary.md`, `ddocs/00_doc_intro.md` — 루트 커스텀 콘텐츠 페이지 (사이드바 상단 네비게이션에서 연결)
 - `_data/navigation.yml` — 상단 네비게이션 메뉴 구성
 - `_data/category_hierarchy.yml` — `/categories/` 그룹핑 정의 (그룹 key/main_title/sub_title + leaf `categories[].name`)
 - `_data/docs.yml` — Docs 아코디언 메타데이터 (`meta:` 현재 비어있음 — 콘텐츠 미채움)

@@ -30,7 +30,7 @@ layout: default
         <div class="page__meta-row">
           {% assign page_category = page.categories | first %}
           {% if page_category %}
-            <a href="{{ '/year-archive/' | relative_url }}?category={{ page_category | slugify }}" class="post-card__chip page__category-chip">{{ page_category }}</a>
+            <a href="{{ '/posts/' | relative_url }}?category={{ page_category | slugify }}" class="post-card__chip page__category-chip">{{ page_category }}</a>
           {% endif %}
           {% include page__meta.html %}
         </div>
