@@ -168,3 +168,4 @@ after_footer_scripts:
   - /assets/js/custom/search-overlay.js
   - /assets/js/custom/docs-deeplink.js
   - /assets/js/custom/nav-integrity-guard.js
+  - /assets/js/custom/image-zoom.js
