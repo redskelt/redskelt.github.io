@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-4);
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: #050608;
 
   &.is--visible {
     display: flex;
@@ -24,6 +24,7 @@
   &__img {
     max-width: 90vw;
     max-height: 85vh;
+    object-fit: contain;
     border-radius: var(--radius-card);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     cursor: zoom-out;
@@ -57,6 +58,7 @@
   }
 }
 
+html.image-zoom-lock,
 body.image-zoom-lock {
   overflow: hidden;
 }
