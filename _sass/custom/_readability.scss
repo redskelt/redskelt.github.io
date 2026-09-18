@@ -416,7 +416,10 @@
     }
 
     .page__content table {
-      display: block;
+      /* display: block here breaks the table formatting context (rows
+         stack vertically instead of scrolling as columns) — keep
+         display: table and let overflow-x scroll the table itself. */
+      display: table;
       max-width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
