@@ -414,5 +414,12 @@
     .page__title {
       font-size: 1.65rem;
     }
+
+    .page__content table {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 }
