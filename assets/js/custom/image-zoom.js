@@ -13,19 +13,39 @@
     return el;
   }
 
+  function fitToViewport(target) {
+    var naturalW = target.naturalWidth;
+    var naturalH = target.naturalHeight;
+    if (!naturalW || !naturalH) return;
+    var maxW = window.innerWidth * 0.9;
+    var maxH = window.innerHeight * 0.85;
+    var scale = Math.min(maxW / naturalW, maxH / naturalH);
+    target.style.width = Math.round(naturalW * scale) + 'px';
+    target.style.height = Math.round(naturalH * scale) + 'px';
+  }
+
   function openOverlay(img) {
     if (!overlay) overlay = buildOverlay();
     var target = overlay.querySelector('.image-zoom-overlay__img');
     var caption = overlay.querySelector('.image-zoom-overlay__caption');
+    target.style.width = '';
+    target.style.height = '';
     target.src = img.currentSrc || img.src;
     target.alt = img.alt || '';
     caption.textContent = img.alt || '';
+    if (target.complete && target.naturalWidth) {
+      fitToViewport(target);
+    } else {
+      target.onload = function () { fitToViewport(target); };
+    }
     overlay.classList.add('is--visible');
+    document.documentElement.classList.add('image-zoom-lock');
     document.body.classList.add('image-zoom-lock');
   }
 
   function closeOverlay() {
     if (overlay) overlay.classList.remove('is--visible');
+    document.documentElement.classList.remove('image-zoom-lock');
     document.body.classList.remove('image-zoom-lock');
   }
 
@@ -50,6 +70,11 @@
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeOverlay();
+    });
+
+    window.addEventListener('resize', function () {
+      if (!overlay || !overlay.classList.contains('is--visible')) return;
+      fitToViewport(overlay.querySelector('.image-zoom-overlay__img'));
     });
   });
 })();
