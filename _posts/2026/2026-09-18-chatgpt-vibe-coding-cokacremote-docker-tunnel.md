@@ -23,7 +23,9 @@ ChatGPT가 내 컴퓨터에서 명령을 실행하고, 코드를 편집하고, �
 그래서 이번 구성의 핵심은 두 가지다.
 
 - **진짜 컴퓨터 대신 그 안의 가상 컴퓨터(Docker 컨테이너)에 문을 연다.** cokacremote가 뭘 하든 컨테이너 밖으로는 못 나가게 막는다.
-- **네트워크를 직접 여는 대신 Cloudflare Tunnel이라는 비교적 안전한 터널로 연결한다.** 방화벽에 포트를 뚫을 필요가 없다.
+- **네트워크를 직접 여는 대신 터널 서비스로 연결한다.** 방화벽에 포트를 뚫을 필요가 없다.
+
+터널 서비스는 이 글에서 **Cloudflare Tunnel** 기준으로 설명한다. 이미 도메인이 있거나 Cloudflare를 쓰고 있다면 이 방법이 편하다. 도메인 없이 계정 하나로 바로 시작하고 싶다면, 글 후반의 [번외: Cloudflare 대신 Tailscale Funnel 쓰기](#번외-cloudflare-대신-tailscale-funnel-쓰기)로 건너뛰어도 된다.
 
 ## 준비물
 
@@ -121,6 +123,67 @@ ChatGPT가 내 컴퓨터에서 명령을 실행하고, 코드를 편집하고, �
 **폴더 변화를 실시간으로 반영하는 갤러리 만들기**
 
 공유 폴더 안에 이미지 폴더를 만들고 사진 몇 장을 넣어둔 뒤, "이 폴더의 사진을 갤러리 형태로 보여주는 페이지를 만들어줘. 폴더에 사진이 추가되면 바로 반영되게 해줘"라고 요청할 수 있다. 처음엔 새로고침해야 반영되는 문제가 있을 수 있는데, "실시간 반영이 안 된다"고 알려주면 다시 고쳐준다. 화면 캡처를 첨부해서 "여기가 이상해"라고 짚어주는 방식도 잘 통한다.
+
+## 번외: Cloudflare 대신 Tailscale Funnel 쓰기
+
+도메인을 사거나 네임서버를 옮기는 과정이 번거롭다면, [Tailscale](https://tailscale.com/)의 **Funnel** 기능으로 대체할 수 있다. Tailscale 계정만 있으면 되고, 도메인 구매 없이 `기기이름.타일넷이름.ts.net` 형태의 무료 HTTPS 주소가 바로 생긴다.
+
+![Tailscale 공식 문서 — Tailscale Funnel 개요. "인터넷 전체에서 타일넷 안의 로컬 서비스로 트래픽을 라우팅한다"](/assets/img/posts/chatgpt-vibe-coding-cokacremote/tailscale-funnel-docs.png)
+
+> Tailscale은 원래 내 기기들끼리만 연결하는 **사설 네트워크(VPN)**다. 그 상태로는 ChatGPT 같은 외부 서비스가 들어올 수 없다. **Funnel**은 그 사설 네트워크 중 지정한 포트 하나만 인터넷에 공개로 열어주는 별도 기능이다 — 이 글에서 필요한 게 바로 이것이다.
+
+### 준비물 (Cloudflare 방식 대신)
+
+- 도메인 주소 — **필요 없음**
+- [Tailscale](https://tailscale.com/) 계정 (무료)
+- [Docker](https://www.docker.com/)
+- ChatGPT 개발자 모드
+
+### 1. 내 컴퓨터에 Tailscale 설치
+
+1. [Tailscale](https://tailscale.com/download)에서 내 OS용 앱을 받아 설치하고, 계정으로 로그인한다.
+2. 로그인이 끝나면 이 컴퓨터가 하나의 "노드"로 내 타일넷(tailnet)에 등록된다. Tailscale 관리 콘솔에서 이 기기 이름과 타일넷 이름을 확인해둔다 (예: `내맥북.tailxxxx.ts.net`).
+
+### 2. cokacremote Docker 컨테이너 준비
+
+3단계까지는 앞서 Cloudflare 방식과 거의 같다. 다만 컨테이너 설정 파일을 채울 때 **Cloudflare Tunnel Token 항목은 비워둔다** — Tailscale Funnel은 Cloudflare cloudflared 데몬을 쓰지 않고, 호스트에서 직접 포트를 공개하기 때문이다. **MCP Public URL**과 **Shared Path**는 그대로 채우되, MCP Public URL에는 아직 모르는 도메인 대신 임시로 `localhost`를 넣어뒀다가 3단계에서 실제 Funnel 주소로 나중에 바꿔도 된다.
+
+컨테이너를 실행하면 앞서와 동일하게 컨테이너 안의 Nginx가 `localhost:2999`에서 요청을 기다린다.
+
+### 3. Funnel로 포트 공개하기
+
+터미널에서 다음 명령 하나만 실행하면 된다.
+
+```bash
+tailscale funnel 2999
+```
+
+몇 초 뒤 다음과 비슷한 안내가 나오면서 공개 HTTPS 주소가 발급된다.
+
+```
+Available on the internet:
+
+https://내맥북.tailxxxx.ts.net/
+|-- proxy http://127.0.0.1:2999
+
+Press Ctrl+C to exit.
+```
+
+이 `https://내맥북.tailxxxx.ts.net/` 주소가 곧 MCP 서버 URL이다. 터미널을 계속 열어둬야 Funnel이 유지되므로, 자꾸 쓸 거라면 `tailscale funnel --bg 2999`로 백그라운드에 띄워두는 게 편하다.
+
+### 4. ChatGPT에 연결
+
+5단계와 동일하게 ChatGPT 커넥터 설정으로 들어가서, MCP 서버 URL에 방금 발급받은 `https://내맥북.tailxxxx.ts.net` 주소를 입력하면 끝이다. 나머지 인증·사용 절차는 Cloudflare 방식과 완전히 같다.
+
+### Cloudflare Tunnel vs Tailscale Funnel
+
+| | Cloudflare Tunnel | Tailscale Funnel |
+|---|---|---|
+| 도메인 | 필요 (직접 소유한 도메인) | 불필요 (`*.ts.net` 무료 제공) |
+| 초기 설정 | 네임서버 이전 등 절차가 김 | 앱 설치 + 로그인 + 명령어 한 줄로 끝 |
+| 커스텀 도메인 | 가능 | 불가 (`ts.net` 서브도메인 고정) |
+| 상태 | 정식 서비스 | 베타 (포트 443/8443/10000만 지원, 대역폭 제한) |
+| 이런 경우에 | 이미 도메인/Cloudflare가 있을 때, 오래 운영할 서비스 | 지금 당장 빨리 테스트해보고 싶을 때 |
 
 ## 정리
 
