@@ -64,6 +64,26 @@ grep -n "name:" _data/category_hierarchy.yml
 - 이 확인은 "작성" 6번, "수정"에서 본문에 링크를 추가/유지할 때 항상
   거친다.
 
+## 공통: 스크린샷 필수, 유튜브는 임베드
+
+**포스트 작성 시 관련 스크린샷은 항상 넣는다.** 텍스트만 있는 포스트는 안 됨 — 설치 화면, 공식 문서, UI, 비교표 등 본문에서 언급하는 대상마다 최소 1장은 스크린샷으로 보여준다. 캡처는 `/ego-browser` 스킬로 직접 뜬다.
+
+- **캡처 해상도: 최소 1342×751**. 사이트 전역에 이미지 클릭 확대(lightbox, `assets/js/custom/image-zoom.js`)가 붙어 있어서, 이보다 작게 찍으면 확대했을 때 뿌옇게 나온다. CDP `Emulation.setDeviceMetricsOverride`로 뷰포트를 `{ width: 1342, height: 751 }` 이상(세로로 긴 내용이면 height만 키움)으로 설정한 뒤 캡처한다. 작게 찍고 나중에 리사이즈로 키우지 말 것 — 원본 해상도 이상은 절대 못 올라간다.
+- **저장 위치**: `assets/img/posts/<post-slug>/<name>.png`, 마크다운은 `![대체텍스트](/assets/img/posts/<slug>/<name>.png)` 형식.
+- **개인정보/계정 노출 주의**: 가능하면 로그인 없는 공개 페이지(공식 문서, GitHub 저장소, 마케팅 페이지)를 캡처한다. 로그인된 자신의 계정 화면(이메일, 개인 도메인 등)이 찍히는 건 피한다.
+- **참고 영상이 있으면 실제 화면을 프레임으로 뜬다**: 그냥 문서 스샷보다, 언급하는 장면이 담긴 유튜브 영상의 실제 프레임을 캡처하는 게 더 정확하다. 방법:
+  1. `page.evaluate()`로 `document.getElementById('movie_player').setPlaybackQualityRange('hd1080','hd1080')` 호출해서 720p가 아니라 1080p 소스로 강제.
+  2. 영상 자막(vtt)을 `yt-dlp --write-auto-sub`로 받아서 원하는 장면의 정확한 타임스탬프를 먼저 찾는다 (없이 감으로 초를 찍으면 광고/다른 장면이 걸릴 수 있음).
+  3. `video.currentTime = t` 후 `pause()`, `video.getBoundingClientRect()`로 clip 영역 잡아서 스크린샷.
+  4. 화면 하단에 자막이 타서 들어가 있으면(재생바+캡션) 그 부분만 잘라내고 저장.
+- **유튜브 영상은 링크가 아니라 임베드로 넣는다.** `[제목](https://youtube.com/watch?v=ID)` 식 마크다운 링크 금지. 이 테마의 임베드 문법을 쓴다:
+
+  ```
+  {% include video id="VIDEO_ID" provider="youtube" %}
+  ```
+
+  영상 소개 문구는 그 위에 인용구(`>`)나 평문으로 짧게 남기고, 링크 자체는 임베드가 대신한다.
+
 ## 작성
 
 1. 제목을 물어본다 (필수).
@@ -95,8 +115,8 @@ grep -n "name:" _data/category_hierarchy.yml
    `layout`(single), `permalink`, `author_profile`, `comments`, `toc`,
    `toc_sticky`, `read_time`, `share`, `related` 등은 `_config.yml`의
    `defaults`가 자동으로 채우므로 넣지 않는다. 사용자가 본문 내용을 미리
-   줬으면 그대로 채우되, 위 "공통: 본문에 링크가 있으면 링크 확인"
-   절차를 거친다.
+   줬으면 그대로 채우되, 위 "공통: 본문에 링크가 있으면 링크 확인",
+   "공통: 스크린샷 필수, 유튜브는 임베드" 절차를 거친다.
 7. 생성한 파일 경로를 알려주고, `_data/category_hierarchy.yml`을 새로
    고쳤다면 그것도 함께 알려주고 끝낸다. git add/commit/push는 하지
    않는다 — 사용자가 본문을 쓰고 나서 직접 커밋한다.
