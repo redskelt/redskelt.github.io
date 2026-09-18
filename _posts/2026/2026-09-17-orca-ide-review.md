@@ -27,7 +27,7 @@ _onorca.dev/docs — "Orca is a desktop IDE for running multiple AI coding agent
 영상에서 실제로 켜서 보여주는 화면은 왼쪽에 프로젝트별 worktree 목록(`orca-demo`, `debug-w1`, `debug-w2`...), 가운데에 코드 diff와 클로드 코드 터미널, 오른쪽에 **Agent Session History**가 나란히 떠 있는 구조입니다.
 
 ![Orca 메인 화면 — 왼쪽 worktree 사이드바, 가운데 코드/터미널, 오른쪽 에이전트 세션 히스토리](/assets/img/posts/orca-ide-review/main-ui-worktrees.png)
-_영상 약 0:15(광고 제외 실제 재생 기준) — `Friction.tsx` 수정 내역과 `claude` 셸 명령 실행 로그가 동시에 보인다._
+_영상 약 0:15(광고 제외 실제 재생 기준) — `CopyChip.tsx` 수정 내역과 세션 히스토리가 동시에 보인다._
 
 같은 프로젝트 안에서 `debug-w1`, `debug-w2`처럼 worktree를 분기해 같은 버그를 여러 에이전트에게 동시에 맡기고, 오른쪽 세션 히스토리에서 각 세션이 몇 %의 토큰/시간을 썼는지, 어떤 파일을 건드렸는지 되짚어볼 수 있습니다. 공식 문서의 "Race three agents on the same task"(같은 작업에 에이전트 세 개를 붙이고 이긴 놈 고르기) 레시피가 바로 이 화면입니다.
 
@@ -54,10 +54,10 @@ _영상 약 4:40 — 권한을 켜면 에이전트가 로컬 앱 창을 인식�
 
 ### 모바일에서도 worktree를 지켜본다 — Work on-the-go
 
-랩탑을 떠나 있어도 **Orca Mobile**(iOS/Android)로 실행 중인 worktree와 에이전트 상태를 확인할 수 있습니다. 영상에서는 맥북 화면 옆에 아이폰 목업이 뜨면서 `feature/mobile-pp` 같은 worktree 목록과 각 에이전트의 진행 상태가 동기화되는 걸 보여줍니다.
+랩탑을 떠나 있어도 **Orca Mobile**(iOS/Android)로 실행 중인 worktree와 에이전트 상태를 확인할 수 있습니다. 영상에서는 맥북 화면 옆에 아이폰 목업이 뜨면서 `feat/mobile-page` 같은 worktree 목록과 각 에이전트의 진행 상태가 동기화되는 걸 보여줍니다.
 
 ![맥북 옆에 뜬 아이폰 — 실행 중인 worktree 목록과 에이전트 상태가 모바일에서도 보인다](/assets/img/posts/orca-ide-review/mobile-work-on-the-go.png)
-_영상 약 2:00 — GitHub 체크 실패를 고치는 세션을 모바일에서 그대로 확인하는 장면._
+_영상 약 2:50 — onorca.dev의 "Mobile Companion" 소개 화면. 아이폰 목업 안에 `feat/mobile-page`, `runtime/web-pairing` 같은 worktree 목록이 실시간으로 동기화된다._
 
 리뷰 사이트들이 공통으로 지적하는 약점도 이 모바일 컴패니언입니다. [Volanea 리뷰](https://www.volanea.com/blog/orca-ai-coding-agents)와 [aiidelist 리뷰](https://aiidelist.com/ide/orca-ai)는 모바일 앱이 "가끔 버그가 있다(occasionally buggy)"고 언급합니다.
 
