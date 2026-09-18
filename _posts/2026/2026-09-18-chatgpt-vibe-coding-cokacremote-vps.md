@@ -16,7 +16,9 @@ Codex 같은 AI 코딩 에이전트는 내 컴퓨터에서 직접 실행되기 �
 - **1편(이 글)**: VPS 같은 클라우드 컴퓨터에 cokacremote를 설치하고 ChatGPT와 연결해서 실제로 바이브 코딩을 해본다.
 - **2편**: 클라우드 컴퓨터 대신 **내가 쓰는 PC**를 Docker + Cloudflare Tunnel로 안전하게 열어서 같은 걸 해본다.
 
-> 참고 영상: [챗GPT 알뜰하게 본전 뽑는 방법 | 바이브코딩](https://www.youtube.com/watch?v=dKQQs-z_E64) (코드 깎는 노인)
+> 참고 영상: 챗GPT 알뜰하게 본전 뽑는 방법 | 바이브코딩 (코드 깎는 노인)
+
+{% include video id="dKQQs-z_E64" provider="youtube" %}
 
 ## 왜 굳이 이렇게까지 하나
 
@@ -77,7 +79,7 @@ Node.js 22 이상이 필요하고, 기본 포트는 3000이다. 프로덕션에�
 
 ## 2단계: ChatGPT에 MCP 서버 연결하기
 
-![OpenAI 공식 도움말의 "Apps in ChatGPT" 문서 — 외부 도구/커넥터를 ChatGPT에 연결하는 방법을 안내한다](/assets/img/posts/chatgpt-vibe-coding-cokacremote/chatgpt-apps-connectors.png)
+![ChatGPT 커넥터 추가 화면 — 이름에 cokacremote, 연결에 MCP 서버 URL을 입력한다](/assets/img/posts/chatgpt-vibe-coding-cokacremote/chatgpt-mcp-connect-vps.png)
 
 1. ChatGPT **설정 → 보안 및 로그인**에서 **개발자 모드**를 켠다.
 2. 왼쪽 메뉴의 **플러그인(커넥터)** 페이지로 들어가서 **+** 버튼을 누른다.

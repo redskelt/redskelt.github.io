@@ -7,7 +7,9 @@ tags: [ChatGPT, MCP, cokacremote, 바이브코딩]
 
 [1편](/ai/chatgpt-vibe-coding-cokacremote-vps/)에서는 VPS 같은 클라우드 컴퓨터에 [cokacremote](https://github.com/kstost/cokacremote) MCP 서버를 설치해서 ChatGPT를 코딩 에이전트처럼 쓰는 방법을 다뤘다. 이번 편에서는 별도 VPS 없이, **지금 내가 쓰고 있는 PC**를 ChatGPT가 다루도록 구성하는 방법을 다룬다.
 
-> 참고 영상: [내 컴퓨터를 ChatGPT 바이브 코딩용으로 여는 방법](https://www.youtube.com/watch?v=xJQ1pbQyMiw) (코드 깎는 노인)
+> 참고 영상: 챗GPT가 내 컴퓨터 상에서 AI 코딩 에이전트로써 작동하게 하는 방법 | 바이브코딩 (코드 깎는 노인)
+
+{% include video id="xJQ1pbQyMiw" provider="youtube" %}
 
 ## 내 PC를 그냥 열면 안 되는 이유
 
@@ -76,7 +78,7 @@ ChatGPT가 내 컴퓨터에서 명령을 실행하고, 코드를 편집하고, �
 
 ## 5단계: ChatGPT에 MCP 서버 연결하기
 
-![OpenAI 공식 도움말의 "Apps in ChatGPT" 문서 — 외부 도구/커넥터를 ChatGPT에 연결하는 방법을 안내한다](/assets/img/posts/chatgpt-vibe-coding-cokacremote/chatgpt-apps-connectors.png)
+![ChatGPT 커넥터 추가 화면 — 이름에 cokacremote, 연결에 MCP 서버 URL을 입력한다](/assets/img/posts/chatgpt-vibe-coding-cokacremote/chatgpt-mcp-connect-docker.png)
 
 1. ChatGPT **설정 → 보안 및 로그인**에서 **개발자 모드**를 켠다.
 2. 왼쪽 **플러그인** 메뉴에서 **+** 버튼을 누른다.
