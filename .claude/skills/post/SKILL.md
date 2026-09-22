@@ -84,11 +84,48 @@ grep -n "name:" _data/category_hierarchy.yml
 
   영상 소개 문구는 그 위에 인용구(`>`)나 평문으로 짧게 남기고, 링크 자체는 임베드가 대신한다.
 
+## 공통: 시리즈 여부, 유튜브 리뷰면 Trending 카테고리
+
+**여러 편으로 나눠 쓰는 포스트(1/N, 2/N ... 같은 제목, 또는 사용자가 "시리즈로
+만들자"고 한 경우)는 `post_url` 상호 링크만으로는 부족하다.** `/series/`
+페이지와 관련 글 추천(orbit)은 `series`/`series_index` front matter와
+`_data/series.yml` 등록 여부로만 시리즈를 인식한다 — 이 필드가 없으면 카테고리
+페이지엔 잡혀도 시리즈 페이지엔 조용히 빠진다.
+
+- front matter에 추가:
+
+  ```yaml
+  series: <series-id>       # kebab-case, 시리즈 전체가 공유하는 고유 id
+  series_index: <N>          # 1부터 시작하는 편 번호
+  ```
+
+- `_data/series.yml`에 그 `<series-id>`가 없으면 새로 추가한다:
+
+  ```yaml
+  <series-id>:
+    title: "<시리즈 전체 제목>"
+    description: "<한 줄 소개 — 몇 부작인지, 무엇을 다루는지>"
+  ```
+
+- 시리즈로 묶을지 애매하면(예: 편이 하나뿐이거나 사용자가 명시하지 않음)
+  사용자에게 물어본다.
+
+**유튜브 영상을 보고 정리/리뷰하는 포스트**는 이 블로그에서 관례적으로
+`categories: [AI, Trending]`을 함께 쓴다(`Trending`은 `/trending/` — 유튜브
+AI 채널 큐레이션 페이지). 상단 nav에는 더 이상 링크가 없지만 페이지 자체는
+살아있고 `_data/category_hierarchy.yml`에도 등록돼 있다. 유튜브 리뷰/정리
+포스트를 쓸 때는 `Trending`을 포함할지 사용자에게 물어본다 — 무조건 넣지는
+않는다(주간 큐레이션 성격이 아닌 글도 있을 수 있음).
+
 ## 작성
 
 1. 제목을 물어본다 (필수).
 2. 카테고리를 물어본다 — 위 "공통: 카테고리는 `_data/category_hierarchy.yml`의
-   leaf여야 함" 절차를 거친다.
+   leaf여야 함" 절차를 거친다. 유튜브 리뷰/정리 글이면 위 "공통: 시리즈 여부,
+   유튜브 리뷰면 Trending 카테고리"에 따라 `Trending` 포함 여부도 물어본다.
+2-1. 여러 편으로 나눠 쓰는 글이면 위 "공통: 시리즈 여부, 유튜브 리뷰면
+   Trending 카테고리" 절차대로 `series`/`series_index`와
+   `_data/series.yml` 등록을 함께 처리한다.
 3. 태그(선택)를 물어본다. LaTeX 수식(`$...$`, `$$...$$`)을 쓰는 글이면
    front matter에 `mathjax: true`를 추가한다 — MathJax는 모든 페이지
    로딩 시 순간 노출되는 메시지 문제 때문에 전역 로드가 아니라

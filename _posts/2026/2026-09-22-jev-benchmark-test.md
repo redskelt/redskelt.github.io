@@ -3,6 +3,8 @@ title: "Jev, 진짜 8배 빠르고 76배 저렴할까? 직접 테스트해봤다
 date: 2026-09-22 21:40:00 +0900
 categories: [AI]
 tags: [Jev, TypeSafe, AI모델, 벤치마크]
+series: jev
+series_index: 2
 ---
 
 Jev 시리즈 두 번째 편입니다. 첫 편([전세계가 주목하는 AI 'Jev', 5분이면 이해합니다]({% post_url 2026/2026-09-22-jev-ai-intro %}))에서 Jev가 무엇인지 살펴봤다면, 이번 편은 코드팩토리가 직접 GPT-5.6 Terra와 나란히 비교 테스트한 ["Jev 진짜 200배 빠르고 400배 저렴한지 테스트 해봤습니다."](https://www.youtube.com/watch?v=GeM9URVnPV8) 영상을 정리했습니다.

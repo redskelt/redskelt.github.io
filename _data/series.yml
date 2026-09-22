@@ -9,3 +9,7 @@ openwebui:
 orca:
   title: "Orca IDE 기능 완전 정복"
   description: "worktree 기반 병렬 에이전트 운영부터 Diff 리뷰, Computer Use, 모바일 컴패니언, Git/CLI 오케스트레이션까지 파헤치는 6부작 시리즈"
+
+jev:
+  title: "TypeSafe Jev 완전 정복"
+  description: "판단 전용 AI 모델 Jev의 개념부터 실측 벤치마크, 내부 구조와 SDK, 활용 시나리오까지 다루는 3부작 시리즈"
