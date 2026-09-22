@@ -5,7 +5,7 @@ categories: [AI]
 tags: [Jev, TypeSafe, AI모델, SDK]
 ---
 
-Jev 시리즈 마지막 편입니다. 1편([전세계가 주목하는 AI 'Jev', 5분이면 이해합니다]({% post_url 2026/2026-09-22-jev-ai-intro %}))에서 개념을, 2편([Jev, 진짜 8배 빠르고 76배 저렴할까?]({% post_url 2026/2026-09-22-jev-benchmark-test %}))에서 실측 성능을 봤다면, 이번 편은 ["드디어 나왔다. 출력 비용 ZERO Jev 모델의 파헤치기"](https://www.youtube.com/watch?v=8Dc4pMhSIE0) 영상을 바탕으로 Jev의 내부 구조와 실제 코드, 그리고 활용 아이디어를 정리했습니다.
+Jev 시리즈 마지막 편입니다. 1편([전세계가 주목하는 AI 'Jev', 5분이면 이해합니다]({% post_url 2026/2026-09-22-jev-ai-intro %}))에서 개념을, 2편([Jev, 진짜 8배 빠르고 76배 저렴할까?]({% post_url 2026/2026-09-22-jev-benchmark-test %}))에서 실측 성능을 봤다면, 이번 편은 유튜브 채널 [찐AI](https://www.youtube.com/@jjin-ai-hj)의 ["출력 비용 ZERO, AI 세계 게임 체인저로 등장한 Jev, 활용법 알아보기"](https://www.youtube.com/watch?v=8Dc4pMhSIE0) 영상을 바탕으로 Jev의 내부 구조와 실제 코드, 그리고 활용 아이디어를 정리했습니다.
 
 {% include video id="8Dc4pMhSIE0" provider="youtube" %}
 
@@ -17,7 +17,7 @@ Jev가 받을 수 있는 질문 유형은 세 가지로 고정돼 있습니다.
 
 - **Choice**: 분석 대상(State)과 질문, 선택지가 주어지면 각 선택지를 고를 확률을 반환
 - **Score**: Choice와 비슷하지만 선택지가 "단순 문의 → 항의 → 강력 항의"처럼 스펙트럼 성격을 가짐
-- **Noel**: 하나의 질문지에 대해 참/거짓(True/False)만 확률로 반환
+- **Noul**: 하나의 질문지에 대해 참/거짓(True/False)만 확률로 반환
 
 사용자가 제시한 선택지 안에서만 고르기 때문에, Jev는 **타입세이프**합니다. 사용자가 주지 않은 다른 답을 낼 확률이 애초에 없다는 뜻입니다.
 
