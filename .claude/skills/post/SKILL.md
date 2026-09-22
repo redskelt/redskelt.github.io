@@ -117,6 +117,29 @@ AI 채널 큐레이션 페이지). 상단 nav에는 더 이상 링크가 없지�
 포스트를 쓸 때는 `Trending`을 포함할지 사용자에게 물어본다 — 무조건 넣지는
 않는다(주간 큐레이션 성격이 아닌 글도 있을 수 있음).
 
+## 공통: 상단 메뉴 전체 점검
+
+상단 nav는 `Home / Categories / Posts / Docs / Series / Tags / AI / Orbit /
+Diary`다. 포스트를 쓰거나 고친 뒤에는 이 메뉴들에 의도한 대로 반영되는지
+훑어본다. 대부분은 front matter만 맞으면 자동으로 반영되지만, 자동으로 안
+되는 것과 아예 대상이 아닌 것을 구분해야 한다.
+
+| 메뉴 | 무엇으로 채워지나 | 확인할 것 |
+|---|---|---|
+| Categories | `_data/category_hierarchy.yml`의 leaf | 위 "카테고리는 leaf여야 함" 절차 |
+| Posts | `site.posts` 전체 | 자동, 별도 조치 없음 |
+| Series | front matter `series`/`series_index` + `_data/series.yml` 등록 | 위 "시리즈 여부" 절차 |
+| Tags | front matter `tags` | 자동, 별도 조치 없음 |
+| AI | `categories`에 정확히 `AI`가 있으면 `/posts/?category=ai`에서 슬러그 매칭(`slugify`)으로 자동 필터링 | `AI`가 카테고리 배열에 있는지만 확인, 별도 필드 없음 |
+| Orbit | 저장된 `categories`/`tags`/`series` 메타데이터를 그래프로 재사용(`assets/js/custom/orbit.js`) | 위 세 가지가 맞으면 자동, 별도 조치 없음 |
+| Diary | `categories`에 `Life`(또는 `diary`/`Diary`)가 있는 글만 (`diary.md`) | 기술 포스트는 대상 아님 — 넣지 않는다 |
+| Docs | `_docs` 컬렉션 전용(`_data/docs.yml`), `_posts`와 무관 | 블로그 포스트 작성 시 이 메뉴는 건드릴 일 없음 |
+
+즉 새 글에서 실제로 사람이 챙겨야 하는 건 **카테고리 leaf 등록**과
+**시리즈 등록**뿐이고, 나머지(Tags/AI/Orbit)는 그 두 가지 front matter가
+정확하면 저절로 맞는다. Diary/Docs는 애초에 이 스킬이 다루는 일반 기술
+포스트의 대상이 아니므로 신경 쓰지 않는다.
+
 ## 작성
 
 1. 제목을 물어본다 (필수).
@@ -154,9 +177,13 @@ AI 채널 큐레이션 페이지). 상단 nav에는 더 이상 링크가 없지�
    `defaults`가 자동으로 채우므로 넣지 않는다. 사용자가 본문 내용을 미리
    줬으면 그대로 채우되, 위 "공통: 본문에 링크가 있으면 링크 확인",
    "공통: 스크린샷 필수, 유튜브는 임베드" 절차를 거친다.
-7. 생성한 파일 경로를 알려주고, `_data/category_hierarchy.yml`을 새로
-   고쳤다면 그것도 함께 알려주고 끝낸다. git add/commit/push는 하지
-   않는다 — 사용자가 본문을 쓰고 나서 직접 커밋한다.
+7. 마무리하기 전에 위 "공통: 상단 메뉴 전체 점검" 표대로 훑는다 — 특히
+   카테고리 leaf와(시리즈 글이면) `series`/`series_index`+`_data/series.yml`
+   등록이 빠지지 않았는지.
+8. 생성한 파일 경로를 알려주고, `_data/category_hierarchy.yml`이나
+   `_data/series.yml`을 새로 고쳤다면 그것도 함께 알려주고 끝낸다.
+   git add/commit/push는 하지 않는다 — 사용자가 본문을 쓰고 나서 직접
+   커밋한다.
 
 ## 수정
 
