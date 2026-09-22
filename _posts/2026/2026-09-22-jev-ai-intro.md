@@ -5,7 +5,7 @@ categories: [AI]
 tags: [Jev, TypeSafe, AI모델, 판단AI]
 ---
 
-유튜브 채널 [코드팩토리](https://www.youtube.com/@codefactory_official)의 Jev 관련 영상 3편을 보고 정리하는 시리즈의 첫 편입니다. 이번 편에서는 ["전세계가 난리난 JEV, 초보자도 5분이면 이해합니다"](https://www.youtube.com/watch?v=S8K8byT3zqM) 영상을 바탕으로 Jev가 무엇인지, 실제로 어디에 쓰이고 있는지, 무료로 시작하는 방법까지 정리했습니다.
+Jev 관련 유튜브 영상 3편을 보고 정리하는 시리즈의 첫 편입니다. 이번 편에서는 유튜브 채널 [윤자동](https://www.youtube.com/@yunjadong)의 ["전세계가 난리난 JEV, 초보자도 5분이면 이해합니다"](https://www.youtube.com/watch?v=S8K8byT3zqM) 영상을 바탕으로 Jev가 무엇인지, 실제로 어디에 쓰이고 있는지, 무료로 시작하는 방법까지 정리했습니다.
 
 {% include video id="S8K8byT3zqM" provider="youtube" %}
 
