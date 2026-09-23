@@ -12,8 +12,6 @@ main:
     url: /series/
   - title: "Tags"
     url: /tags/
-  - title: "AI"
-    url: /posts/?category=ai
   - title: "Orbit"
     url: /orbit/
   - title: "Diary"
