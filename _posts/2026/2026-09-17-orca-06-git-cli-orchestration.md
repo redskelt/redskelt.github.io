@@ -1,13 +1,13 @@
 ---
 title: "Orca 파헤치기 6편(완) - GitHub 연동, CLI, 그리고 Orchestration"
 date: 2026-09-17 09:05:00 +0900
-categories: [AI, Trending]
+categories: [AI]
 tags: [Orca, GitHub, OrcaCLI, Orchestration, SSH]
 series: orca
 series_index: 6
 ---
 
-시리즈 마지막 편입니다. [5편](/ai/trending/orca-05-mobile/)까지 UI 안에서 손으로 조작하는 기능들을 봤다면, 이번엔 Orca를 **저장소·터미널·여러 에이전트를 잇는 배선**으로 쓰는 세 가지 — GitHub 연동, Orca CLI, Orchestration — 를 묶어서 봅니다.
+시리즈 마지막 편입니다. [5편](/ai/orca-05-mobile/)까지 UI 안에서 손으로 조작하는 기능들을 봤다면, 이번엔 Orca를 **저장소·터미널·여러 에이전트를 잇는 배선**으로 쓰는 세 가지 — GitHub 연동, Orca CLI, Orchestration — 를 묶어서 봅니다.
 
 ![Orca 공식 문서 — Hosted reviews, issues & Actions 페이지](/assets/img/posts/orca-ide-review/docs-github-review.png)
 _"GitHub integration — open PRs, watch checks, and triage issues without leaving the worktree."_
@@ -69,4 +69,4 @@ orca terminal split --direction vertical --command "npm run dev"
 
 1편 worktree부터 6편 Orchestration까지 훑어보면, Orca의 설계 철학이 한 줄로 요약됩니다 — **"에이전트 하나를 잘 쓰는 도구"가 아니라 "이미 잘 쓰고 있는 에이전트 여러 개를, 격리된 worktree 단위로 병렬 운영·검토·조율하는 도구."** 아직 에이전트 한 개도 제대로 안 써봤다면 이 순서보다 클로드 코드나 코덱스부터 먼저 익히는 쪽이 낫고, 반대로 이미 여러 개를 굴리다 손이 모자란 사람에게는 이 시리즈에서 다룬 기능들이 그대로 해답이 됩니다.
 
-시리즈 전체는 [이전 글들](/ai/trending/orca-01-worktree/)에서 이어볼 수 있습니다.
+시리즈 전체는 [이전 글들](/ai/orca-01-worktree/)에서 이어볼 수 있습니다.
