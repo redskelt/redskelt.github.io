@@ -1,13 +1,13 @@
 ---
 title: "Orca 파헤치기 3편 - Diff 뷰어와 Attribution(AI 작성 코드 추적)"
 date: 2026-09-17 09:02:00 +0900
-categories: [AI, Trending]
+categories: [AI]
 tags: [Orca, 코드리뷰, Diff, AttributionTracking]
 series: orca
 series_index: 3
 ---
 
-[2편](/ai/trending/orca-02-agents/)에서 여러 에이전트가 worktree마다 코드를 쓴다고 했으니, 자연스럽게 다음 질문이 나옵니다. **"그 코드를 누가, 어떻게 검토하나?"** Orca가 이 부분에 유독 공을 들인 이유는 문서 첫 페이지에 박혀 있는 문장 때문입니다 — *"diff를 읽고, 커밋을 신경 쓰고, worktree를 깔끔하게 유지하는 사람"*을 위한 도구라는 것.
+[2편](/ai/orca-02-agents/)에서 여러 에이전트가 worktree마다 코드를 쓴다고 했으니, 자연스럽게 다음 질문이 나옵니다. **"그 코드를 누가, 어떻게 검토하나?"** Orca가 이 부분에 유독 공을 들인 이유는 문서 첫 페이지에 박혀 있는 문장 때문입니다 — *"diff를 읽고, 커밋을 신경 쓰고, worktree를 깔끔하게 유지하는 사람"*을 위한 도구라는 것.
 
 ![diff 옆에 AI가 붙인 수정 요약 — Fixed 1 defect, Cogitated for 5m 19s](/assets/img/posts/orca-ide-review/diff-ai-summary.png)
 _영상 데모 — `Attribution.tsx` diff에 AI 요약과 검증 완료 표시가 함께 붙어 있다._

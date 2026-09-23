@@ -1,13 +1,13 @@
 ---
 title: "Orca 파헤치기 4편 - Computer Use, 데스크톱 앱까지 만지는 에이전트"
 date: 2026-09-17 09:03:00 +0900
-categories: [AI, Trending]
+categories: [AI]
 tags: [Orca, ComputerUse, 데스크톱자동화, AI에이전트]
 series: orca
 series_index: 4
 ---
 
-[3편](/ai/trending/orca-03-diff-attribution/)까지는 코드와 diff 이야기였습니다. 이번 4편은 코드 바깥, 즉 **로컬에 설치된 다른 데스크톱 앱**까지 에이전트가 건드리는 **Computer Use** 기능입니다.
+[3편](/ai/orca-03-diff-attribution/)까지는 코드와 diff 이야기였습니다. 이번 4편은 코드 바깥, 즉 **로컬에 설치된 다른 데스크톱 앱**까지 에이전트가 건드리는 **Computer Use** 기능입니다.
 
 ![설정 > Computer Use — Accessibility, Screenshots 권한이 모두 허용된 상태](/assets/img/posts/orca-ide-review/computer-use-settings.png)
 _영상 데모 — 설정에서 Accessibility·Screenshots 권한을 켜는 화면._

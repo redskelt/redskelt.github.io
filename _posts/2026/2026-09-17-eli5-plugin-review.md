@@ -1,7 +1,7 @@
 ---
 title: "SKILL.md 8줄로 끝나는 플러그인 — eli5 뜯어보기"
 date: 2026-09-17 15:00:00 +0900
-categories: [AI, Trending]
+categories: [AI]
 tags: [ClaudeCode, 플러그인, Skill, Artifact]
 ---
 
