@@ -110,12 +110,19 @@ grep -n "name:" _data/category_hierarchy.yml
 - 시리즈로 묶을지 애매하면(예: 편이 하나뿐이거나 사용자가 명시하지 않음)
   사용자에게 물어본다.
 
-**유튜브 영상을 보고 정리/리뷰하는 포스트**는 이 블로그에서 관례적으로
-`categories: [AI, Trending]`을 함께 쓴다(`Trending`은 `/trending/` — 유튜브
-AI 채널 큐레이션 페이지). 상단 nav에는 더 이상 링크가 없지만 페이지 자체는
-살아있고 `_data/category_hierarchy.yml`에도 등록돼 있다. 유튜브 리뷰/정리
-포스트를 쓸 때는 `Trending`을 포함할지 사용자에게 물어본다 — 무조건 넣지는
-않는다(주간 큐레이션 성격이 아닌 글도 있을 수 있음).
+**`Trending` 카테고리는 개별 도구 리뷰용이 아니다.** 특정 도구/영상 하나를
+깊게 다루는 리뷰·가이드(오르카 리뷰, ego-browser 리뷰, Jev 시리즈 같은 것)는
+`categories: [AI]`만 쓴다 — `Trending`을 붙이지 않는다. 한때 이런 개별 리뷰
+9개에 `[AI, Trending]`을 붙였던 적이 있었는데(2026-09-23 카테고리 감사에서
+발견해 원복함), 원래 설계와 안 맞는 오용이었다.
+
+`Trending`은 `scripts/youtube_trending.py`가 뽑아주는 **주간 트렌딩
+roundup 포스트 전용**이다(`categories: [Trending]`만, `AI` 없이). 이 스크립트
+결과(`var/youtube-trending/<날짜>.md`)를 포스트로 옮겨 적을 때만 이 카테고리를
+쓴다 — 다른 어떤 포스트에도 임의로 붙이지 않는다. roundup 포스트는 여러 영상을
+나열하는 리스트 형식이라 위 "스크린샷 필수/유튜브 임베드" 규칙의 예외다 —
+각주는 링크만으로 나열하고, 스크린샷이나 `{% include video %}` 임베드는
+넣지 않는다.
 
 ## 공통: 상단 메뉴 전체 점검
 
@@ -144,8 +151,10 @@ Diary`다. 포스트를 쓰거나 고친 뒤에는 이 메뉴들에 의도한 �
 
 1. 제목을 물어본다 (필수).
 2. 카테고리를 물어본다 — 위 "공통: 카테고리는 `_data/category_hierarchy.yml`의
-   leaf여야 함" 절차를 거친다. 유튜브 리뷰/정리 글이면 위 "공통: 시리즈 여부,
-   유튜브 리뷰면 Trending 카테고리"에 따라 `Trending` 포함 여부도 물어본다.
+   leaf여야 함" 절차를 거친다. `var/youtube-trending/<날짜>.md`를 옮겨 적는
+   주간 roundup 포스트가 아닌 이상 `Trending`은 붙이지 않는다(위 "공통: 시리즈
+   여부, 유튜브 리뷰면 Trending 카테고리" 참고) — 유튜브 리뷰/정리 글이어도
+   기본은 `[AI]`뿐, 물어볼 필요 없음.
 2-1. 여러 편으로 나눠 쓰는 글이면 위 "공통: 시리즈 여부, 유튜브 리뷰면
    Trending 카테고리" 절차대로 `series`/`series_index`와
    `_data/series.yml` 등록을 함께 처리한다.
