@@ -1,5 +1,5 @@
 ---
-title: "Jev 모델 파헤치기: 구조, 원리, 그리고 활용법 [3/3]"
+title: "Jev 모델 파헤치기: 구조, 원리, 그리고 활용법 [3/4]"
 date: 2026-09-22 21:50:00 +0900
 categories: [AI]
 tags: [Jev, TypeSafe, AI모델, SDK]
