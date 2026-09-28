@@ -13,11 +13,29 @@ Jev 시리즈의 마지막 편입니다. 유튜브 채널 시민개발자 구시
 
 ### 셋업은 세 단계
 
-Jev를 실제로 쓰려면 준비할 게 세 가지뿐입니다.
+Jev를 실제로 쓰려면 준비할 게 세 가지뿐입니다 — **스킬(사용 설명서) · API 키(인증) · 코드(실제 호출)**. 연결 경로는 TypeSafe 공식, OpenRouter, Vercel AI Gateway 세 가지가 있는데, 영상은 TypeSafe 공식 경로를 기준으로 보여줍니다.
 
-1. **API 키 발급** — TypeSafe 공식 사이트, 또는 이미 쓰고 있다면 OpenRouter나 Vercel AI Gateway 같은 서드파티에서도 발급 가능.
-2. **스킬 설치** — 코덱스나 헤르메스 에이전트에 "Jev 공식 스킬을 설치해줘"라고 요청하면 알아서 설치. 이 스킬을 읽어야 에이전트가 Jev 활용법을 참고해서 실수 없이 코드를 짤 수 있다.
-3. **API 연동** — 발급받은 키를 `.env` 같은 문서에 직접 입력. 영상에서는 "AI한테 키를 넣어달라고 시키지 말고 직접 문서에 넣는 게 안전하다"고 강조한다.
+![메인 모델은 그대로 두고 Jev만 도구로 추가하는 구조 — TypeSafe 직접 연동이 오늘의 주경로](/assets/img/posts/jev-automation-workflow/06-typesafe-api-console.png)
+
+**1. API 키 발급.** typesafe.ai에서 회원가입 후 API 콘솔로 들어가면 API 키 발급 섹션이 있습니다. "Create Key"를 누르면 바로 키가 생성되니 그대로 복사해서 안전한 곳에 저장해둡니다.
+
+**2. 스킬 설치.** typesafe.ai 홈 화면 우측에 "Quickstart" 섹션이 있는데, 여기 있는 설치 프롬프트를 그대로 복사해서 에이전트에게 붙여넣으면 됩니다.
+
+![Quickstart 섹션 — Claude Code/다른 에이전트용 스킬 설치 명령이 그대로 제공된다](/assets/img/posts/jev-automation-workflow/07-quickstart-prompt.png)
+
+Claude Code라면 `claude plugin marketplace add typesafe-ai/skills` 후 `claude plugin install typesafe@typesafe-ai`, 다른 에이전트는 `npx skills add typesafe-ai/skills --skill typesafe-ai`. 영상에서 실제로 쓴 프롬프트는 이런 식입니다:
+
+> 이 프로젝트에서 Jev를 활용할 수 있도록 TypeSafe 공식 스킬을 설치해줘. 설치 명령은 다음과 같다: (위 명령어). 설치 대상은 코덱스만, 범위는 현재 프로젝트로 선택해줘. 설치된 스킬 MD를 읽고 앞으로 이 프로젝트에서 Jev 기능을 만들 때 이 스킬과 최신 TypeSafe 공식 문서를 참고해줘.
+
+이 스킬을 읽어야 에이전트가 Jev 활용법(판단 방식, 토큰 리밋, 응답 포맷 등)을 참고해서 실수 없이 코드를 짤 수 있습니다. 헤르메스 에이전트 같은 상시 구동 에이전트도 동일한 방식으로 프롬프트만 살짝 바꿔서 요청하면 됩니다.
+
+**3. API 연동.** 발급받은 키를 AI에게 직접 넘기지 말고, 직접 `.env` 문서에 입력하는 게 안전합니다. 영상에서는 이렇게 요청합니다:
+
+> Jev를 활용할 수 있게 API 연결 테스트를 해줘. API 키를 넣을 문서를 제공해주고, 어디에 키를 넣으면 되는지 안내해줘.
+
+그러면 에이전트가 `.env.local` 같은 파일을 만들고 어디에 키를 넣으면 되는지 알려줍니다. 키 값 자체는 채팅에 노출되지 않도록 파일에만 저장하고, 저장 완료 후 "연결 테스트해줘"라고 요청하면 실제 API 인증과 응답까지 확인해줍니다.
+
+![코덱스가 .env.local 파일을 만들고 TYPESAFE_API_KEY 입력 위치를 안내하는 화면](/assets/img/posts/jev-automation-workflow/08-codex-env-setup.png)
 
 ### 실전 사례 1 — 고객 문의 1,000건 분류 + 모델 라우팅
 
