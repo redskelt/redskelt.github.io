@@ -32,15 +32,79 @@ series_index: 2
 
 ![InfoQ "Virtual Threads after JDK 24" 핵심 요약 — pinning 문제의 원인 이동과 ThreadLocal 캐싱 붕괴, ScopedValue 권장 사항](/assets/img/posts/java-virtual-thread/06-jep491-infoq.png)
 
+**해결 방법.** 가장 확실한 해결책은 JDK 24+로 올리는 것(JEP 491이 근본 원인을 제거)이지만, 당장 업그레이드가 어렵다면 문제가 된 구간만 `synchronized`에서 `ReentrantLock`으로 국소 교체하면 JDK 21~23에서도 pinning 없이 동작합니다.
+
+```java
+// Before — synchronized 블록 안에서 블로킹 호출(트레이싱 span 종료 등) → pinning 유발
+public synchronized void finishSpan(Span span) {
+    span.tag("result", callDownstream()); // 블로킹 I/O
+    spans.remove(span.id());
+}
+
+// After — ReentrantLock으로 교체. 블로킹이 발생해도 캐리어 쓰레드가 풀려난다
+private final ReentrantLock lock = new ReentrantLock();
+
+public void finishSpan(Span span) {
+    lock.lock();
+    try {
+        span.tag("result", callDownstream());
+        spans.remove(span.id());
+    } finally {
+        lock.unlock();
+    }
+}
+```
+
 ### 사례 2 — "처리량이 정확히 초당 421건에서 멈췄다"
 
 한 팀이 서비스를 Virtual Thread로 마이그레이션한 뒤 부하 테스트를 돌렸는데, 트래픽을 아무리 늘려도 처리량이 초당 약 420건에서 정체됐습니다. CPU 사용률은 9%, 에러도 경고도 로그에 없었습니다. 원인을 찾아보니 — 서버는 8코어였고, 핫패스에 있는 다운스트림 HTTP 호출 하나가 19ms 걸렸습니다. `8 × (1000 / 19) ≈ 421`. 즉 Virtual Thread가 CPU 코어당 정확히 하나씩만 배정된 캐리어 스레드에 핀(pin)되어 있었던 겁니다 — "수백만 개로 확장돼야 할 서비스가 CPU 코어 수만큼만 요청을 처리하고 있었다"는 표현이 이 상황을 정확히 짚습니다.
 
 ![dev.to "A Field Guide to Virtual Thread Pinning" — 8코어 × (1000/19ms) ≈ 421 rps로 처리량이 고정된 실제 장애 사례](/assets/img/posts/java-virtual-thread/07-pinning-field-guide.png)
 
+**해결 방법.** 이 사례가 무서운 이유는 에러도 경고도 없었다는 점입니다 — 진단하려면 JFR로 pinning 이벤트를 실시간으로 구독해서 스택트레이스를 확보해야 합니다.
+
+```java
+// JFR 스트림으로 pinning 이벤트를 실시간 구독 — 애플리케이션 구동 시 등록
+try (RecordingStream rs = new RecordingStream()) {
+    rs.enable("jdk.VirtualThreadPinned").withStackTrace();
+    rs.onEvent("jdk.VirtualThreadPinned", event -> {
+        log.warn("Virtual Thread pinned for {}ms\n{}",
+                event.getDuration().toMillis(),
+                event.getStackTrace());
+    });
+    rs.startAsync();
+    // ... 애플리케이션 로직
+}
+```
+
+이렇게 확보한 스택트레이스가 특정 `synchronized` 블록이나 native 메서드를 가리키면, 사례 1과 동일하게 `ReentrantLock`으로 교체하거나 해당 라이브러리를 pinning-free 버전으로 올리면 됩니다.
+
 ### 사례 3 — `ThreadLocal` 캐싱이 조용히 무력화되며 GC 압박으로 나타남
 
 `ThreadLocal.withInitial()`로 비싼 객체를 캐싱해 재사용하던 코드가 있었습니다. 플랫폼 쓰레드에서는 쓰레드풀이 재사용되니 캐시가 200번만 초기화되면 됐는데, 같은 워크로드를 Virtual Thread에서 돌리자 캐시가 **443,267번** 초기화됐습니다(2,216배). Virtual Thread는 요청마다 새로 생성·소멸되기 때문에 `ThreadLocal` 캐시가 매번 새로 만들어진 것입니다. 에러도 없이 그냥 GC 압박으로만 나타나서 원인 추적이 까다로웠던 사례입니다. 1편에서 다룬 "경량 쓰레드는 가볍게 유지해야 한다"는 주의사항이 실제로 이런 형태로 터집니다 — 해결책은 JDK 25에서 finalize된 `ScopedValue`로 옮기는 것입니다.
+
+**해결 방법.** 이 코드가 `ThreadLocal`을 쓴 의도가 "요청마다 값을 캐싱해서 재사용"이었는지, 아니면 "요청 범위 컨텍스트를 전파"였는지에 따라 고쳐야 할 방향이 다릅니다.
+
+```java
+// Before — 매 요청(Virtual Thread)마다 새로 생성되어 캐싱 효과가 사라짐
+private static final ThreadLocal<ExpensiveParser> PARSER_CACHE =
+        ThreadLocal.withInitial(ExpensiveParser::new); // 200번 vs 443,267번 초기화
+
+// After A — 진짜 "재사용 가능한 비싼 객체" 캐싱이 목적이었다면,
+// 쓰레드가 아니라 키 기준으로 공유하는 풀로 분리한다 (thread-safe 객체 전제)
+private static final ConcurrentHashMap<String, ExpensiveParser> PARSER_POOL =
+        new ConcurrentHashMap<>();
+
+ExpensiveParser parser = PARSER_POOL.computeIfAbsent(schemaKey, k -> new ExpensiveParser());
+
+// After B — "요청 범위 컨텍스트 전파"가 목적이었다면 ScopedValue로 교체한다 (JDK 25+)
+private static final ScopedValue<RequestContext> CONTEXT = ScopedValue.newInstance();
+
+ScopedValue.where(CONTEXT, new RequestContext(userId, traceId))
+           .run(() -> handleRequest()); // 블록을 벗어나면 자동 해제, 매번 새로 만들어도 GC 부담 없음
+```
+
+`ThreadLocal`은 "이 쓰레드가 살아있는 동안 값을 들고 있는다"는 게 핵심이라 매번 죽고 태어나는 Virtual Thread와는 상성이 나쁩니다. 캐싱이 목적이면 캐시답게 쓰레드와 무관한 자료구조로, 컨텍스트 전파가 목적이면 `ScopedValue`로 — 이 둘을 구분하는 게 이 사례를 막는 핵심입니다.
 
 ## 다른 동시성 모델과 비교 — 언제 뭘 써야 하나
 
@@ -58,7 +122,22 @@ series_index: 2
 
 ## 도입 전 체크리스트
 
-1. **커넥션 풀 크기를 Virtual Thread 개수가 아니라 다운스트림 용량 기준으로 재설정한다.** HikariCP, HTTP 클라이언트 풀, Redis 풀 모두 대상. 풀 크기보다 많은 동시 요청이 들어오면 풀 고갈(사례 2·3의 근본 원인)로 이어진다.
+1. **커넥션 풀 크기를 Virtual Thread 개수가 아니라 다운스트림 용량 기준으로 재설정한다.** HikariCP, HTTP 클라이언트 풀, Redis 풀 모두 대상. 풀 크기보다 많은 동시 요청이 들어오면 풀 고갈(사례 2·3의 근본 원인)로 이어진다. 무제한으로 대기시키기보다 타임아웃을 두고 빨리 실패시키는 편이 안전하다.
+
+   ```java
+   private final Semaphore downstreamPermits = new Semaphore(poolSize);
+
+   public Order fetchOrder(long id) {
+       if (!downstreamPermits.tryAcquire(200, TimeUnit.MILLISECONDS)) {
+           throw new DownstreamOverloadedException(); // 무한 대기 대신 즉시 실패 → 장애 전파 차단
+       }
+       try {
+           return orderRepository.findById(id);
+       } finally {
+           downstreamPermits.release();
+       }
+   }
+   ```
 2. **JFR로 pinning을 확인한다.** JDK 24 이전이면 `-Djdk.tracePinnedThreads=full`, JDK 24 이후는 JFR `jdk.VirtualThreadPinned` 이벤트로 native 프레임·클래스 로딩·리눅스 로컬 파일 IO로 인한 잔여 pinning을 확인한다.
 3. **`synchronized` 의존 라이브러리 버전을 점검한다.** JDBC 드라이버, 트레이싱 라이브러리 등은 JDK 24+ 버전으로 맞추고, 그래도 pinning이 남아있다면 해당 구간만 `ReentrantLock`으로 국소적으로 교체한다.
 4. **`ThreadLocal` 캐싱 패턴을 전수 점검한다.** 요청 범위 컨텍스트는 `ScopedValue`(JDK 25+)로 옮기고, 진짜 캐시가 필요한 곳은 별도의 정적 캐시 구조로 분리한다.
