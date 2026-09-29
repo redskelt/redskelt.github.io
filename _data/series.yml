@@ -13,3 +13,7 @@ orca:
 jev:
   title: "TypeSafe Jev 완전 정복"
   description: "판단 전용 AI 모델 Jev의 개념부터 실측 벤치마크, 내부 구조와 SDK, 실전 업무 자동화 사례까지 다루는 4부작 시리즈"
+
+java-virtual-thread:
+  title: "Java Virtual Thread 완전 정복"
+  description: "동작 원리와 실험적 검증부터 실무 도입 시 장단점, 실제 장애 사례, 동시성 모델 비교, 도입 체크리스트까지 다루는 2부작 시리즈"
