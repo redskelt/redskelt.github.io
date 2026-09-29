@@ -39,6 +39,13 @@
     - name: OpenWebUI
       sub_title: 자립형 AI 플랫폼
 
+- key: backend
+  main_title: Backend
+  sub_title: 서버 & JVM 기술
+  categories:
+    - name: Java
+      sub_title: 자바 언어 & JVM
+
 - key: trending
   main_title: Trending
   sub_title: 유튜브 AI 트렌드 큐레이션
