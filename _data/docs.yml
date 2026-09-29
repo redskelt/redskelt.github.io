@@ -23,8 +23,8 @@ java-virtual-thread:
   - title: "개념 & 원리"
     children:
       - title: "완전 정리: 원리, 성능, 그리고 2026년 현재 상태 [1/2]"
-        url: "/backend/java/java-virtual-thread-deep-dive/"
+        url: "/java/java-virtual-thread-deep-dive/"
   - title: "실무 가이드"
     children:
       - title: "실무에 붙이기 전에 알아야 할 것들 [2/2]"
-        url: "/backend/java/java-virtual-thread-production-guide/"
+        url: "/java/java-virtual-thread-production-guide/"
