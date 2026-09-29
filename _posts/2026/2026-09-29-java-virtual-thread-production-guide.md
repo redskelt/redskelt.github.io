@@ -1,6 +1,6 @@
 ---
 title: "Virtual Thread, 실무에 붙이기 전에 알아야 할 것들 [2/2]"
-date: 2026-09-29 11:00:00 +0900
+date: 2026-09-29 09:31:00 +0900
 categories: [Backend, Java]
 tags: [Java, VirtualThread, JVM, 실무]
 series: java-virtual-thread
