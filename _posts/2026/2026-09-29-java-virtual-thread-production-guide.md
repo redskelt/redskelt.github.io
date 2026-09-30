@@ -1,5 +1,5 @@
 ---
-title: "Virtual Thread, 실무에 붙이기 전에 알아야 할 것들 [2/3]"
+title: "Virtual Thread, 실무에 붙이기 전에 알아야 할 것들 [2/2]"
 date: 2026-09-29 09:31:00 +0900
 categories: [Java]
 tags: [Java, VirtualThread, JVM, 실무]
@@ -7,7 +7,7 @@ series: java-virtual-thread
 series_index: 2
 ---
 
-[1편]({% post_url 2026/2026-09-29-java-virtual-thread-deep-dive %})에서 Virtual Thread의 동작 원리와 실험 결과, 2026년 현재 기준 최신 업데이트(JDK 24의 pinning 해결, JDK 25의 Scoped Value finalize)까지 정리했습니다. 이번 편은 "그래서 우리 서비스에 진짜 붙여도 되나"에 답하기 위한 실무 관점 자료입니다 — 장단점 심층 분석, 실제 프로덕션 장애 사례, 다른 동시성 모델과의 비교, 도입 체크리스트 순으로 정리했습니다. `CompletableFuture` 기반 병렬 조회 코드를 `StructuredTaskScope`로 바꿔볼 만한지는 [3편]({% post_url 2026/2026-09-29-java-virtual-thread-structured-concurrency %})에서 실제 코드로 검토합니다.
+[1편]({% post_url 2026/2026-09-29-java-virtual-thread-deep-dive %})에서 Virtual Thread의 동작 원리와 실험 결과, 2026년 현재 기준 최신 업데이트(JDK 24의 pinning 해결, JDK 25의 Scoped Value finalize)까지 정리했습니다. 이번 편은 "그래서 우리 서비스에 진짜 붙여도 되나"에 답하기 위한 실무 관점 자료입니다 — 장단점 심층 분석, 실제 프로덕션 장애 사례, 다른 동시성 모델과의 비교, 도입 체크리스트 순으로 정리했습니다.
 
 ## 장점 vs 단점, 실무 관점에서 다시 보기
 

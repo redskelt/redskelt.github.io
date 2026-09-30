@@ -16,4 +16,4 @@ jev:
 
 java-virtual-thread:
   title: "Java Virtual Thread 완전 정복"
-  description: "동작 원리와 실험적 검증부터 실무 도입 시 장단점, 실제 장애 사례, 동시성 모델 비교, 도입 체크리스트, CompletableFuture와 StructuredTaskScope 실전 비교까지 다루는 3부작 시리즈"
+  description: "동작 원리와 실험적 검증부터 실무 도입 시 장단점, 실제 장애 사례, 동시성 모델 비교, 도입 체크리스트까지 다루는 2부작 시리즈"

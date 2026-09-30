@@ -16,19 +16,15 @@
 meta:
   java-virtual-thread:
     title: "Java Virtual Thread 완전 정복"
-    description: "동작 원리와 실험적 검증부터 실무 도입 시 장단점, 실제 장애 사례, 동시성 모델 비교, 도입 체크리스트, StructuredTaskScope 실전 비교까지"
+    description: "동작 원리와 실험적 검증부터 실무 도입 시 장단점, 실제 장애 사례, 동시성 모델 비교, 도입 체크리스트까지"
     group: backend
 
 java-virtual-thread:
   - title: "개념 & 원리"
     children:
-      - title: "완전 정리: 원리, 성능, 그리고 2026년 현재 상태 [1/3]"
+      - title: "완전 정리: 원리, 성능, 그리고 2026년 현재 상태 [1/2]"
         url: "/java/java-virtual-thread-deep-dive/"
   - title: "실무 가이드"
     children:
-      - title: "실무에 붙이기 전에 알아야 할 것들 [2/3]"
+      - title: "실무에 붙이기 전에 알아야 할 것들 [2/2]"
         url: "/java/java-virtual-thread-production-guide/"
-  - title: "심화 — Structured Concurrency"
-    children:
-      - title: "CompletableFuture, StructuredTaskScope로 바꿔도 될까? [3/3]"
-        url: "/java/java-virtual-thread-structured-concurrency/"
