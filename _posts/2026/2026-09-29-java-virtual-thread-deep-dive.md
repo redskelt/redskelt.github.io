@@ -1,5 +1,5 @@
 ---
-title: "자바 Virtual Thread 완전 정리: 원리, 성능, 그리고 2026년 현재 상태 [1/2]"
+title: "자바 Virtual Thread 완전 정리: 원리, 성능, 그리고 2026년 현재 상태 [1/3]"
 date: 2026-09-29 09:30:00 +0900
 categories: [Java]
 tags: [Java, VirtualThread, JVM, 동시성]
