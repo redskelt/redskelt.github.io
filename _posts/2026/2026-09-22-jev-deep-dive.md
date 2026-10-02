@@ -1,5 +1,5 @@
 ---
-title: "Jev 모델 파헤치기: 구조, 원리, 그리고 활용법 [3/4]"
+title: "Jev 모델 파헤치기: 구조, 원리, 그리고 활용법 [3/5]"
 date: 2026-09-22 21:50:00 +0900
 categories: [AI]
 tags: [Jev, TypeSafe, AI모델, SDK]
@@ -7,7 +7,7 @@ series: jev
 series_index: 3
 ---
 
-Jev 시리즈 마지막 편입니다. 1편([전세계가 주목하는 AI 'Jev', 5분이면 이해합니다]({% post_url 2026/2026-09-22-jev-ai-intro %}))에서 개념을, 2편([Jev, 진짜 8배 빠르고 76배 저렴할까?]({% post_url 2026/2026-09-22-jev-benchmark-test %}))에서 실측 성능을 봤다면, 이번 편은 유튜브 채널 [찐AI](https://www.youtube.com/@jjin-ai-hj)의 ["출력 비용 ZERO, AI 세계 게임 체인저로 등장한 Jev, 활용법 알아보기"](https://www.youtube.com/watch?v=8Dc4pMhSIE0) 영상을 바탕으로 Jev의 내부 구조와 실제 코드, 그리고 활용 아이디어를 정리했습니다.
+Jev 시리즈 3편입니다. 1편([전세계가 주목하는 AI 'Jev', 5분이면 이해합니다]({% post_url 2026/2026-09-22-jev-ai-intro %}))에서 개념을, 2편([Jev, 진짜 8배 빠르고 76배 저렴할까?]({% post_url 2026/2026-09-22-jev-benchmark-test %}))에서 실측 성능을 봤다면, 이번 편은 유튜브 채널 [찐AI](https://www.youtube.com/@jjin-ai-hj)의 ["출력 비용 ZERO, AI 세계 게임 체인저로 등장한 Jev, 활용법 알아보기"](https://www.youtube.com/watch?v=8Dc4pMhSIE0) 영상을 바탕으로 Jev의 내부 구조와 실제 코드, 그리고 활용 아이디어를 정리했습니다.
 
 {% include video id="8Dc4pMhSIE0" provider="youtube" %}
 
@@ -61,4 +61,4 @@ Jev의 정확도는 약 67.8%로 Opus 5보다는 낮지만 Terra와 비슷한 �
 
 ---
 
-이것으로 Jev 3부작을 마칩니다. 요약하면, Jev는 대화나 창작이 아니라 "정해진 선택지 중 하나를 빠르게, 저렴하게 고르는" 일에 특화된 모델이고, 기존 워크플로에서 판단(라우팅) 단계만 Jev로 교체하는 것만으로도 상당한 시간·비용 절감을 기대할 수 있습니다.
+요약하면, Jev는 대화나 창작이 아니라 "정해진 선택지 중 하나를 빠르게, 저렴하게 고르는" 일에 특화된 모델이고, 기존 워크플로에서 판단(라우팅) 단계만 Jev로 교체하는 것만으로도 상당한 시간·비용 절감을 기대할 수 있습니다.

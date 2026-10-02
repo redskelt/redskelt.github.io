@@ -1,5 +1,5 @@
 ---
-title: "전세계가 주목하는 AI 'Jev', 5분이면 이해합니다 — TypeSafe Jev 입문 [1/4]"
+title: "전세계가 주목하는 AI 'Jev', 5분이면 이해합니다 — TypeSafe Jev 입문 [1/5]"
 date: 2026-09-22 21:30:00 +0900
 categories: [AI]
 tags: [Jev, TypeSafe, AI모델, 판단AI]
