@@ -1,5 +1,5 @@
 ---
-title: "Jev로 하루 업무 자동화하기: 실전 워크플로우 4가지 [4/4]"
+title: "Jev로 하루 업무 자동화하기: 실전 워크플로우 4가지 [4/5]"
 date: 2026-09-28 15:00:00 +0900
 categories: [AI]
 tags: [Jev, TypeSafe, AI모델, 자동화]
@@ -7,7 +7,7 @@ series: jev
 series_index: 4
 ---
 
-Jev 시리즈의 마지막 편입니다. 유튜브 채널 시민개발자 구시의 ["요즘 가장 핫한 AI모델 Jev, AI 자동화에 적용하기!"](https://www.youtube.com/watch?v=P8Ubmvw2lmQ) 영상을 바탕으로, 앞선 [입문]({% post_url 2026/2026-09-22-jev-ai-intro %})·[벤치마크]({% post_url 2026/2026-09-22-jev-benchmark-test %})·[구조 분석]({% post_url 2026/2026-09-22-jev-deep-dive %}) 편에서 다룬 Jev를 실제 업무 워크플로우에 어떻게 붙이는지 정리했습니다.
+Jev 시리즈의 4편입니다. 유튜브 채널 시민개발자 구시의 ["요즘 가장 핫한 AI모델 Jev, AI 자동화에 적용하기!"](https://www.youtube.com/watch?v=P8Ubmvw2lmQ) 영상을 바탕으로, 앞선 [입문]({% post_url 2026/2026-09-22-jev-ai-intro %})·[벤치마크]({% post_url 2026/2026-09-22-jev-benchmark-test %})·[구조 분석]({% post_url 2026/2026-09-22-jev-deep-dive %}) 편에서 다룬 Jev를 실제 업무 워크플로우에 어떻게 붙이는지 정리했습니다.
 
 {% include video id="P8Ubmvw2lmQ" provider="youtube" %}
 
@@ -72,3 +72,5 @@ Astra로 만든 크롬 익스텐션과 Jev를 연동해, 인스타그램을 스�
 영상이 강조하는 지점은 하나다 — **Jev는 대용량 판단·분류 작업에 강하지, 실시간 단발성 작업에는 오히려 손해일 수 있다.** 코덱스나 헤르메스 에이전트 안에서 메인 모델(Astra 등)이 요청을 이해하고 Jev를 호출하는 구조라면, 메인 모델의 처리 속도가 병목이 되어 Jev의 장점(속도)이 죽는다. 그래서 반복되는 대량 작업이라면 앱으로 직접 Jev를 호출하거나, 크론으로 시간대별 자동화(9시 분류 → 10시 Luna 답변 → 11시 Sol 답변)를 걸어두는 편이 실질적으로 유용하다.
 
 가입 시 $5 무료 크레딧이 제공되고, 이것만으로도 꽤 오래 테스트해볼 수 있다고 한다. 소량 데이터라면 굳이 Jev를 쓸 필요 없이 Astra나 다른 프론티어 모델로 충분하지만, 수백~수천 건 단위의 판단·분류 작업이라면 검토해볼 만하다.
+
+다음 편에서는 Jev의 오픈소스 대안인 Laya를 MacBook에서 직접 학습시켜 비교합니다: [Jev 대신 Laya? 노트북에서 학습시킨 오픈소스 판단 모델]({% post_url 2026/2026-10-02-laya-open-source-jev %})
