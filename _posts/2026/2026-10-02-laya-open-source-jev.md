@@ -255,3 +255,5 @@ Jev 시리즈는 여기까지입니다. 1편부터 다시 보고 싶다면 [Jev 
 - [Laya 모델 카드 (Hugging Face, convaiinnovations/laya)](https://huggingface.co/convaiinnovations/laya)
 - [Laya: an open source alternative to TypeSafe AI's Jev (iMasters)](https://imasters.com/news/laya-arrives-as-an-open-source-alternative-to-typesafe-ai-jev)
 - [Jev vs Laya: Hosted API or Open Weights? (Hugging Face 블로그)](https://huggingface.co/blog/sora-2/jev-vs-laya-hosted-api-or-open-weights-2026-guide)
+
+**후속 실험**: 정답을 사람 대신 Claude가 달게 해서 Laya를 가르친 실험은 [사람 대신 AI가 가르친다 — Laya 교사 증류로 블로그 주제 고르기 실험]({% post_url 2026/2026-10-06-laya-teacher-distillation %})에 정리했습니다.
