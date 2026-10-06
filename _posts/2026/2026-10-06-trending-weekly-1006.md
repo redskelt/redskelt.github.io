@@ -31,7 +31,7 @@ Jay Choi의 ["클로드 코드 200% 끌어올리는 6가지 비밀"](https://you
 
 [교사 증류로 학습한 Laya 선별기]({% post_url 2026/2026-10-06-laya-teacher-distillation %})가 이번 주 후보 29개 중 단독 포스트감으로 꼽은 상위 5개다. 위 트렌딩 목록과 달리 조회수가 아니라 "따라 해볼 만한 내용인가"로 고른 순위다.
 
-1. [Higgsfield API 하나로 돈 되는 서비스 만들기](https://youtu.be/ClRLnDr48gQ) — 노마드 코더 (09-30)
+1. [Higgsfield API 하나로 돈 되는 서비스 만들기](https://youtu.be/ClRLnDr48gQ) — 노마드 코더 (09-30). 확인해 보니 유료 광고 영상이라 포스트로 쓰지 않았고, 이후 추천에서 광고를 거르는 규칙을 붙였다 ([후속]({% post_url 2026/2026-10-06-laya-teacher-distillation %}#후속-첫-주-운영에서-드러난-것))
 2. [클로드 코드 200% 끌어올리는 6가지 비밀](https://youtu.be/sY7lHUg7HeE) — Jay Choi (09-30)
 3. [클로드가 모션그래픽을 정복했습니다](https://youtu.be/_kc0riDpxOY) — Jay Choi (10-04)
 4. [쓰레기 코드 ☠️ 없애는 법](https://youtu.be/3JCgiVYlLFo) — 노마드 코더 (10-04)
