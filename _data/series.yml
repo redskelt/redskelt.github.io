@@ -17,3 +17,7 @@ jev:
 java-virtual-thread:
   title: "Java Virtual Thread 완전 정복"
   description: "동작 원리와 실험적 검증부터 실무 도입 시 장단점, 실제 장애 사례, 동시성 모델 비교, 도입 체크리스트까지 다루는 2부작 시리즈"
+
+rea-guide:
+  title: "REA 리버스 엔지니어링 실전 가이드"
+  description: "GitHub 화제작 REA(Reverse Engineer Anything)를 설치부터 Claude 설정, Hopper·Ghidra 분석 엔진, MindNode 복제 실전과 현실적인 평가까지 다루는 3부작 시리즈"
