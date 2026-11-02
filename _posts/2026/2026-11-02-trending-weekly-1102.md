@@ -1,6 +1,6 @@
 ---
 title: "이번 주 AI 에이전트 트렌드 — 2026-11-02"
-date: 2026-11-02 15:30:00 +0900
+date: 2026-11-02 09:00:00 +0900
 categories: [Trending]
 tags: [AI에이전트, 트렌드, DeepSeek, Gemini, 보안, 코딩에이전트]
 ---
