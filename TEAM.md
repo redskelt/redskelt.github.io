@@ -9,7 +9,7 @@ herdr-team 플러그인의 프로젝트 흐름 파일이다. 이 저장소에서
 포스트(`_posts/`) 작성 · 수정 · 삭제를 팀원(pi · agy · claude 등)에게 맡길 때, 팀장은 요청문에 아래를 반드시 넣는다. pi · agy 는 스스로 스킬을 읽지 않으므로 경로와 행동을 명시한다.
 1. 첫 행동으로 `.claude/skills/post/SKILL.md` 전체를 읽는다(작성 · 수정 · 삭제 절차 포함).
 2. 같은 파일의 "공통: 발행 전 체크리스트"를 모두 따르고, 결과를 보고에 항목별로 적는다.
-3. 마친 뒤 `bash .claude/skills/post/verify-build.sh` 로 로컬 빌드를 검증하고 결과를 보고에 붙인다.
+3. 마친 뒤 `bash .claude/skills/post/verify-build.sh <slug>`(slug = 파일명 `YYYY-MM-DD-<slug>.md` 의 slug 부분)로 로컬 빌드를 검증하고 결과를 보고에 붙인다.
 4. 사내 · 비공개 자료가 의심되면 쓰지 말고 결정 요청 파일로 올린다(기본값 거부).
 5. 영상 기반 수치 · 순위 · 비율은 근거(타임스탬프 · 공식 문서 링크)가 없으면 본문에 쓰지 않는다.
 
@@ -25,7 +25,7 @@ herdr-team 플러그인의 프로젝트 흐름 파일이다. 이 저장소에서
 1. 이슈 worktree 에서 팀장이 작업을 쪼갠다. 짧은 일은 팀장이 직접 한다.
 2. 구현 팀원은 자기 역할 worktree 에서 커밋한다(push 금지).
 3. 병합은 팀장이 한다: `git -C <이슈 worktree> merge --no-ff '<역할 브랜치>'`. 충돌이 나면 `merge --abort` 후 구현 팀원이 자기 worktree 에서 이슈 브랜치를 병합해 해결한다.
-4. 로컬 검증: `bash .claude/skills/post/verify-build.sh`.
+4. 로컬 검증: `bash .claude/skills/post/verify-build.sh <slug>`.
 5. 교차 리뷰는 병합 뒤 이슈 worktree 에서 읽기 전용으로 받는다.
 6. push · master 병합 · 사이트 반영은 **사용자 결정 뒤** 팀장이 한다.
 
