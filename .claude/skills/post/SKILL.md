@@ -174,7 +174,7 @@ Diary`다. 포스트를 쓰거나 고친 뒤에는 이 메뉴들에 의도한 �
 | **slug** | `_posts/*/*-<slug>.md` 가 하나뿐 (작성 4번) |
 | **출처** | 본문에서 소개한 레포·도구·영상은 원본 URL 을 쓴다(주간 roundup 포함). 수치·주장은 원본과 대조하고, 확인 안 되는 수치는 쓰지 않고 뺀다(근거 메모는 "공통: 영상 기반 포스트의 수치 근거 메모") |
 | **비공개 자료** | 본문·코드블록·스크린샷·이미지 대체텍스트·front matter 에 아래가 하나라도 있거나 있는 것 같으면 쓰기 전에 "공개 저장소에 들어가도 되는 내용인가"를 사용자에게 묻는다. ① 사내 프로젝트·시스템·제품 이름 ② 내부 URL·IP·호스트·서버명·DB/테이블/컬럼명·내부 계정 ID ③ 업무 코드 조각·설정·쿼리·장애 기록 ④ 고객·회원·직원의 이름·연락처·식별자·업무 화면 캡처 ⑤ 사내 위키·문서·메신저에서 복사한 내용. 의심되면 통과시키지 말고 묻는다(기본값은 거부, `wiki-ingest` 의 "회사/업무 자료 유입 방지"와 같은 기준). 시크릿·개인정보는 `wiki-ingest` 의 "개인정보/시크릿 유입 방지"도 함께 본다 |
-| **로컬 빌드** | push 전 `verify-build.sh <slug>` 통과 (아래 절) |
+| **로컬 빌드** | push 전 `verify-build.sh <slug>` 통과 — 산출물 확인 + htmlproofer (아래 절) |
 
 ### 발행 전 로컬 빌드 검증
 
@@ -186,14 +186,32 @@ push 전에 실행한다:
 
 스크립트가 하는 일: rbenv PATH 설정 → slug 중복·`date` 미래 여부 확인 →
 `jekyll build`(`_site-verify` 로, 예전 산출물 영향 없음) → 그 포스트의
-`<...>/<slug>/index.html` 이 실제로 생겼는지 확인. 마지막 확인이 핵심이다 —
+`<...>/<slug>/index.html` 이 실제로 생겼는지 확인 → `_site-verify` 전체에
+htmlproofer(CI `Test site` 단계와 같은 옵션: `--disable-external` +
+localhost 류 `--ignore-urls`). 산출물 확인이 핵심이다 —
 `date` 가 미래면 빌드는 **성공(exit 0)** 하는데 포스트만 조용히 빠진다.
+htmlproofer 는 CI 가 배포를 막는 깨진 내부 링크·이미지를 push 전에 잡는다
+(외부 링크는 검사하지 않아 네트워크를 타지 않고, 몇 초면 끝난다).
 
+- htmlproofer 실패(`FAIL: htmlproofer ...`)면 위에 찍힌 파일·링크 목록을 보고
+  고친다. 이 포스트가 아니라 다른 페이지가 원인일 수도 있다(아래 루트 .md 주의).
+- htmlproofer 를 실행할 수 없으면(gem 미설치) FAIL 로 끝나고 `bundle install`
+  을 안내한다. 당장 건너뛰어야 할 때만
+  `verify-build.sh --skip-proofer <slug>`(또는 `VERIFY_SKIP_PROOFER=1`) —
+  WARN 이 남고, CI 에서는 그대로 검사한다는 점을 사용자에게 알린다.
+- **저장소 루트에 `.md` 를 새로 둘 때**(TEAM.md 같은 팀·작업 문서)는
+  `_config.yml` 의 `exclude` 에 넣었는지와 htmlproofer 통과를 같이 확인한다.
+  exclude 에 없으면 Jekyll 이 `/<파일 이름>/` 페이지로 빌드하고, 그 안의 링크
+  (`#main` 등)가 깨져 CI 가 배포를 막는다(실제로 `/TEAM/` 에서 터졌다).
+  아무 포스트 slug 로 `verify-build.sh` 를 돌리면 사이트 전체가 검사된다.
 - 로컬 빌드는 Ruby 3.3+ (rbenv) 필요. 시스템 ruby(2.6)로는 bundler 가 안
   맞는다. 직접 칠 때는
   `PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH" bundle exec jekyll build`.
-- **로컬 그린 ≠ CI 그린.** CI(ruby 3.4)에서만 터진 문제가 있었다. 로컬 통과는
-  사전 점검일 뿐이고, push 후에는 `push-verify` 로 CI 와 sitemap 을 확인한다.
+- **로컬 그린 ≠ CI 그린.** CI(ruby 3.4)에서만 터진 문제가 있었다. 또 CI 는
+  `JEKYLL_ENV=production`, `--baseurl ""` 로 빌드하지만 이 스크립트는 기본 환경
+  으로 빌드한다(production 에서만 나오는 출력은 로컬 htmlproofer 대상이 아니다).
+  로컬 통과는 사전 점검일 뿐이고, push 후에는 `push-verify` 로 CI 와 sitemap 을
+  확인한다.
 
 ## 작성
 
