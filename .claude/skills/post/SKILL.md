@@ -172,7 +172,7 @@ Diary`다. 포스트를 쓰거나 고친 뒤에는 이 메뉴들에 의도한 �
 | 시리즈 | `series`/`series_index` + `_data/series.yml` ("공통: 시리즈 여부") |
 | **date** | 지금 시각보다 **과거**(어림 시각 금지, 작성 5번) |
 | **slug** | `_posts/*/*-<slug>.md` 가 하나뿐 (작성 4번) |
-| **출처** | 본문에서 소개한 레포·도구·영상은 원본 URL 을 쓴다(주간 roundup 포함). 수치·주장은 원본과 대조하고, 확인 안 되는 수치는 쓰지 않고 뺀다 |
+| **출처** | 본문에서 소개한 레포·도구·영상은 원본 URL 을 쓴다(주간 roundup 포함). 수치·주장은 원본과 대조하고, 확인 안 되는 수치는 쓰지 않고 뺀다(근거 메모는 "공통: 영상 기반 포스트의 수치 근거 메모") |
 | **비공개 자료** | 본문·코드블록·스크린샷·이미지 대체텍스트·front matter 에 아래가 하나라도 있거나 있는 것 같으면 쓰기 전에 "공개 저장소에 들어가도 되는 내용인가"를 사용자에게 묻는다. ① 사내 프로젝트·시스템·제품 이름 ② 내부 URL·IP·호스트·서버명·DB/테이블/컬럼명·내부 계정 ID ③ 업무 코드 조각·설정·쿼리·장애 기록 ④ 고객·회원·직원의 이름·연락처·식별자·업무 화면 캡처 ⑤ 사내 위키·문서·메신저에서 복사한 내용. 의심되면 통과시키지 말고 묻는다(기본값은 거부, `wiki-ingest` 의 "회사/업무 자료 유입 방지"와 같은 기준). 시크릿·개인정보는 `wiki-ingest` 의 "개인정보/시크릿 유입 방지"도 함께 본다 |
 | **로컬 빌드** | push 전 `verify-build.sh <slug>` 통과 (아래 절) |
 
@@ -294,18 +294,23 @@ push 전에 실행한다:
 
    ```bash
    slug=<삭제할 slug>
-   ls assets/img/posts/$slug 2>/dev/null          # 본문 이미지 폴더
-   grep -rn "$slug" _posts/ _data/ _docs/ *.md    # 다른 글·데이터가 이 글을 링크하는지
+   grep -oE '/assets/img/posts/[^) "]+' _posts/*/*-$slug.md   # 본문이 실제로 쓰는 이미지(폴더 이름이 slug 와 다를 수 있다)
+   grep -rn "$slug" _posts/ _data/ ddocs/ docs/ *.md          # 다른 글·데이터가 이 글을 링크하는지
    grep -rn "series: <series-id>" _posts/         # 같은 시리즈의 남은 편
    ```
 
-   - 지울 대상: 본문 `_posts/<year>/…-$slug.md`, `assets/img/posts/$slug/`,
-     그 글만 쓰던 `_data/` 항목. 시리즈의 **마지막 남은 편**이면
-     `_data/series.yml` 의 `<series-id>` 항목도 지운다. 다른 편이 남아 있으면
-     `series_index` 번호와 편 사이 `post_url` 링크가 끊기지 않았는지 고친다.
+   - 지울 대상: 본문 `_posts/<year>/…-$slug.md`, 위 grep 으로 나온 이미지 중 그
+     글만 쓰는 파일, 그 글만 쓰던 `_data/` 항목. 이미지 폴더를 다른 편이 공유하면
+     (예: 시리즈 공용 `assets/img/posts/<series>/`) 폴더째 지우지 말고 이 글의
+     파일만 지운다. 시리즈의 **마지막 남은 편**이면 `_data/series.yml` 의
+     `<series-id>` 항목도 지운다. 다른 편이 남아 있으면 `series_index` 번호,
+     `post_url` 링크, `_data/series.yml`·`_data/docs.yml` 의 부작 수 설명, 남은 편
+     제목의 `[k/N]` 표기가 맞는지 고친다(0bcdcb3 revert 가 이 항목들을 고쳤다).
    - 다른 글이 삭제한 글로 `post_url` 링크를 걸고 있으면 htmlproofer 가
      배포를 막으므로 그 링크도 함께 처리한다.
-   - 삭제 뒤 `verify-build.sh` 와 같은 방식으로 로컬 빌드가 통과하는지 확인한다.
+   - 삭제 뒤 로컬 빌드가 통과하는지 확인한다. 지운 글의 slug 로는 `verify-build.sh`
+     가 "파일 없음"으로 실패하므로, 남은 편의 slug 로 돌리거나(시리즈 일부 삭제)
+     `bundle exec jekyll build --destination _site-verify` 를 직접 쓴다.
 6. 삭제 후 git commit/push는 자동으로 하지 않는다.
 7. **이미 push 된 내용의 git 이력은 정리하지 않는다**(`filter-branch`·force
    push 금지). 비공개 자료가 이미 push 됐다면 파일을 지워도 이력·캐시에 남는다는
