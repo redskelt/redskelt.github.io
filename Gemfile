@@ -12,7 +12,8 @@ gem "jekyll-include-cache"
 gem "kramdown-parser-gfm"
 gem "webrick", "~> 1.8"
 # Ruby 3.4+는 csv를 기본 gem에서 제외함 — jekyll 3.9.3이 내부적으로
-# require하므로 명시적으로 선언해야 CI(ruby-version: 3.4)에서 빌드된다.
+# require하므로 명시적으로 선언해 둔다. 지금 ruby 버전은 .ruby-version(로컬·CI 공통)이
+# 정하지만, 그 파일을 3.4+로 올려도 빌드가 깨지지 않게 남긴다.
 gem "csv"
 
 group :test do
