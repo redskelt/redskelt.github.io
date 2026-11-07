@@ -1,9 +1,10 @@
 source "https://rubygems.org"
 
-# 대상(whdrns2013.github.io)과 동일한 github-pages 빌드 스택.
+# github-pages 빌드 스택. 233 미만은 jekyll-remote-theme 0.4.3 이 rubyzip 을
+# 3.0 미만(보안 경고 대상)으로 묶는다.
 # 이 저장소는 테마 gem 자체가 아니라 vendored 파일을 쓰므로
 # "gemspec"(자기 자신을 gem으로 등록하는 줄)은 사용하지 않는다.
-gem "github-pages", "228", group: :jekyll_plugins
+gem "github-pages", "233", group: :jekyll_plugins
 gem "jekyll-paginate"
 gem "jekyll-sitemap"
 gem "jekyll-gist"
