@@ -26,6 +26,7 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 | slug(날짜 뺀 파일 이름)는 저장소 전체에서 하나 | 검사: `.github/scripts/check-posts.rb` |
 | 깨진 내부 링크·이미지, 루트 `.md` 노출 | 검사: `build-site.sh` 의 htmlproofer |
 | 로컬과 CI 가 같은 ruby · 빌드 옵션 · 검사 | 구조: `.github/scripts/build-site.sh` 하나 + `.ruby-version` 하나 |
+| 본문 앵커(목차 등) 이동이 고정 메뉴바에 가려지지 않음 | 구조: `--masthead-height` 하나 → `scroll-padding-top`, `assets/js/custom/anchor-scroll.js`. 확인은 verify-blog post-widgets 레시피(로컬) |
 | 스크린샷 필수, 유튜브는 임베드 | 문서뿐 (출처 링크와 구분이 판단이라 검사 불가) |
 | 수치·출처 대조, 비공개 자료 | 문서뿐 (판단) |
 

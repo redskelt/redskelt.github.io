@@ -178,3 +178,4 @@ after_footer_scripts:
   - /assets/js/custom/nav-integrity-guard.js
   - /assets/js/custom/image-zoom.js
   - /assets/js/custom/table-wrap.js
+  - /assets/js/custom/anchor-scroll.js

@@ -7,10 +7,21 @@
   50%, 100% { opacity: 0; }
 }
 
+/* masthead 높이는 여기서만 정한다. sticky 라 본문 앵커(목차 · 각주 · 연도 링크)로
+   이동하면 대상이 그 아래에 깔리므로, 문서 전체의 scroll-padding-top 이 같은 값을 쓴다.
+   요소마다 scroll-margin-top 을 따로 주지 않는다(값이 더해진다). */
+:root {
+  --masthead-height: 64px;
+}
+
+html {
+  scroll-padding-top: calc(var(--masthead-height) + var(--space-3));
+}
+
 .masthead {
   position: sticky;
   top: 0;
-  min-height: 64px;
+  min-height: var(--masthead-height);
   display: flex;
   align-items: center;
   padding: 8px 0;
@@ -183,8 +194,11 @@
 }
 
 @media (max-width: 760px) {
+  :root {
+    --masthead-height: 56px;
+  }
+
   .masthead {
-    min-height: 56px;
     padding: 6px 0;
 
     &__inner-wrap {
