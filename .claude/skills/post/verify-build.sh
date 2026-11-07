@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # 발행 전 로컬 빌드 검증: verify-build.sh [--skip-proofer] <slug>
 #
-# Jekyll 은 date 가 빌드 시각보다 미래인 포스트를 빌드 성공(exit 0)인 채로 조용히
+# Jekyll 은 published: false 등으로 빠진 포스트를 빌드 성공(exit 0)인 채로 조용히
 # 발행 목록에서 뺀다. 그래서 "빌드 성공"만 믿지 않고 _site 에 그 포스트의
-# <slug>/index.html 이 실제로 생겼는지까지 확인한다.
+# <slug>/index.html 이 실제로 생겼는지까지 확인한다. (미래 date 는 _config.yml 의
+# future: true 로 발행되므로 따로 검사하지 않는다.)
 #
 # 마지막으로 CI(.github/workflows 의 Test site 단계)와 같은 옵션으로 htmlproofer 를
 # _site-verify 에 돌린다(외부 링크 검사는 CI 처럼 끄므로 네트워크를 타지 않는다).
@@ -44,33 +45,21 @@ if (( ${#files[@]} > 1 )); then
 fi
 post="${files[0]}"
 
-# 2) date 가 지금보다 과거인지 (front matter 의 첫 date: 줄)
-date_line="$(awk '/^---[[:space:]]*$/{n++; next} n==1 && /^date:/{sub(/^date:[[:space:]]*/,""); print; exit}' "$post")"
-if [[ -z "$date_line" ]]; then
-  echo "FAIL: $post front matter 에 date: 가 없다" >&2
-  exit 1
-fi
-if ! ruby -rtime -e 'exit(Time.parse(ARGV[0]) <= Time.now ? 0 : 1)' "$date_line"; then
-  echo "FAIL: date '$date_line' 가 현재 시각($(date '+%Y-%m-%d %H:%M:%S %z'))보다 미래다." >&2
-  echo "      Jekyll 이 이 포스트를 조용히 발행에서 뺀다. 지금 시각 이전으로 고쳐라." >&2
-  exit 1
-fi
-
-# 3) 빌드 — 예전 _site 가 남아 있어 오판하지 않도록 전용 폴더(_site-verify, .gitignore 의
+# 2) 빌드 — 예전 _site 가 남아 있어 오판하지 않도록 전용 폴더(_site-verify, .gitignore 의
 #    `_site*` 에 걸린다)를 비우고 새로 빌드한다.
 out="_site-verify"
 rm -rf "$out"
 bundle exec jekyll build --destination "$out"
 
-# 4) 산출물 확인: permalink(/:categories/:title/)의 카테고리 경로를 계산하지 않고 찾는다.
+# 3) 산출물 확인: permalink(/:categories/:title/)의 카테고리 경로를 계산하지 않고 찾는다.
 hits="$(find "$out" -path "*/$slug/index.html" 2>/dev/null || true)"
 if [[ -z "$hits" ]]; then
   echo "FAIL: 빌드는 성공했지만 $out 에 <...>/$slug/index.html 이 없다." >&2
-  echo "      date(미래 여부·타임존), published: false, categories 표기를 확인해라." >&2
+  echo "      published: false, categories 표기를 확인해라." >&2
   exit 1
 fi
 
-# 5) htmlproofer — CI 의 Test site 단계와 같은 옵션. 옵션을 바꿀 때는 워크플로와 같이 바꾼다.
+# 4) htmlproofer — CI 의 Test site 단계와 같은 옵션. 옵션을 바꿀 때는 워크플로와 같이 바꾼다.
 #    실패 예: 루트에 새로 둔 .md(TEAM.md 등)가 exclude 에 없어 페이지로 빌드되며 링크가 깨짐,
 #    없는 파일 · 지운 포스트를 가리키는 내부 링크.
 if [[ "$skip_proofer" == "1" ]]; then
