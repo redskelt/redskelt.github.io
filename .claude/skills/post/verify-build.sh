@@ -31,22 +31,18 @@ cd "$(git rev-parse --show-toplevel)"
 # 시스템 ruby(2.6)로는 bundler 가 안 맞는다 → rbenv 의 ruby 3.3+ 를 앞에 둔다.
 export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
 
-# 1) 포스트 파일 확인 (없음 / slug 중복)
+# 1) front matter 검사 — CI 의 Check posts 단계와 같은 스크립트(카테고리 leaf, 시리즈,
+#    slug 중복 등). slug 중복은 여기서 걸리므로 아래 파일 찾기는 하나만 나온다.
+ruby .github/scripts/check-posts.rb
+
+# 1-1) 포스트 파일 확인
 shopt -s nullglob
 files=(_posts/*/*-"$slug".md)
 if (( ${#files[@]} == 0 )); then
   echo "FAIL: _posts/*/*-$slug.md 가 없다 (slug 오타? 파일 미생성?)" >&2
   exit 1
 fi
-if (( ${#files[@]} > 1 )); then
-  echo "FAIL: slug '$slug' 가 중복이다 — permalink 가 충돌해 한쪽이 덮어써진다:" >&2
-  printf '  %s\n' "${files[@]}" >&2
-  exit 1
-fi
 post="${files[0]}"
-
-# 1-1) front matter 검사 — CI 의 Check posts 단계와 같은 스크립트(카테고리 leaf 등).
-ruby .github/scripts/check-posts.rb
 
 # 2) 빌드 — 예전 _site 가 남아 있어 오판하지 않도록 전용 폴더(_site-verify, .gitignore 의
 #    `_site*` 에 걸린다)를 비우고 새로 빌드한다.

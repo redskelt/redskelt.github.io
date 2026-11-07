@@ -23,6 +23,7 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 | 미래 `date` 포스트가 발행에서 빠지지 않음 | 구조: `_config.yml` 의 `future: true` |
 | 카테고리는 `category_hierarchy.yml` leaf, `Trending` 은 주간 roundup 전용 | 검사: `.github/scripts/check-posts.rb` |
 | 편 번호 제목([k/N]·k편·k일차)이면 `series`/`series_index` + `_data/series.yml` 등록, 편 수·"N부작" 일치 | 검사: `.github/scripts/check-posts.rb` |
+| slug(날짜 뺀 파일 이름)는 저장소 전체에서 하나 | 검사: `.github/scripts/check-posts.rb` |
 | 깨진 내부 링크·이미지, 루트 `.md` 노출 | 검사: CI `Test site`(htmlproofer) |
 | 스크린샷 필수, 유튜브는 임베드 | 문서뿐 (출처 링크와 구분이 판단이라 검사 불가) |
 | 수치·출처 대조, 비공개 자료 | 문서뿐 (판단) |
@@ -189,7 +190,6 @@ Diary`다. 포스트를 쓰거나 고친 뒤에는 이 메뉴들에 의도한 �
 | 링크 | 상대 경로 링크의 파일이 존재함 ("공통: 본문에 링크가 있으면 링크 확인") |
 | 스샷·영상 | 스샷 있음, 유튜브는 임베드 ("공통: 스크린샷 필수"). 주간 roundup 은 예외 |
 | 시리즈 | `series`/`series_index` + `_data/series.yml` ("공통: 시리즈 여부") |
-| **slug** | `_posts/*/*-<slug>.md` 가 하나뿐 (작성 4번) |
 | **출처** | 본문에서 소개한 레포·도구·영상은 원본 URL 을 쓴다(주간 roundup 포함). 수치·주장은 원본과 대조하고, 확인 안 되는 수치는 쓰지 않고 뺀다(근거 메모는 "공통: 영상 기반 포스트의 수치 근거 메모") |
 | **비공개 자료** | 본문·코드블록·스크린샷·이미지 대체텍스트·front matter 에 아래가 하나라도 있거나 있는 것 같으면 쓰기 전에 "공개 저장소에 들어가도 되는 내용인가"를 사용자에게 묻는다. ① 사내 프로젝트·시스템·제품 이름 ② 내부 URL·IP·호스트·서버명·DB/테이블/컬럼명·내부 계정 ID ③ 업무 코드 조각·설정·쿼리·장애 기록 ④ 고객·회원·직원의 이름·연락처·식별자·업무 화면 캡처 ⑤ 사내 위키·문서·메신저에서 복사한 내용. 의심되면 통과시키지 말고 묻는다(기본값은 거부, `wiki-ingest` 의 "회사/업무 자료 유입 방지"와 같은 기준). 시크릿·개인정보는 `wiki-ingest` 의 "개인정보/시크릿 유입 방지"도 함께 본다 |
 | **로컬 빌드** | push 전 `verify-build.sh <slug>` 통과 — 산출물 확인 + htmlproofer (아래 절) |
@@ -202,8 +202,8 @@ push 전에 실행한다:
 .claude/skills/post/verify-build.sh <slug>
 ```
 
-스크립트가 하는 일: rbenv PATH 설정 → slug 중복 확인 →
-`.github/scripts/check-posts.rb`(front matter 검사, CI 와 같은 스크립트) →
+스크립트가 하는 일: rbenv PATH 설정 →
+`.github/scripts/check-posts.rb`(front matter·slug 중복 검사, CI 와 같은 스크립트) →
 `jekyll build`(`_site-verify` 로, 예전 산출물 영향 없음) → 그 포스트의
 `<...>/<slug>/index.html` 이 실제로 생겼는지 확인 → `_site-verify` 전체에
 htmlproofer(CI `Test site` 단계와 같은 옵션: `--disable-external` +

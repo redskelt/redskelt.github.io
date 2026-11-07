@@ -106,6 +106,15 @@ by_series.each do |id, members|
   end
 end
 
+# slug: permalink 가 /:categories/:title/ 이라 같은 slug 는 URL 이 겹쳐 한쪽이 조용히
+# 덮어써진다(11bc4df trending-weekly). 날짜를 뺀 파일 이름이 저장소 전체에서 하나여야 한다.
+posts.group_by { |p| p[:slug] }.each do |slug, same|
+  next if same.size < 2
+
+  errors << "slug '#{slug}' 가 중복이다 (#{same.map { |p| p[:rel] }.join(', ')}). " \
+            "새 글의 slug 를 바꾼다(주간 roundup 은 -MMDD 접미사)"
+end
+
 if errors.empty?
   puts "OK: check-posts (#{posts.size} posts)"
 else
