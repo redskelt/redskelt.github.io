@@ -37,26 +37,14 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.4
+          # 로컬과 같은 버전 — .ruby-version 하나로 정한다.
+          ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Check posts
-        # front matter 검사(카테고리 leaf 등). 로컬 verify-build.sh 도 같은 스크립트를 부른다.
-        run: ruby .github/scripts/check-posts.rb
-
-      - name: Build site
-        # redskelt.github.io는 user page라 항상 루트(/)에서 서빙된다.
-        # --baseurl ""로 강제하지 않으면 steps.pages.outputs.base_path가
-        # 예상 밖 값(예: /pages/redskelt)을 내놓을 때 자산 경로가 깨진다.
-        run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}" --baseurl ""
-        env:
-          JEKYLL_ENV: "production"
-
-      - name: Test site
-        run: |
-          bundle exec htmlproofer "_site${{ steps.pages.outputs.base_path }}" \
-            \-\-disable-external \
-            \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+      - name: Build and test site
+        # 로컬 verify-build.sh 와 같은 스크립트: check-posts → production 빌드(--baseurl "")
+        # → htmlproofer. 빌드·검사 옵션은 이 스크립트에서만 바꾼다.
+        run: .github/scripts/build-site.sh "_site${{ steps.pages.outputs.base_path }}"
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v5

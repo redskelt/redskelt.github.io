@@ -14,8 +14,8 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 
 ## 규칙과 막는 장치
 
-검사가 있는 규칙은 어기면 CI(`Check posts`·`Test site`)와 `verify-build.sh` 가
-실패한다. "문서뿐"인 규칙만 직접 챙긴다. 사용자가 같은 실수를 다시 고치게 하면
+검사가 있는 규칙은 어기면 CI(`Build and test site`)와 `verify-build.sh` 가 같은
+`.github/scripts/build-site.sh` 로 실패한다. "문서뿐"인 규칙만 직접 챙긴다. 사용자가 같은 실수를 다시 고치게 하면
 여기에 행을 추가하고, 가능하면 검사로 바꾼다.
 
 | 규칙 | 막는 장치 |
@@ -24,7 +24,8 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 | 카테고리는 `category_hierarchy.yml` leaf, `Trending` 은 주간 roundup 전용 | 검사: `.github/scripts/check-posts.rb` |
 | 편 번호 제목([k/N]·k편·k일차)이면 `series`/`series_index` + `_data/series.yml` 등록, 편 수·"N부작" 일치 | 검사: `.github/scripts/check-posts.rb` |
 | slug(날짜 뺀 파일 이름)는 저장소 전체에서 하나 | 검사: `.github/scripts/check-posts.rb` |
-| 깨진 내부 링크·이미지, 루트 `.md` 노출 | 검사: CI `Test site`(htmlproofer) |
+| 깨진 내부 링크·이미지, 루트 `.md` 노출 | 검사: `build-site.sh` 의 htmlproofer |
+| 로컬과 CI 가 같은 ruby · 빌드 옵션 · 검사 | 구조: `.github/scripts/build-site.sh` 하나 + `.ruby-version` 하나 |
 | 스크린샷 필수, 유튜브는 임베드 | 문서뿐 (출처 링크와 구분이 판단이라 검사 불가) |
 | 수치·출처 대조, 비공개 자료 | 문서뿐 (판단) |
 
@@ -77,7 +78,7 @@ grep -n "name:" _data/category_hierarchy.yml
   ```
 
   파일이 없으면 CI의 htmlproofer가 배포를 막는다 (`build` job 실패,
-  `Test site` 단계). 없는 파일을 가리키는 링크는 쓰지 말고, 사용자에게
+  `Build and test site` 단계). 없는 파일을 가리키는 링크는 쓰지 말고, 사용자에게
   알려주거나 텍스트/코드블록으로 바꿔서 넣는다. 다른 프로젝트 문서에서
   복붙한 내용일수록 이 문제가 잘 생긴다.
 - 이 확인은 "작성" 6번, "수정"에서 본문에 링크를 추가/유지할 때 항상
@@ -202,17 +203,15 @@ push 전에 실행한다:
 .claude/skills/post/verify-build.sh <slug>
 ```
 
-스크립트가 하는 일: rbenv PATH 설정 →
-`.github/scripts/check-posts.rb`(front matter·slug 중복 검사, CI 와 같은 스크립트) →
-`jekyll build`(`_site-verify` 로, 예전 산출물 영향 없음) → 그 포스트의
-`<...>/<slug>/index.html` 이 실제로 생겼는지 확인 → `_site-verify` 전체에
-htmlproofer(CI `Test site` 단계와 같은 옵션: `--disable-external` +
-localhost 류 `--ignore-urls`). 산출물 확인이 핵심이다 —
+스크립트가 하는 일: rbenv PATH 설정 → 포스트 파일 확인 →
+`.github/scripts/build-site.sh _site-verify`(CI `Build and test site` 단계와 **같은
+스크립트**: `check-posts.rb` → production 빌드 `--baseurl ""` → htmlproofer) →
+그 포스트의 `<...>/<slug>/index.html` 이 실제로 생겼는지 확인. 산출물 확인이 핵심이다 —
 `published: false` 나 카테고리 경로 문제면 빌드는 **성공(exit 0)** 하는데 포스트만 조용히 빠진다.
 htmlproofer 는 CI 가 배포를 막는 깨진 내부 링크·이미지를 push 전에 잡는다
 (외부 링크는 검사하지 않아 네트워크를 타지 않고, 몇 초면 끝난다).
 
-- htmlproofer 실패(`FAIL: htmlproofer ...`)면 위에 찍힌 파일·링크 목록을 보고
+- htmlproofer 실패(`FAIL: build-site.sh ...` 위의 `HTML-Proofer found ...`)면 위에 찍힌 파일·링크 목록을 보고
   고친다. 이 포스트가 아니라 다른 페이지가 원인일 수도 있다(아래 루트 .md 주의).
 - htmlproofer 를 실행할 수 없으면(gem 미설치) FAIL 로 끝나고 `bundle install`
   을 안내한다. 당장 건너뛰어야 할 때만
@@ -223,14 +222,13 @@ htmlproofer 는 CI 가 배포를 막는 깨진 내부 링크·이미지를 push 
   exclude 에 없으면 Jekyll 이 `/<파일 이름>/` 페이지로 빌드하고, 그 안의 링크
   (`#main` 등)가 깨져 CI 가 배포를 막는다(실제로 `/TEAM/` 에서 터졌다).
   아무 포스트 slug 로 `verify-build.sh` 를 돌리면 사이트 전체가 검사된다.
-- 로컬 빌드는 Ruby 3.3+ (rbenv) 필요. 시스템 ruby(2.6)로는 bundler 가 안
-  맞는다. 직접 칠 때는
-  `PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH" bundle exec jekyll build`.
-- **로컬 그린 ≠ CI 그린.** CI(ruby 3.4)에서만 터진 문제가 있었다. 또 CI 는
-  `JEKYLL_ENV=production`, `--baseurl ""` 로 빌드하지만 이 스크립트는 기본 환경
-  으로 빌드한다(production 에서만 나오는 출력은 로컬 htmlproofer 대상이 아니다).
-  로컬 통과는 사전 점검일 뿐이고, push 후에는 `push-verify` 로 CI 와 sitemap 을
-  확인한다.
+- 로컬 빌드는 rbenv 의 `.ruby-version`(CI 도 같은 파일을 읽는다)으로 한다. 시스템
+  ruby(2.6)로는 bundler 가 안 맞는다.
+- 빌드·검사 옵션은 `.github/scripts/build-site.sh` 에서만 바꾼다. 워크플로나
+  `verify-build.sh` 에 옵션을 따로 적으면 로컬 그린 · CI 레드가 다시 생긴다(bbe3398,
+  f0f2d30). gitignore 된 로컬 전용 폴더를 새로 만들면 `_config.yml` exclude 에도 넣는다
+  (`var/`, `scripts/` 가 로컬에서만 페이지로 빌드돼 로컬 htmlproofer 가 깨졌었다).
+  push 후에는 `push-verify` 로 CI 와 sitemap 을 확인한다.
 
 ## 작성
 

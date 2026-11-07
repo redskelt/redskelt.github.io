@@ -64,6 +64,10 @@ exclude:
   - tools
   - README.md
   - TEAM.md
+  # gitignore 된 로컬 전용 폴더. CI 체크아웃엔 없는데 로컬 빌드엔 페이지로 들어가
+  # 로컬 htmlproofer 만 실패했다(로컬 ≠ CI).
+  - var
+  - scripts
   - LICENSE
   - wiki
   - vendor
