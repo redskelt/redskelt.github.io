@@ -12,7 +12,24 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 먼저 사용자 요청이 **작성 / 수정 / 삭제** 중 어느 쪽인지 판단한다. 애매하면
 물어본다.
 
+## 규칙과 막는 장치
+
+검사가 있는 규칙은 어기면 CI(`Check posts`·`Test site`)와 `verify-build.sh` 가
+실패한다. "문서뿐"인 규칙만 직접 챙긴다. 사용자가 같은 실수를 다시 고치게 하면
+여기에 행을 추가하고, 가능하면 검사로 바꾼다.
+
+| 규칙 | 막는 장치 |
+|---|---|
+| 미래 `date` 포스트가 발행에서 빠지지 않음 | 구조: `_config.yml` 의 `future: true` |
+| 카테고리는 `category_hierarchy.yml` leaf, `Trending` 은 주간 roundup 전용 | 검사: `.github/scripts/check-posts.rb` |
+| 깨진 내부 링크·이미지, 루트 `.md` 노출 | 검사: CI `Test site`(htmlproofer) |
+| 스크린샷 필수, 유튜브는 임베드 | 문서뿐 (출처 링크와 구분이 판단이라 검사 불가) |
+| 수치·출처 대조, 비공개 자료 | 문서뿐 (판단) |
+
 ## 공통: 카테고리는 `_data/category_hierarchy.yml`의 leaf여야 함
+
+`.github/scripts/check-posts.rb` 가 검사한다(CI·`verify-build.sh`). 아래는
+새 카테고리를 넣을 때 어느 그룹에 둘지 정하는 절차다.
 
 이 테마의 `/categories/` 페이지는 `categories:` 배열 순서가 아니라
 `_data/category_hierarchy.yml`(그룹 key/main_title/sub_title + 그 안의
@@ -184,6 +201,7 @@ push 전에 실행한다:
 ```
 
 스크립트가 하는 일: rbenv PATH 설정 → slug 중복 확인 →
+`.github/scripts/check-posts.rb`(front matter 검사, CI 와 같은 스크립트) →
 `jekyll build`(`_site-verify` 로, 예전 산출물 영향 없음) → 그 포스트의
 `<...>/<slug>/index.html` 이 실제로 생겼는지 확인 → `_site-verify` 전체에
 htmlproofer(CI `Test site` 단계와 같은 옵션: `--disable-external` +
