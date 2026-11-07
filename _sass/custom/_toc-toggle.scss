@@ -61,10 +61,11 @@
     display: none;
   }
 
+  /* 테마 Gumshoe(offset 20)가 붙이는 li.active 는 강조하지 않는다 — 테마 기본 배경만 지운다.
+     강조는 toc-scrollspy.js 의 a.is-active 하나가 맡는다. 둘 다 칠하면 소제목이 메뉴바 아래
+     (scroll-padding-top)에 멈출 때 기준이 달라 이전 항목과 누른 항목에 막대가 두 개 생긴다. */
   .active a {
     background: none;
-    color: var(--color-text) !important;
-    border-left-color: var(--color-accent);
   }
 }
 
