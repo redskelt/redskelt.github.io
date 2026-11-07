@@ -22,6 +22,7 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 |---|---|
 | 미래 `date` 포스트가 발행에서 빠지지 않음 | 구조: `_config.yml` 의 `future: true` |
 | 카테고리는 `category_hierarchy.yml` leaf, `Trending` 은 주간 roundup 전용 | 검사: `.github/scripts/check-posts.rb` |
+| 편 번호 제목([k/N]·k편·k일차)이면 `series`/`series_index` + `_data/series.yml` 등록, 편 수·"N부작" 일치 | 검사: `.github/scripts/check-posts.rb` |
 | 깨진 내부 링크·이미지, 루트 `.md` 노출 | 검사: CI `Test site`(htmlproofer) |
 | 스크린샷 필수, 유튜브는 임베드 | 문서뿐 (출처 링크와 구분이 판단이라 검사 불가) |
 | 수치·출처 대조, 비공개 자료 | 문서뿐 (판단) |
@@ -104,7 +105,8 @@ grep -n "name:" _data/category_hierarchy.yml
 ## 공통: 시리즈 여부, 유튜브 리뷰면 Trending 카테고리
 
 **여러 편으로 나눠 쓰는 포스트(1/N, 2/N ... 같은 제목, 또는 사용자가 "시리즈로
-만들자"고 한 경우)는 `post_url` 상호 링크만으로는 부족하다.** `/series/`
+만들자"고 한 경우)는 `post_url` 상호 링크만으로는 부족하다.** 제목에 편 번호가
+있으면 `.github/scripts/check-posts.rb` 가 아래 등록과 편 수를 검사한다. `/series/`
 페이지와 관련 글 추천(orbit)은 `series`/`series_index` front matter와
 `_data/series.yml` 등록 여부로만 시리즈를 인식한다 — 이 필드가 없으면 카테고리
 페이지엔 잡혀도 시리즈 페이지엔 조용히 빠진다.

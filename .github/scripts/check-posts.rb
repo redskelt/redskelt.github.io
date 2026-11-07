@@ -61,6 +61,51 @@ posts.each do |post|
   end
 end
 
+# 시리즈: /series/ 와 orbit 은 front matter series/series_index 와 _data/series.yml 로만
+# 시리즈를 안다. 제목에 편 번호([k/N], k편, k일차)만 있고 이 필드가 없으면 조용히 빠진다
+# (0551df8 Jev, 3ca0b75 JUnit). 편 수는 제목 [k/N] 과 series.yml 의 "N부작" 과도 맞아야 한다.
+series_file = "_data/series.yml"
+series_path = File.join(ROOT, series_file)
+series_meta = File.exist?(series_path) ? (load_yaml(series_path) || {}) : {}
+by_series = Hash.new { |h, k| h[k] = [] }
+posts.each do |post|
+  title = post[:fm]["title"].to_s
+  id = post[:fm]["series"]&.to_s
+  index = post[:fm]["series_index"]
+  by_series[id] << post if id
+  part = title.match(%r{\[(\d+)/(\d+)\]}) || title.match(/(\d+)(?:편|일차)/)
+  if part && id.nil?
+    errors << "#{post[:rel]}: 제목에 편 번호('#{part[0]}')가 있는데 series 가 없다. " \
+              "front matter 에 series: <id>, series_index: #{part[1]} 를 넣고 #{series_file} 에 <id> 를 등록한다"
+  elsif part && index.to_i != part[1].to_i
+    errors << "#{post[:rel]}: 제목의 편 번호 #{part[1]} 와 series_index #{index.inspect} 가 다르다"
+  end
+  post[:total] = part[2].to_i if part && part.size > 2 && part[2]
+  if id && !index.is_a?(Integer)
+    errors << "#{post[:rel]}: series: #{id} 인데 series_index(1부터 시작하는 정수)가 없다"
+  end
+end
+by_series.each do |id, members|
+  unless series_meta.key?(id)
+    errors << "#{series_file}: series '#{id}' 가 없다 (#{members.map { |p| p[:rel] }.join(', ')}). " \
+              "#{id}: { title: ..., description: \"... N부작 ...\" } 로 추가한다"
+  end
+  count = members.size
+  indexes = members.map { |p| p[:fm]["series_index"] }.sort_by(&:to_s)
+  unless indexes.map(&:to_i).sort == (1..count).to_a
+    errors << "series '#{id}': series_index 가 1..#{count} 이 아니다 (#{indexes.inspect})"
+  end
+  members.each do |post|
+    next unless post[:total] && post[:total] != count
+
+    errors << "#{post[:rel]}: 제목은 [k/#{post[:total]}] 인데 series '#{id}' 포스트는 #{count}편이다"
+  end
+  desc = series_meta.dig(id, "description").to_s
+  if (n = desc[/(\d+)부작/, 1]) && n.to_i != count
+    errors << "#{series_file}: '#{id}' description 은 #{n}부작인데 포스트는 #{count}편이다"
+  end
+end
+
 if errors.empty?
   puts "OK: check-posts (#{posts.size} posts)"
 else
