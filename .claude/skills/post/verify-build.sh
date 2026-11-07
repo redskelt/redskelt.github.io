@@ -45,6 +45,9 @@ if (( ${#files[@]} > 1 )); then
 fi
 post="${files[0]}"
 
+# 1-1) front matter 검사 — CI 의 Check posts 단계와 같은 스크립트(카테고리 leaf 등).
+ruby .github/scripts/check-posts.rb
+
 # 2) 빌드 — 예전 _site 가 남아 있어 오판하지 않도록 전용 폴더(_site-verify, .gitignore 의
 #    `_site*` 에 걸린다)를 비우고 새로 빌드한다.
 out="_site-verify"
