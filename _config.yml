@@ -113,6 +113,9 @@ permalink: /:categories/:title/
 paginate: 12
 paginate_path: /page:num/
 timezone: Asia/Seoul
+# date 가 빌드 시각보다 미래인 포스트도 발행한다. false(기본)면 Jekyll 이 에러 없이
+# 조용히 빼서, 어림 시각으로 쓴 포스트가 3번 누락됐다(a7f6e3b, c7948c0, a90336e).
+future: true
 
 plugins:
   - jekyll-paginate
