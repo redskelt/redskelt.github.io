@@ -2,25 +2,50 @@ document.addEventListener('DOMContentLoaded', function () {
   var searchInput = document.getElementById('search');
   var resultsEl = document.getElementById('results');
   var scrim = document.querySelector('.search-content');
-  if (!searchInput || !resultsEl || typeof lunr === 'undefined' || typeof store === 'undefined') return;
+  if (!searchInput || !resultsEl || typeof lunr === 'undefined') return;
 
-  var idx = lunr(function () {
-    this.ref('id');
-    this.field('title', { boost: 10 });
-    this.field('categories');
-    this.field('excerpt');
+  // lunr's default trimmer strips every non-ASCII character, which erased Hangul tokens entirely.
+  // Splitting on anything that is not a letter or digit keeps them and still separates "(Docker,".
+  lunr.tokenizer.separator = /[^\p{L}\p{N}]+/u;
 
-    store.forEach(function (doc, i) {
-      this.add({
-        id: i,
-        title: doc.title,
-        categories: (doc.categories || []).join(' '),
-        excerpt: doc.excerpt
+  // The store holds every post's full text (search_full_content), so it loads on first search, not on every page.
+  var storeLoad = null;
+  function loadStore() {
+    if (!storeLoad) {
+      storeLoad = new Promise(function (resolve, reject) {
+        var script = document.createElement('script');
+        script.src = searchInput.dataset.store;
+        script.onload = resolve;
+        script.onerror = function () {
+          storeLoad = null;
+          script.remove();
+          reject();
+        };
+        document.head.appendChild(script);
       });
-    }, this);
-  });
+    }
+    return storeLoad;
+  }
 
-  var recentDefaults = store.slice(0, 6);
+  var idx = null;
+  function buildIndex() {
+    return lunr(function () {
+      this.pipeline.remove(lunr.trimmer);
+      this.ref('id');
+      this.field('title', { boost: 10 });
+      this.field('categories');
+      this.field('excerpt');
+
+      store.forEach(function (doc, i) {
+        this.add({
+          id: i,
+          title: doc.title,
+          categories: (doc.categories || []).join(' '),
+          excerpt: doc.excerpt
+        });
+      }, this);
+    });
+  }
 
   function renderResults(list) {
     resultsEl.innerHTML = '';
@@ -43,27 +68,34 @@ document.addEventListener('DOMContentLoaded', function () {
     resultsEl.appendChild(ul);
   }
 
-  function search(query) {
-    if (!query) {
-      renderResults(recentDefaults);
-      return;
-    }
-    var matches = [];
-    try {
-      matches = idx.search(query + '*').map(function (r) { return store[Number(r.ref)]; });
-    } catch (e) {
-      matches = idx.search(query).map(function (r) { return store[Number(r.ref)]; });
-    }
-    renderResults(matches);
+  function search() {
+    loadStore().then(function () {
+      var query = searchInput.value.trim();
+      if (!query) {
+        renderResults(store.slice(0, 6));
+        return;
+      }
+      var tokens = lunr.tokenizer(query);
+      if (!tokens.length) {
+        renderResults([]);
+        return;
+      }
+      idx = idx || buildIndex();
+      var matches = idx.query(function (q) {
+        tokens.forEach(function (token) {
+          q.term(token.toString(), { boost: 10 });
+          q.term(token.toString(), { usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING });
+        });
+      }).map(function (r) { return store[Number(r.ref)]; });
+      renderResults(matches);
+    }, function () {});
   }
 
-  searchInput.addEventListener('input', function () {
-    search(searchInput.value.trim());
-  });
+  searchInput.addEventListener('input', search);
 
   document.querySelectorAll('.search__toggle').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      setTimeout(function () { search(searchInput.value.trim()); }, 50);
+      setTimeout(search, 50);
     });
   });
 

@@ -27,7 +27,7 @@ comments:
     theme                 : "dark"
 
 search                   : true
-search_full_content      : false
+search_full_content      : true
 search_provider          : "lunr"
 lunr:
   search_within_pages    : true
