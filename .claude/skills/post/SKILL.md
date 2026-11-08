@@ -24,6 +24,7 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 | 카테고리는 `category_hierarchy.yml` leaf, `Trending` 은 주간 roundup 전용 | 검사: `.github/scripts/check-posts.rb` |
 | 편 번호 제목([k/N]·k편·k일차)이면 `series`/`series_index` + `_data/series.yml` 등록, 편 수·"N부작" 일치 | 검사: `.github/scripts/check-posts.rb` |
 | slug(날짜 뺀 파일 이름)는 저장소 전체에서 하나 | 검사: `.github/scripts/check-posts.rb` |
+| 문장 · 목록 · 인용 안의 글자 `\|`(영상 제목 "A \| B", 채널 이름 "Jay Choi \| 인디해커 라이프")는 `\|` 로 쓴다. 그냥 쓰면 kramdown 이 헤더 없는 표로 만들고 링크가 깨진다 | 검사: `.github/scripts/check-posts.rb` |
 | 깨진 내부 링크·이미지, 루트 `.md` 노출 | 검사: `build-site.sh` 의 htmlproofer |
 | 로컬과 CI 가 같은 ruby · 빌드 옵션 · 검사 | 구조: `.github/scripts/build-site.sh` 하나 + `.ruby-version` 하나 |
 | 본문 앵커(목차 등) 이동이 고정 메뉴바에 가려지지 않음 | 구조: `--masthead-height` 하나 → `scroll-padding-top`, `assets/js/custom/anchor-scroll.js`. 확인은 verify-blog post-widgets 레시피(로컬) |
