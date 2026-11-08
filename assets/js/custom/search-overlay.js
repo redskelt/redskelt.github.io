@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Splitting on anything that is not a letter or digit keeps them and still separates "(Docker,".
   lunr.tokenizer.separator = /[^\p{L}\p{N}]+/u;
 
-  // The store holds every post's full text (search_full_content), so it loads on first search, not on every page.
+  // The store holds every post's full text (search_full_content), so it loads when the overlay is first used, not on every page.
   var storeLoad = null;
   function loadStore() {
     if (!storeLoad) {
