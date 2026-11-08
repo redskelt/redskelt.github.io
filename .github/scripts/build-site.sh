@@ -19,7 +19,7 @@ out="${1:?사용법: $0 [--skip-proofer] <출력 폴더>}"
 cd "$(git rev-parse --show-toplevel)"
 
 # 1) front matter 검사(카테고리 · 시리즈 · slug)
-ruby .github/scripts/check-posts.rb
+bundle exec ruby .github/scripts/check-posts.rb
 
 # 2) 빌드 — 배포와 같은 production 환경. user page 라 항상 루트(/)에서 서빙되므로
 #    --baseurl "" 로 강제한다(configure-pages 의 base_path 가 예상 밖 값을 낼 때 대비).

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# 포스트 front matter 검사: ruby .github/scripts/check-posts.rb [저장소 루트]
+# 포스트 검사: bundle exec ruby .github/scripts/check-posts.rb [저장소 루트]
 #
 # CI(.github/workflows/pages-deploy.yml 의 Check posts 단계)와 로컬
 # (.claude/skills/post/verify-build.sh)이 같은 이 스크립트를 부른다.
@@ -10,6 +10,8 @@
 
 require "yaml"
 require "date"
+require "kramdown"
+require "kramdown-parser-gfm"
 
 ROOT = File.expand_path(ARGV[0] || File.join(__dir__, "..", ".."))
 ROUNDUP = /-trending-weekly(-\d{4})?\.md\z/
@@ -34,7 +36,7 @@ posts = Dir.glob(File.join(ROOT, "_posts", "**", "*.md")).sort.map do |path|
     errors << "#{rel}: front matter(--- ... ---)가 없다"
     next
   end
-  { rel: rel, fm: fm, slug: File.basename(path, ".md").sub(/\A\d{4}-\d{2}-\d{2}-/, "") }
+  { rel: rel, path: path, fm: fm, slug: File.basename(path, ".md").sub(/\A\d{4}-\d{2}-\d{2}-/, "") }
 end.compact
 
 # 카테고리: _data/category_hierarchy.yml 의 leaf(categories[].name)만 허용.
@@ -113,6 +115,25 @@ posts.group_by { |p| p[:slug] }.each do |slug, same|
 
   errors << "slug '#{slug}' 가 중복이다 (#{same.map { |p| p[:rel] }.join(', ')}). " \
             "새 글의 slug 를 바꾼다(주간 roundup 은 -MMDD 접미사)"
+end
+
+# 의도치 않은 표: kramdown 은 | 가 든 줄을 목록 · 인용 · 문장 안에서도 표로 읽는다.
+# 영상 제목 · 채널 이름의 "A | B" 가 헤더 없는 표가 되고 링크가 원문으로 깨졌다
+# (trending-weekly-1102 등 7개 포스트). Jekyll 과 같은 kramdown 으로 본문을 파싱해
+# 헤더 구분 줄(|---|) 없는 표를 잡는다. 일부러 쓴 표는 모두 헤더가 있다.
+posts.each do |post|
+  text = File.read(post[:path])
+  body = text.sub(/\A---\s*\n.*?\n---\s*\n/m) { |fm| "\n" * fm.count("\n") }
+  stack = [Kramdown::Document.new(body, input: "GFM", hard_wrap: false).root]
+  until stack.empty?
+    el = stack.pop
+    stack.concat(el.children.reverse)
+    next unless el.type == :table && el.children.none? { |c| c.type == :thead }
+
+    line = el.options[:location]
+    errors << "#{post[:rel]}:#{line}: 문장 속 | 때문에 헤더 없는 표가 됐다: #{text.lines[line - 1].to_s.strip[0, 80]} " \
+              "— 글자 | 는 \\| 로 쓴다(일부러 만든 표면 헤더 줄과 |---| 구분 줄을 넣는다)"
+  end
 end
 
 if errors.empty?
