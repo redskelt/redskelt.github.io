@@ -9,7 +9,7 @@ Claude Code 하나만 쓸 때는 터미널 하나면 충분하다. 그런데 Cod
 
 [herdr](https://herdr.dev)는 이 문제를 풀기 위해 태생부터 AI 에이전트 중심으로 설계된 터미널 멀티플렉서다. 이 글은 다음 영상을 보고 herdr 공식 문서까지 함께 확인해서 구조, 설치, 실제 사용법, tmux·cmux·Orca와의 차이까지 정리한 상세 가이드다.
 
-> 참고 영상: [tmux·cmux 대체] herdr 완벽 가이드 | 태생부터 AI 에이전트를 위한 터미널 멀티플렉서 (김플립 - LLM 코딩)
+> 참고 영상: [tmux·cmux 대체] herdr 완벽 가이드 \| 태생부터 AI 에이전트를 위한 터미널 멀티플렉서 (김플립 - LLM 코딩)
 
 {% include video id="rSHizW6dI3c" provider="youtube" %}
 

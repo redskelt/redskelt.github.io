@@ -7,7 +7,7 @@ tags: [ClaudeCode, 에이전트스킬, mattpocock-skills, 코딩에이전트]
 
 맷 포콕(Matt Pocock)의 코딩 에이전트 스킬 모음 [mattpocock/skills](https://github.com/mattpocock/skills)가 1.3 버전으로 올라가며 새 스킬이 여럿 들어왔다. 민둥이 채널이 이 업데이트를 5분 분량으로 정리한 영상을 기준으로, 각 스킬이 실제로 어떻게 동작하는지는 공식 레포의 문서(`docs/`)와 `CHANGELOG.md`로 확인해 덧붙였다.
 
-> 민둥이 | 쉽게 배우는 AI, "SNS에서 난리났다는데.. 맷 포콕 AI코딩 스킬 업데이트 완벽 정리" (2026-10-22, 4분 41초). 영상 속 화면은 맷 포콕 본인 채널의 영상 2편을 인용한 것이다.
+> 민둥이 \| 쉽게 배우는 AI, "SNS에서 난리났다는데.. 맷 포콕 AI코딩 스킬 업데이트 완벽 정리" (2026-10-22, 4분 41초). 영상 속 화면은 맷 포콕 본인 채널의 영상 2편을 인용한 것이다.
 
 {% include video id="ZE4hmiGglTM" provider="youtube" %}
 

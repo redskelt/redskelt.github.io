@@ -36,7 +36,7 @@ Two Minute Papers의 ["DeepSeek Solved AI's Memory Problem"](https://youtu.be/4f
 [교사 증류로 학습한 Laya 선별기]({% post_url 2026/2026-10-06-laya-teacher-distillation %})가 이번 주 후보 25개 중 꼽은 상위 5개다. 조회수가 아니라 "따라 해볼 만한 내용인가"로 고른 순위다.
 
 1. [Claude Code Mods 설명, 10가지 사용 사례](https://youtu.be/z-GwTV_qID8) — 코드팩토리 (10-06)
-2. [제 영상 속 모션그래픽, 드디어 공개합니다](https://youtu.be/TzDlXg8Cg8o) — Jay Choi | 인디해커 라이프 (10-08). 설명란을 보면 모션그래픽 키트 Blueprint를 "출시가"로 파는 영상이다
+2. [제 영상 속 모션그래픽, 드디어 공개합니다](https://youtu.be/TzDlXg8Cg8o) — Jay Choi \| 인디해커 라이프 (10-08). 설명란을 보면 모션그래픽 키트 Blueprint를 "출시가"로 파는 영상이다
 3. [클로드 코드 Mods, 실제 예시로 처음부터 끝까지](https://youtu.be/N-djs9BCIyE) — 김플립 (10-09)
 4. [Shadcn Lint 써서 AI로 디자인 박살내지 않기](https://youtu.be/2_2M0DlHD1Y) — 코드팩토리 (10-05)
 5. [DeepSeek Solved AI's Memory Problem](https://youtu.be/4fLVq6HJsKc) — Two Minute Papers (10-11)

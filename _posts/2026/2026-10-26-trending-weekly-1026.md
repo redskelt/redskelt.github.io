@@ -48,10 +48,10 @@ Latent Space는 AI Engineer NYC 인터뷰를 연달아 올렸다.
 
 [교사 증류로 학습한 Laya 선별기]({% post_url 2026/2026-10-06-laya-teacher-distillation %})가 이번 주 후보 47개 중 꼽은 상위 5개다. 조회수가 아니라 "따라 해볼 만한 내용인가"로 고른 순위다.
 
-1. [「헤르메스 에이전트」 이 영상 하나로 끝냅니다 (53분 총정리)](https://youtu.be/Ro7sTspmJHo) — Jay Choi | 인디해커 라이프 (10-24). Nous Research의 헤르메스 에이전트를 설치부터 실전 활용, 봇 모드까지 다룬다. 설명란에 Hostinger의 지원을 받아 제작했다고 밝혔다
+1. [「헤르메스 에이전트」 이 영상 하나로 끝냅니다 (53분 총정리)](https://youtu.be/Ro7sTspmJHo) — Jay Choi \| 인디해커 라이프 (10-24). Nous Research의 헤르메스 에이전트를 설치부터 실전 활용, 봇 모드까지 다룬다. 설명란에 Hostinger의 지원을 받아 제작했다고 밝혔다
 2. [오픈AI 공동창업자 안드레 카파시가 본 AI 격차](https://youtu.be/ckA-Kxnw8RE) — 잔재미코딩(DaveLee) (10-21). 설명란 첫 줄이 `[광고]`이고, 후반부는 유료 강의 로드맵 소개다
-3. [크롬으로도 되는데 AI 브라우저가 필요한 이유?](https://youtu.be/P6kBV7A-V8M) — 민둥이 | 쉽게 배우는 AI (10-20)
-4. [10분만에 얼굴 없는 유튜브 채널 시작하기](https://youtu.be/usM_cCU0umk) — Jay Choi | 인디해커 라이프 (10-20). Higgsfield 링크로 시작하는 서비스 소개 영상이다
-5. [토큰 절약 도구 깃허브 TOP 7](https://youtu.be/SDA8HhKRsrI) — 민둥이 | 쉽게 배우는 AI (10-24)
+3. [크롬으로도 되는데 AI 브라우저가 필요한 이유?](https://youtu.be/P6kBV7A-V8M) — 민둥이 \| 쉽게 배우는 AI (10-20)
+4. [10분만에 얼굴 없는 유튜브 채널 시작하기](https://youtu.be/usM_cCU0umk) — Jay Choi \| 인디해커 라이프 (10-20). Higgsfield 링크로 시작하는 서비스 소개 영상이다
+5. [토큰 절약 도구 깃허브 TOP 7](https://youtu.be/SDA8HhKRsrI) — 민둥이 \| 쉽게 배우는 AI (10-24)
 
 이번 주도 상위 5개 중 3개가 협찬·광고나 특정 서비스 소개 영상이다. 3위와 5위는 선별기가 학습 때 본 적 없는 새 채널의 영상이라 점수를 그대로 믿기는 이르다. 직접 따라 해볼 만한 영상을 꼽자면, 협찬 영상이긴 해도 설치부터 보여 주는 1위와, 도구를 단계별로 비교한 민둥이의 코딩 스킬 비교 영상이 가장 가깝다.
