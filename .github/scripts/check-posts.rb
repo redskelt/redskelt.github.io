@@ -121,9 +121,11 @@ end
 # 영상 제목 · 채널 이름의 "A | B" 가 헤더 없는 표가 되고 링크가 원문으로 깨졌다
 # (trending-weekly-1102 등 7개 포스트). Jekyll 과 같은 kramdown 으로 본문을 파싱해
 # 헤더 구분 줄(|---|) 없는 표를 잡는다. 일부러 쓴 표는 모두 헤더가 있다.
+# Liquid 의 {{ x | filter }} 는 Jekyll 이 먼저 렌더하므로 표가 아니다. 그 | 는 지우고 본다.
 posts.each do |post|
   text = File.read(post[:path])
   body = text.sub(/\A---\s*\n.*?\n---\s*\n/m) { |fm| "\n" * fm.count("\n") }
+              .gsub(/\{\{.*?\}\}|\{%.*?%\}/m) { |liquid| liquid.tr("|", " ") }
   stack = [Kramdown::Document.new(body, input: "GFM", hard_wrap: false).root]
   until stack.empty?
     el = stack.pop
