@@ -34,3 +34,18 @@ herdr-team 플러그인의 프로젝트 흐름 파일이다. 이 저장소에서
 - 저장소 루트의 팀 문서(`TEAM.md`)는 `_config.yml` 의 `exclude` 에 넣어 사이트 페이지로 빌드되지 않게 한다(빠지면 htmlproofer 가 `/TEAM/` 페이지에서 실패한다).
 - `scripts/` · `var/` 도 `.gitignore` 에 걸려 추적되지 않는다. 그 안의 스크립트가 필요하면 원래 저장소 폴더에서 읽기만 한다.
 - 커밋 메시지에는 변경 설명만 쓴다(AI 공동저자 줄을 넣지 않는다).
+
+## 규칙과 그것을 막는 것
+같은 실수가 두 번 나온 규칙만 적는다. "막는 것"이 비어 있는 규칙은 어겨도 아무것도 실패하지 않으니 반복되면 더 높은 수준(구조 → 린트 → 시험 → 문서)에서 막는다. 실수가 더 일어날 수 없게 되면 그 줄을 지운다.
+
+| 규칙(막으려는 실수) | 막는 것 | 근거 커밋 |
+|---|---|---|
+| 카테고리는 `_data/category_hierarchy.yml` 의 leaf 만, `Trending` 은 주간 roundup 전용 | `.github/scripts/check-posts.rb` (CI · 로컬 공통) + `test-check-posts.sh` | 1864865, cd4cd5b |
+| 시리즈 포스트는 `series` · `series_index` · `_data/series.yml` 등록, 편 수 일치 | 같은 `check-posts.rb` + 시험 | 0551df8, 3ca0b75 |
+| slug(파일명에서 날짜를 뺀 부분)는 저장소 전체에서 하나 | 같은 `check-posts.rb` + 시험 | 11bc4df, cf05e39 |
+| 영상 제목 · 채널 이름 속 세로 막대 글자가 헤더 없는 표를 만들지 않게 역슬래시로 이스케이프한다 | 같은 `check-posts.rb` + 시험 | 100802e, 010332e |
+| 미래 date 포스트가 조용히 빠지지 않는다 | 구조: `_config.yml` 의 `future: true`. `check-posts.rb` 가 그 줄이 있는지 확인 + 시험 | a7f6e3b, c7948c0, a90336e |
+| 로컬 빌드와 CI 빌드가 다르지 않다 | 구조: `.github/scripts/build-site.sh` 하나를 CI 와 `verify-build.sh` 가 같이 부른다 | bbe3398, f0f2d30, 24e914c |
+| 깨진 링크 · 이미지, 사이트에 노출되면 안 되는 루트 `.md` | `build-site.sh` 의 htmlproofer. 루트 `.md` 는 `_config.yml` `exclude` | 24e914c |
+| 영상 기반 포스트에 근거 없는 서술을 쓰지 않는다(채널 오기재, 수치 오독, 근거 없는 비율, 자동 요약을 설명란으로 착각, 협찬 추정) | **미강제.** `post/SKILL.md` 의 수치 근거 메모 + 다른 모델 교차 리뷰(수동). 의미 판단이라 린트로 막지 못한다 | 65fef45, 0c07394, 766c776, 5dd0e55, 41d3abd |
+| 수집 스크립트(`scripts/`)가 worktree · 다른 컴퓨터에서 보여야 한다 | **미강제.** 위 "주의"의 문장뿐. `.gitignore` 의 `/scripts/` 때문에 추적되지 않는다(추적 전환은 사용자 결정 대기) | 2026-11-04, 2026-11-09 팀 작업에서 확인 |
