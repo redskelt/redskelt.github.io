@@ -39,6 +39,20 @@ posts = Dir.glob(File.join(ROOT, "_posts", "**", "*.md")).sort.map do |path|
   { rel: rel, path: path, fm: fm, slug: File.basename(path, ".md").sub(/\A\d{4}-\d{2}-\d{2}-/, "") }
 end.compact
 
+# 설정: date 가 빌드 시각보다 미래인 포스트를 Jekyll 은 에러 없이 빼서 사이트에서 사라진다.
+# 어림 시각으로 쓴 포스트가 3번 누락됐고(a7f6e3b, c7948c0, a90336e), 지금은 _config.yml 의
+# future: true 한 줄이 그것을 막는다(93e73a5). 그 줄이 지워지면 같은 실수가 에러 없이 돌아온다.
+config_file = "_config.yml"
+config_path = File.join(ROOT, config_file)
+if File.exist?(config_path)
+  unless (load_yaml(config_path) || {})["future"] == true
+    errors << "#{config_file}: future: true 가 없다. 빠지면 date 가 빌드 시각보다 미래인 포스트를 " \
+              "Jekyll 이 에러 없이 빼 사이트에서 사라진다(a7f6e3b, c7948c0, a90336e). future: true 를 되돌린다"
+  end
+else
+  errors << "#{config_file} 가 없다"
+end
+
 # 카테고리: _data/category_hierarchy.yml 의 leaf(categories[].name)만 허용.
 # 그 밖의 이름(그룹 key 포함)은 /categories/ 그룹 뷰에서 조용히 빠진다(1864865).
 # Trending 은 주간 roundup(*-trending-weekly-MMDD.md) 전용, 다른 카테고리 없이(cd4cd5b).
