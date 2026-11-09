@@ -18,8 +18,10 @@ out="${1:?사용법: $0 [--skip-proofer] <출력 폴더>}"
 
 cd "$(git rev-parse --show-toplevel)"
 
-# 1) front matter 검사(카테고리 · 시리즈 · slug)
+# 1) front matter 검사(카테고리 · 시리즈 · slug · 표 · future 설정)
 bundle exec ruby .github/scripts/check-posts.rb
+#    그 검사가 과거 실수를 계속 잡는지 다시 확인한다(검사를 고치다 느슨해지는 것을 막는다).
+.github/scripts/test-check-posts.sh
 
 # 2) 빌드 — 배포와 같은 production 환경. user page 라 항상 루트(/)에서 서빙되므로
 #    --baseurl "" 로 강제한다(configure-pages 의 base_path 가 예상 밖 값을 낼 때 대비).
