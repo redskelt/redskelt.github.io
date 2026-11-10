@@ -216,3 +216,28 @@
     color: var(--color-text-faint);
   }
 }
+
+/* code blocks inside an accordion body (long single-line prompts) ----------
+   Wrap long lines and drop the line-number gutter, which stops meaning
+   anything once lines wrap. Rouge puts the code in a table that _readability
+   sizes to its longest line (width: max-content, table-layout: auto), so the
+   table is pinned to the container width. The selector repeats that file's
+   prefix to out-rank it. Copying reads .rouge-code, so the copied text is
+   unchanged. Scoped to the accordion body, so other code blocks keep scrolling. */
+
+.layout--single .page__content .series-accordion__body div.highlighter-rouge {
+  .highlight table.rouge-table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+  }
+
+  .rouge-gutter {
+    display: none;
+  }
+
+  .rouge-code pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
