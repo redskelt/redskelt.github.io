@@ -40,22 +40,22 @@ posts = Dir.glob(File.join(ROOT, "_posts", "**", "*.md")).sort.map do |path|
 end.compact
 
 # 설정: date 가 빌드 시각보다 미래인 포스트를 Jekyll 은 에러 없이 빼서 사이트에서 사라진다.
-# 어림 시각으로 쓴 포스트가 3번 누락됐고(a7f6e3b, c7948c0, a90336e), 지금은 _config.yml 의
-# future: true 한 줄이 그것을 막는다(93e73a5). 그 줄이 지워지면 같은 실수가 에러 없이 돌아온다.
+# 어림 시각으로 쓴 포스트가 3번 누락됐고(093f2da, 1c05811, 0c867e2), 지금은 _config.yml 의
+# future: true 한 줄이 그것을 막는다(d2d9793). 그 줄이 지워지면 같은 실수가 에러 없이 돌아온다.
 config_file = "_config.yml"
 config_path = File.join(ROOT, config_file)
 if File.exist?(config_path)
   unless (load_yaml(config_path) || {})["future"] == true
     errors << "#{config_file}: future: true 가 없다. 빠지면 date 가 빌드 시각보다 미래인 포스트를 " \
-              "Jekyll 이 에러 없이 빼 사이트에서 사라진다(a7f6e3b, c7948c0, a90336e). future: true 를 되돌린다"
+              "Jekyll 이 에러 없이 빼 사이트에서 사라진다(093f2da, 1c05811, 0c867e2). future: true 를 되돌린다"
   end
 else
   errors << "#{config_file} 가 없다"
 end
 
 # 카테고리: _data/category_hierarchy.yml 의 leaf(categories[].name)만 허용.
-# 그 밖의 이름(그룹 key 포함)은 /categories/ 그룹 뷰에서 조용히 빠진다(1864865).
-# Trending 은 주간 roundup(*-trending-weekly-MMDD.md) 전용, 다른 카테고리 없이(cd4cd5b).
+# 그 밖의 이름(그룹 key 포함)은 /categories/ 그룹 뷰에서 조용히 빠진다(b5baf93).
+# Trending 은 주간 roundup(*-trending-weekly-MMDD.md) 전용, 다른 카테고리 없이(73c2415).
 hierarchy_file = "_data/category_hierarchy.yml"
 leaves = load_yaml(File.join(ROOT, hierarchy_file)).flat_map do |group|
   (group["categories"] || []).map { |c| c["name"] }
@@ -79,7 +79,7 @@ end
 
 # 시리즈: /series/ 와 orbit 은 front matter series/series_index 와 _data/series.yml 로만
 # 시리즈를 안다. 제목에 편 번호([k/N], k편, k일차)만 있고 이 필드가 없으면 조용히 빠진다
-# (0551df8 Jev, 3ca0b75 JUnit). 편 수는 제목 [k/N] 과 series.yml 의 "N부작" 과도 맞아야 한다.
+# (3dc802a Jev, 6057f33 JUnit). 편 수는 제목 [k/N] 과 series.yml 의 "N부작" 과도 맞아야 한다.
 series_file = "_data/series.yml"
 series_path = File.join(ROOT, series_file)
 series_meta = File.exist?(series_path) ? (load_yaml(series_path) || {}) : {}
@@ -123,7 +123,7 @@ by_series.each do |id, members|
 end
 
 # slug: permalink 가 /:categories/:title/ 이라 같은 slug 는 URL 이 겹쳐 한쪽이 조용히
-# 덮어써진다(11bc4df trending-weekly). 날짜를 뺀 파일 이름이 저장소 전체에서 하나여야 한다.
+# 덮어써진다(352f757 trending-weekly). 날짜를 뺀 파일 이름이 저장소 전체에서 하나여야 한다.
 posts.group_by { |p| p[:slug] }.each do |slug, same|
   next if same.size < 2
 
@@ -153,7 +153,7 @@ posts.each do |post|
 end
 
 # 유튜브 임베드: 영상은 링크만 걸지 않고 {% include video id="..." provider="youtube" %} 로 임베드한다.
-# 개인 포스트 2개가 영상을 링크로만 걸어 임베드로 다시 고쳤다(07ff2ba). 본문에 youtube.com/watch · youtu.be
+# 개인 포스트 2개가 영상을 링크로만 걸어 임베드로 다시 고쳤다(44fa571). 본문에 youtube.com/watch · youtu.be
 # 링크가 있는 영상 id 는 같은 포스트에서 include video 로도 나와야 한다. 주간 roundup 은 링크만 나열하는
 # 형식이라 예외다(ROUNDUP).
 posts.each do |post|

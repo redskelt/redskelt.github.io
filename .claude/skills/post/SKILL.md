@@ -228,8 +228,8 @@ htmlproofer 는 CI 가 배포를 막는 깨진 내부 링크·이미지를 push 
 - 로컬 빌드는 rbenv 의 `.ruby-version`(CI 도 같은 파일을 읽는다)으로 한다. 시스템
   ruby(2.6)로는 bundler 가 안 맞는다.
 - 빌드·검사 옵션은 `.github/scripts/build-site.sh` 에서만 바꾼다. 워크플로나
-  `verify-build.sh` 에 옵션을 따로 적으면 로컬 그린 · CI 레드가 다시 생긴다(bbe3398,
-  f0f2d30). gitignore 된 로컬 전용 폴더를 새로 만들면 `_config.yml` exclude 에도 넣는다
+  `verify-build.sh` 에 옵션을 따로 적으면 로컬 그린 · CI 레드가 다시 생긴다(53f12f1,
+  3d6553b). gitignore 된 로컬 전용 폴더를 새로 만들면 `_config.yml` exclude 에도 넣는다
   (`var/`, `scripts/` 가 로컬에서만 페이지로 빌드돼 로컬 htmlproofer 가 깨졌었다).
   push 후에는 `push-verify` 로 CI 와 sitemap 을 확인한다.
 
@@ -341,7 +341,7 @@ htmlproofer 는 CI 가 배포를 막는 깨진 내부 링크·이미지를 push 
      파일만 지운다. 시리즈의 **마지막 남은 편**이면 `_data/series.yml` 의
      `<series-id>` 항목도 지운다. 다른 편이 남아 있으면 `series_index` 번호,
      `post_url` 링크, `_data/series.yml`·`_data/docs.yml` 의 부작 수 설명, 남은 편
-     제목의 `[k/N]` 표기가 맞는지 고친다(0bcdcb3 revert 가 이 항목들을 고쳤다).
+     제목의 `[k/N]` 표기가 맞는지 고친다(cd36aaf revert 가 이 항목들을 고쳤다).
    - 다른 글이 삭제한 글로 `post_url` 링크를 걸고 있으면 htmlproofer 가
      배포를 막으므로 그 링크도 함께 처리한다.
    - 삭제 뒤 로컬 빌드가 통과하는지 확인한다. 지운 글의 slug 로는 `verify-build.sh`

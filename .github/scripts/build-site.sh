@@ -3,7 +3,7 @@
 #
 # CI(.github/workflows/pages-deploy.yml)와 로컬(.claude/skills/post/verify-build.sh)이
 # 같은 이 스크립트를 부른다. 빌드 옵션·검사 옵션은 여기서만 바꾼다 — 로컬과 CI 가
-# 따로 빌드하다가 로컬 그린 · CI 레드가 반복됐다(bbe3398 ruby 버전, f0f2d30 baseurl).
+# 따로 빌드하다가 로컬 그린 · CI 레드가 반복됐다(53f12f1 ruby 버전, 3d6553b baseurl).
 # ruby 버전은 .ruby-version 하나로 정한다(CI 의 setup-ruby 도 그 파일을 읽는다).
 #
 # --skip-proofer 는 로컬 전용 비상구다. CI 는 이 옵션 없이 부른다.
