@@ -22,6 +22,9 @@ cd "$(git rev-parse --show-toplevel)"
 bundle exec ruby .github/scripts/check-posts.rb
 #    그 검사가 과거 실수를 계속 잡는지 다시 확인한다(검사를 고치다 느슨해지는 것을 막는다).
 .github/scripts/test-check-posts.sh
+#    커밋 이메일이 모두 GitHub noreply 인지(공개 이력에 회사 · 개인 메일이 남지 않게)와 그 검사의 시험
+.github/scripts/check-commit-identity.sh
+.github/scripts/test-check-commit-identity.sh
 
 # 2) 빌드 — 배포와 같은 production 환경. user page 라 항상 루트(/)에서 서빙되므로
 #    --baseurl "" 로 강제한다(configure-pages 의 base_path 가 예상 밖 값을 낼 때 대비).
