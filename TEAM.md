@@ -45,6 +45,7 @@ herdr-team 플러그인의 프로젝트 흐름 파일이다. 이 저장소에서
 | slug(파일명에서 날짜를 뺀 부분)는 저장소 전체에서 하나 | 같은 `check-posts.rb` + 시험 | 11bc4df, cf05e39 |
 | 영상 제목 · 채널 이름 속 세로 막대 글자가 헤더 없는 표를 만들지 않게 역슬래시로 이스케이프한다 | 같은 `check-posts.rb` + 시험 | 100802e, 010332e |
 | 미래 date 포스트가 조용히 빠지지 않는다 | 구조: `_config.yml` 의 `future: true`. `check-posts.rb` 가 그 줄이 있는지 확인 + 시험 | a7f6e3b, c7948c0, a90336e |
+| 유튜브 영상은 링크만 걸지 않고 `{% include video %}` 로 임베드한다(주간 roundup 은 링크만 나열하는 형식이라 예외) | 같은 `check-posts.rb` + 시험 | 07ff2ba |
 | 로컬 빌드와 CI 빌드가 다르지 않다 | 구조: `.github/scripts/build-site.sh` 하나를 CI 와 `verify-build.sh` 가 같이 부른다 | bbe3398, f0f2d30, 24e914c |
 | 깨진 링크 · 이미지, 사이트에 노출되면 안 되는 루트 `.md` | `build-site.sh` 의 htmlproofer. 루트 `.md` 는 `_config.yml` `exclude` | 24e914c |
 | 영상 기반 포스트에 근거 없는 서술을 쓰지 않는다(채널 오기재, 수치 오독, 근거 없는 비율, 자동 요약을 설명란으로 착각, 협찬 추정) | **미강제.** `post/SKILL.md` 의 수치 근거 메모 + 다른 모델 교차 리뷰(수동). 의미 판단이라 린트로 막지 못한다 | 65fef45, 0c07394, 766c776, 5dd0e55, 41d3abd |

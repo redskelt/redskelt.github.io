@@ -152,6 +152,22 @@ posts.each do |post|
   end
 end
 
+# 유튜브 임베드: 영상은 링크만 걸지 않고 {% include video id="..." provider="youtube" %} 로 임베드한다.
+# 개인 포스트 2개가 영상을 링크로만 걸어 임베드로 다시 고쳤다(07ff2ba). 본문에 youtube.com/watch · youtu.be
+# 링크가 있는 영상 id 는 같은 포스트에서 include video 로도 나와야 한다. 주간 roundup 은 링크만 나열하는
+# 형식이라 예외다(ROUNDUP).
+posts.each do |post|
+  next if post[:rel] =~ ROUNDUP
+
+  text = File.read(post[:path])
+  linked = text.scan(%r{(?:youtube\.com/watch\?v=|youtu\.be/)([\w-]{11})}).flatten.uniq
+  embedded = text.scan(/include\s+video[^%]*?\bid="([\w-]{11})"/).flatten.uniq
+  (linked - embedded).each do |id|
+    errors << "#{post[:rel]}: 유튜브 영상 #{id} 를 링크로만 걸었다. 링크 대신(또는 링크와 함께) " \
+              "{% include video id=\"#{id}\" provider=\"youtube\" %} 로 임베드한다"
+  end
+end
+
 if errors.empty?
   puts "OK: check-posts (#{posts.size} posts)"
 else
