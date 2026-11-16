@@ -17,20 +17,19 @@ vendor/bundle/
 .env
 .env.local
 
-# graft 인덱스
-.graft/
-
-# graft's local graph cache — regenerable, not committed (run `graft build`).
-/graft/
 .ignore
 
 # 로컬 스크립트 산출물 (유튜브 트렌딩 리포트/로그)
 /var/
 
-# 개인 AI 툴 설정 (기기별 MCP/에이전트 설정, 팀 공유 대상 아님)
+# 개인 AI 툴 설정 (기기별 MCP/에이전트 설정, 팀 공유 대상 아님). 스킬만 공유한다.
+# .claude/ 전체를 무시하면 스킬을 새로 만들 때마다 git add -f 가 필요했고, 3개는 아예 추적되지 않았다.
 .mcp.json
 opencode.json
-.claude/
+.claude/*
+!.claude/skills/
+# verify-blog 는 로컬 전용이다(사용자 결정 2026-11-08, docs/handoff/verify-blog-skill.md). 커밋하지 않는다.
+.claude/skills/verify-blog/
 
 # 개인 자동화 스크립트 (레포 미포함)
 /scripts/
