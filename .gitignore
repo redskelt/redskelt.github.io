@@ -13,9 +13,13 @@ vendor/bundle/
 .vscode/
 .idea/
 
-# 로컬에서만 필요한 비밀값 (현재 저장소는 안 씀, 방어적으로 추가)
+# 로컬에서만 필요한 비밀값 (현재 저장소는 안 씀, 방어적으로 추가). 저장소가 public 이라 한 번 올라가면 이력에 남는다.
 .env
-.env.local
+.env.*
+*.pem
+*.key
+*.log
+*.bak*
 
 .ignore
 
@@ -26,6 +30,7 @@ vendor/bundle/
 # .claude/ 전체를 무시하면 스킬을 새로 만들 때마다 git add -f 가 필요했고, 3개는 아예 추적되지 않았다.
 .mcp.json
 opencode.json
+/.superpowers/
 .claude/*
 !.claude/skills/
 # verify-blog 는 로컬 전용이다(사용자 결정 2026-11-08, docs/handoff/verify-blog-skill.md). 커밋하지 않는다.
