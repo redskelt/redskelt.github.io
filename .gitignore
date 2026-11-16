@@ -30,6 +30,9 @@ opencode.json
 !.claude/skills/
 # verify-blog 는 로컬 전용이다(사용자 결정 2026-11-08, docs/handoff/verify-blog-skill.md). 커밋하지 않는다.
 .claude/skills/verify-blog/
+# push-verify · verify-table-lint 도 로컬 전용이다(사용자 결정 2026-11-16).
+.claude/skills/push-verify/
+.claude/skills/verify-table-lint/
 
 # 개인 자동화 스크립트 (레포 미포함)
 /scripts/
