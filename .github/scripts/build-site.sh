@@ -22,6 +22,9 @@ cd "$(git rev-parse --show-toplevel)"
 bundle exec ruby .github/scripts/check-posts.rb
 #    그 검사가 과거 실수를 계속 잡는지 다시 확인한다(검사를 고치다 느슨해지는 것을 막는다).
 .github/scripts/test-check-posts.sh
+#    워크플로가 저절로 바뀌는 환경(ubuntu-latest, 따로 적은 ruby 버전)에 기대지 않는지와 그 검사의 시험
+bundle exec ruby .github/scripts/check-workflows.rb
+.github/scripts/test-check-workflows.sh
 #    커밋 이메일이 모두 GitHub noreply 인지(공개 이력에 회사 · 개인 메일이 남지 않게)와 그 검사의 시험
 .github/scripts/check-commit-identity.sh
 .github/scripts/test-check-commit-identity.sh
