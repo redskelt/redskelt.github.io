@@ -29,7 +29,8 @@ description: 이 블로그(_posts/)의 포스트를 새로 작성하거나, 기�
 | 로컬과 CI 가 같은 ruby · 빌드 옵션 · 검사 | 구조: `.github/scripts/build-site.sh` 하나 + `.ruby-version` 하나 |
 | 본문 앵커(목차 등) 이동이 고정 메뉴바에 가려지지 않음 | 구조: `--masthead-height` 하나 → `scroll-padding-top`, `assets/js/custom/anchor-scroll.js`. 확인은 verify-blog post-widgets 레시피(로컬) |
 | 유튜브 영상은 링크만 걸지 않고 `{% include video %}` 로 임베드 | 검사: `.github/scripts/check-posts.rb` (본문에 링크된 영상 id 가 같은 포스트의 임베드에도 있어야 함, 주간 roundup 예외) |
-| 스크린샷 필수(텍스트만 있는 포스트 금지) | 문서뿐 (이력에 이미지 0개 포스트가 올라간 커밋이 없어 검사를 증명할 수 없고, 어떤 대상에 몇 장이 필요한지는 판단) |
+| 스크린샷 필수(텍스트만 있는 포스트 금지). 주간 roundup 은 예외 | 문서뿐 (판단: 대상마다 몇 장이 필요한지. 이미지 없는 포스트가 이미 올라간 적이 있다: Open WebUI 1~4편 등 8개. 기계 검사는 제약이 커서 두지 않기로 했다) |
+| 스크린샷 PNG 는 가로 1342px 이상(작으면 클릭 확대가 뿌옇다) | 문서뿐 (아래 '캡처 해상도'. 작게 찍은 12장을 다시 찍은 적이 있다, fe6ca4b) |
 | 수치·출처 대조, 비공개 자료 | 문서뿐 (판단) |
 
 ## 공통: 카테고리는 `_data/category_hierarchy.yml`의 leaf여야 함

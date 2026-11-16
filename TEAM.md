@@ -47,6 +47,8 @@ herdr-team 플러그인의 프로젝트 흐름 파일이다. 이 저장소에서
 | 미래 date 포스트가 조용히 빠지지 않는다 | 구조: `_config.yml` 의 `future: true`. `check-posts.rb` 가 그 줄이 있는지 확인 + 시험 | 093f2da, 1c05811, 0c867e2 |
 | 유튜브 영상은 링크만 걸지 않고 `{% include video %}` 로 임베드한다(주간 roundup 은 링크만 나열하는 형식이라 예외) | 같은 `check-posts.rb` + 시험 | 44fa571 |
 | 커밋 작성자 · 커미터 이메일은 GitHub noreply 형식만(회사 · 개인 메일이 공개 이력에 남지 않게). 이 저장소에서 `git config user.email` 을 noreply 로 둔다 | `.github/scripts/check-commit-identity.sh` + `test-check-commit-identity.sh` (`build-site.sh` 가 CI · 로컬 공통, 위반 주소는 공개 로그라 출력하지 않음) | 2026-11-10 감사에서 179개 커밋(이력 재작성) |
+| 포스트(주간 roundup 제외)에는 스크린샷이 한 장은 있다. 텍스트만 있는 포스트를 올리지 않는다 | **미강제.** 기계 검사는 제약이 커서 두지 않기로 했다(사용자 결정 2026-11-16). `post/SKILL.md` 의 '스크린샷 필수' 규칙뿐. 이미지 없는 포스트가 8개 올라가 있다 | aef14d2, e72c5b3 |
+| 스크린샷 PNG 는 가로 1342px 이상이다(작게 찍고 키우면 클릭 확대가 뿌옇다) | **미강제.** 위와 같은 결정. `post/SKILL.md` 의 '캡처 해상도' 문서뿐. 1342px 미만이 3장 남아 있다 | fe6ca4b |
 | 사내 코드 · 업무 화면 · 계정 · 사용자명 · 회사 이름이 포스트 · 이미지 · 문서에 들어가지 않게 한다 | **미강제.** 이미지 내용과 코드의 의미는 기계가 못 읽는다. `post/SKILL.md` 의 "비공개 자료" 질문 절차뿐. 한 번 push 하면 이력 · 캐시에 남으니 올리기 전에 사용자에게 묻는다 | cd36aaf(3편 사내 코드 되돌림), f127893(스크린샷 사용자명 · 문서 회사명) |
 | 로컬 빌드와 CI 빌드가 다르지 않다 | 구조: `.github/scripts/build-site.sh` 하나를 CI 와 `verify-build.sh` 가 같이 부른다 | 53f12f1, 3d6553b, e21ef9d |
 | CI 가 저절로 바뀌는 환경에 기대지 않는다: 러너는 `ubuntu-latest` 대신 버전이 든 이미지, setup-ruby 는 `ruby-version: .ruby-version` | `.github/scripts/check-workflows.rb` + `test-check-workflows.sh` (`build-site.sh` 가 CI · 로컬 공통) | 3d7dfad, 08c614d |
