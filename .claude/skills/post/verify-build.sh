@@ -58,4 +58,4 @@ fi
 echo "OK: $post"
 echo "$hits" | sed 's/^/  생성됨: /'
 if [[ "$skip_proofer" == "1" ]]; then echo "  (htmlproofer 건너뜀)"; fi
-echo "(CI 와 같은 스크립트로 통과했다. push 후에는 push-verify 로 CI 와 sitemap 을 확인)"
+echo "(CI 와 같은 스크립트로 통과했다. push 후에는 gh run watch 로 CI 를, sitemap.xml 에서 새 포스트가 올라왔는지 확인)"

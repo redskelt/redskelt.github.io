@@ -232,7 +232,9 @@ htmlproofer 는 CI 가 배포를 막는 깨진 내부 링크·이미지를 push 
   `verify-build.sh` 에 옵션을 따로 적으면 로컬 그린 · CI 레드가 다시 생긴다(53f12f1,
   3d6553b). gitignore 된 로컬 전용 폴더를 새로 만들면 `_config.yml` exclude 에도 넣는다
   (`var/`, `scripts/` 가 로컬에서만 페이지로 빌드돼 로컬 htmlproofer 가 깨졌었다).
-  push 후에는 `push-verify` 로 CI 와 sitemap 을 확인한다.
+  push 후에는 `gh run watch <run-id>` 로 CI 가 통과하는지 보고, 새 포스트면
+  `curl -s https://redskelt.github.io/sitemap.xml | grep <slug>` 로 실제로 올라왔는지 확인한다
+  (이 기기에 로컬 전용 `push-verify` 스킬이 있으면 그것을 써도 된다).
 
 ## 작성
 
