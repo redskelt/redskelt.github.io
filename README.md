@@ -72,9 +72,9 @@ tags: [tag1, tag2]
 - `assets/img/` — 아바타, 파비콘 등 사이트 전역 이미지
 - `assets/css/main.scss` — Minimal Mistakes 스킨 + `_sass/custom/*` 커스텀 레이어(터미널 사이드바, orbit, series, category-hierarchy 등) import 진입점
 - `static/img/posts/` — 개별 포스트 본문에서 참조하는 이미지 (경로 유지 목적, 옮기지 말 것)
-- `wiki/` — 개인 학습 위키 ([Karpathy LLM Wiki 패턴](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)), Jekyll 빌드에서 제외됨. `.claude/skills/wiki-ingest/SKILL.md` 참고
+- `wiki/` — 개인 학습 위키 ([Karpathy LLM Wiki 패턴](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)), git 에서 제외된 로컬 전용(`.gitignore`)이고 Jekyll 빌드에서도 제외됨. `.claude/skills/wiki-ingest/SKILL.md` 참고
 
 ## 참고
 
 - 테마 문서: [Minimal Mistakes 문서](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/)
-- 마이그레이션 기록: `docs/superpowers/specs/`, `docs/superpowers/plans/` (2026-08 chirpy 도입 → 2026-08 Minimal Mistakes 전환, 총 2건)
+- 마이그레이션 기록(2026-08 chirpy 도입 → 2026-08 Minimal Mistakes 전환, 총 2건): `docs/superpowers/` 는 이제 로컬 전용이라 git 이력에서 본다(`git log --stat -- docs/superpowers`)

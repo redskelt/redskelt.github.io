@@ -34,8 +34,11 @@ opencode.json
 # 개인 자동화 스크립트 (레포 미포함)
 /scripts/
 
-# 개인 작업 메모/문서 (레포 오염 방지)
+# 개인 작업 메모/문서 (레포 오염 방지). docs/superpowers 의 마이그레이션 계획 · 명세도 로컬 전용이다.
 /docs/
+
+# 개인 학습 위키 (로컬 전용, 사용자 결정 2026-11-16). Jekyll 빌드에서도 _config.yml exclude 로 빠진다.
+/wiki/
 
 # 개인 에이전트 지침 파일
 /AGENTS.md
